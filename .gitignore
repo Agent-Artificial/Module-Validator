@@ -1,0 +1,9 @@
+.env
+.venv
+v.py
+__pycache__
+translation/seamless
+translation/in
+translation/out
+
+.json

@@ -1,0 +1,5394 @@
+{
+  "from_nano": {
+    "name": "from_nano",
+    "docstring": "Converts from nano to j",
+    "parameters": [
+      {
+        "name": "amount",
+        "type": "int"
+      }
+    ],
+    "returns": "float",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/balance.py"
+  },
+  "to_nano": {
+    "name": "to_nano",
+    "docstring": "Converts from j to nano",
+    "parameters": [
+      {
+        "name": "amount",
+        "type": "float"
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/balance.py"
+  },
+  "from_horus": {
+    "name": "from_horus",
+    "docstring": "Converts from horus to j",
+    "parameters": [
+      {
+        "name": "amount",
+        "type": "int"
+      },
+      {
+        "name": "subnet_tempo",
+        "type": "int"
+      }
+    ],
+    "returns": "float",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/balance.py"
+  },
+  "repr_j": {
+    "name": "repr_j",
+    "docstring": "Given an amount in nano, returns a representation of it in tokens/J.\n\nE.g. \"103.2J\".",
+    "parameters": [
+      {
+        "name": "amount",
+        "type": "int"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/balance.py"
+  },
+  "get_node_url": {
+    "name": "get_node_url",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "comx_settings",
+        "type": "ComxSettings | None"
+      }
+    ],
+    "returns": "str",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/_common.py"
+  },
+  "get_available_nodes": {
+    "name": "get_available_nodes",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "comx_settings",
+        "type": "ComxSettings | None"
+      }
+    ],
+    "returns": "list[str]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/_common.py"
+  },
+  "format_balance": {
+    "name": "format_balance",
+    "docstring": "Formats a balance.",
+    "parameters": [
+      {
+        "name": "balance",
+        "type": "int"
+      },
+      {
+        "name": "unit",
+        "type": "BalanceUnit"
+      }
+    ],
+    "returns": "str",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/_common.py"
+  },
+  "intersection_update": {
+    "name": "intersection_update",
+    "docstring": "Update a dictionary with another dictionary, but only with keys that are already present.",
+    "parameters": [
+      {
+        "name": "base",
+        "type": "dict[K, V]"
+      },
+      {
+        "name": "update",
+        "type": "dict[K, Z]"
+      }
+    ],
+    "returns": "Mapping[K, V | Z]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/_common.py"
+  },
+  "is_ss58_address": {
+    "name": "is_ss58_address",
+    "docstring": "Validates whether the given string is a valid SS58 address.\n\nArgs:\n    address: The string to validate.\n    ss58_format: The SS58 format code to validate against.\n\nReturns:\n    True if the address is valid, False otherwise.",
+    "parameters": [
+      {
+        "name": "address",
+        "type": "str"
+      },
+      {
+        "name": "ss58_format",
+        "type": "int"
+      }
+    ],
+    "returns": "TypeGuard[Ss58Address]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/key.py"
+  },
+  "check_ss58_address": {
+    "name": "check_ss58_address",
+    "docstring": "Validates whether the given string is a valid SS58 address.\n\nArgs:\n    address: The string to validate.\n    ss58_format: The SS58 format code to validate against.\n\nReturns:\n    The validated SS58 address.\n\nRaises:\n    AssertionError: If the address is invalid.",
+    "parameters": [
+      {
+        "name": "address",
+        "type": "str | Ss58Address"
+      },
+      {
+        "name": "ss58_format",
+        "type": "int"
+      }
+    ],
+    "returns": "Ss58Address",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/key.py"
+  },
+  "generate_keypair": {
+    "name": "generate_keypair",
+    "docstring": "Generates a new keypair.",
+    "parameters": [],
+    "returns": "Keypair",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/key.py"
+  },
+  "__init__": {
+    "name": "__init__",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "value",
+        "type": "T"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/mutex.py"
+  },
+  "connections": {
+    "name": "connections",
+    "docstring": "Gets the maximum allowed number of simultaneous connections to the\nnetwork node.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_conn": {
+    "name": "get_conn",
+    "docstring": "Context manager to get a connection from the pool.\n\nTries to get a connection from the pool queue. If the queue is empty,\nit blocks for `timeout` seconds until a connection is available. If\n`timeout` is None, it blocks indefinitely.\n\nArgs:\n    timeout: The maximum time in seconds to wait for a connection.\n\nYields:\n    The connection object from the pool.\n\nRaises:\n    QueueEmptyError: If no connection is available within the timeout\n      period.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "timeout",
+        "type": "float | None"
+      },
+      {
+        "name": "init",
+        "type": "bool"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "_get_storage_keys": {
+    "name": "_get_storage_keys",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "storage",
+        "type": "str"
+      },
+      {
+        "name": "queries",
+        "type": "list[tuple[str, list[Any]]]"
+      },
+      {
+        "name": "block_hash",
+        "type": "str | None"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "_get_lists": {
+    "name": "_get_lists",
+    "docstring": "Generates a list of tuples containing parameters for each storage function based on the given functions and substrate interface.\n\nArgs:\n    functions (dict[str, list[query_call]]): A dictionary where keys are storage module names and values are lists of tuples.\n        Each tuple consists of a storage function name and its parameters.\n    substrate: An instance of the SubstrateInterface class used to interact with the substrate.\n\nReturns:\n    A list of tuples in the format `(value_type, param_types, key_hashers, params, storage_function)` for each storage function in the given functions.\n\nExample:\n    >>> _get_lists(\n            functions={'storage_module': [('storage_function', ['param1', 'param2'])]},\n            substrate=substrate_instance\n        )\n    [('value_type', 'param_types', 'key_hashers', ['param1', 'param2'], 'storage_function'), ...]",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "storage_module",
+        "type": "str"
+      },
+      {
+        "name": "queries",
+        "type": "list[tuple[str, list[Any]]]"
+      },
+      {
+        "name": "substrate",
+        "type": "SubstrateInterface"
+      }
+    ],
+    "returns": "list[tuple[Any, Any, Any, Any, str]]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "_send_batch": {
+    "name": "_send_batch",
+    "docstring": "Sends a batch of requests to the substrate and collects the results.\n\nArgs:\n    substrate: An instance of the substrate interface.\n    batch_payload: The payload of the batch request.\n    request_ids: A list of request IDs for tracking responses.\n    results: A list to store the results of the requests.\n    extract_result: Whether to extract the result from the response.\n\nRaises:\n    NetworkQueryError: If there is an `error` in the response message.\n\nNote:\n    No explicit return value as results are appended to the provided 'results' list.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "batch_payload",
+        "type": "list[Any]"
+      },
+      {
+        "name": "request_ids",
+        "type": "list[int]"
+      },
+      {
+        "name": "extract_result",
+        "type": "bool"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "_make_request_smaller": {
+    "name": "_make_request_smaller",
+    "docstring": "Splits a batch of requests into smaller batches, each not exceeding the specified maximum size.\n\nArgs:\n    batch_request: A list of requests to be sent in a batch.\n    max_size: Maximum size of each batch in bytes.\n\nReturns:\n    A list of smaller request batches.\n\nExample:\n    >>> _make_request_smaller(batch_request=[('method1', 'params1'), ('method2', 'params2')], max_size=1000)\n    [[('method1', 'params1')], [('method2', 'params2')]]",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "batch_request",
+        "type": "list[tuple[T1, T2]]"
+      },
+      {
+        "name": "prefix_list",
+        "type": "list[list[str]]"
+      },
+      {
+        "name": "fun_params",
+        "type": "list[tuple[Any, Any, Any, Any, str]]"
+      }
+    ],
+    "returns": "tuple[list[list[tuple[T1, T2]]], list[Chunk]]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "_are_changes_equal": {
+    "name": "_are_changes_equal",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "change_a",
+        "type": "Any"
+      },
+      {
+        "name": "change_b",
+        "type": "Any"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "_rpc_request_batch": {
+    "name": "_rpc_request_batch",
+    "docstring": "Sends batch requests to the substrate node using multiple threads and collects the results.\n\nArgs:\n    substrate: An instance of the substrate interface.\n    batch_requests : A list of requests to be sent in batches.\n    max_size: Maximum size of each batch in bytes.\n    extract_result: Whether to extract the result from the response message.\n\nReturns:\n    A list of results from the batch requests.\n\nExample:\n    >>> _rpc_request_batch(substrate_instance, [('method1', ['param1']), ('method2', ['param2'])])\n    ['result1', 'result2', ...]",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "batch_requests",
+        "type": "list[tuple[str, list[Any]]]"
+      },
+      {
+        "name": "extract_result",
+        "type": "bool"
+      }
+    ],
+    "returns": "list[str]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "_rpc_request_batch_chunked": {
+    "name": "_rpc_request_batch_chunked",
+    "docstring": "Sends batch requests to the substrate node using multiple threads and collects the results.\n\nArgs:\n    substrate: An instance of the substrate interface.\n    batch_requests : A list of requests to be sent in batches.\n    max_size: Maximum size of each batch in bytes.\n    extract_result: Whether to extract the result from the response message.\n\nReturns:\n    A list of results from the batch requests.\n\nExample:\n    >>> _rpc_request_batch(substrate_instance, [('method1', ['param1']), ('method2', ['param2'])])\n    ['result1', 'result2', ...]",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "chunk_requests",
+        "type": "list[Chunk]"
+      },
+      {
+        "name": "extract_result",
+        "type": "bool"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "_decode_response": {
+    "name": "_decode_response",
+    "docstring": "Decodes a response from the substrate interface and organizes the data into a dictionary.\n\nArgs:\n    response: A list of encoded responses from a substrate query.\n    function_parameters: A list of tuples containing the parameters for each storage function.\n    last_keys: A list of the last keys used in the substrate query.\n    prefix_list: A list of prefixes used in the substrate query.\n    substrate: An instance of the SubstrateInterface class.\n    block_hash: The hash of the block to be queried.\n\nReturns:\n    A dictionary where each key is a storage function name and the value is another dictionary.\n    This inner dictionary's key is the decoded key from the response and the value is the corresponding decoded value.\n\nRaises:\n    ValueError: If an unsupported hash type is encountered in the `concat_hash_len` function.\n\nExample:\n    >>> _decode_response(\n            response=[...],\n            function_parameters=[...],\n            last_keys=[...],\n            prefix_list=[...],\n            substrate=substrate_instance,\n            block_hash=\"0x123...\"\n        )\n    {'storage_function_name': {decoded_key: decoded_value, ...}, ...}",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "response",
+        "type": "list[str]"
+      },
+      {
+        "name": "function_parameters",
+        "type": "list[tuple[Any, Any, Any, Any, str]]"
+      },
+      {
+        "name": "prefix_list",
+        "type": "list[Any]"
+      },
+      {
+        "name": "block_hash",
+        "type": "str"
+      }
+    ],
+    "returns": "dict[str, dict[Any, Any]]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_batch": {
+    "name": "query_batch",
+    "docstring": "Executes batch queries on a substrate and returns results in a dictionary format.\n\nArgs:\n    substrate: An instance of SubstrateInterface to interact with the substrate.\n    functions (dict[str, list[query_call]]): A dictionary mapping module names to lists of query calls (function name and parameters).\n\nReturns:\n    A dictionary where keys are storage function names and values are the query results.\n\nRaises:\n    Exception: If no result is found from the batch queries.\n\nExample:\n    >>> query_batch(substrate_instance, {'module_name': [('function_name', ['param1', 'param2'])]})\n    {'function_name': 'query_result', ...}",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "functions",
+        "type": "dict[str, list[tuple[str, list[Any]]]]"
+      }
+    ],
+    "returns": "dict[str, str]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_batch_map": {
+    "name": "query_batch_map",
+    "docstring": "Queries multiple storage functions using a map batch approach and returns the combined result.\n\nArgs:\n    substrate: An instance of SubstrateInterface for substrate interaction.\n    functions (dict[str, list[query_call]]): A dictionary mapping module names to lists of query calls.\n\nReturns:\n    The combined result of the map batch query.\n\nExample:\n    >>> query_batch_map(substrate_instance, {'module_name': [('function_name', ['param1', 'param2'])]})\n    # Returns the combined result of the map batch query",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "functions",
+        "type": "dict[str, list[tuple[str, list[Any]]]]"
+      },
+      {
+        "name": "block_hash",
+        "type": "str | None"
+      }
+    ],
+    "returns": "dict[str, dict[Any, Any]]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query": {
+    "name": "query",
+    "docstring": "Queries a storage function on the network.\n\nSends a query to the network and retrieves data from a\nspecified storage function.\n\nArgs:\n    name: The name of the storage function to query.\n    params: The parameters to pass to the storage function.\n    module: The module where the storage function is located.\n\nReturns:\n    The result of the query from the network.\n\nRaises:\n    NetworkQueryError: If the query fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "name",
+        "type": "str"
+      },
+      {
+        "name": "params",
+        "type": "list[Any]"
+      },
+      {
+        "name": "module",
+        "type": "str"
+      }
+    ],
+    "returns": "Any",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map": {
+    "name": "query_map",
+    "docstring": "Queries a storage map from a network node.\n\nArgs:\n    name: The name of the storage map to query.\n    params: A list of parameters for the query.\n    module: The module in which the storage map is located.\n\nReturns:\n    A dictionary representing the key-value pairs\n      retrieved from the storage map.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "name",
+        "type": "str"
+      },
+      {
+        "name": "params",
+        "type": "list[Any]"
+      },
+      {
+        "name": "module",
+        "type": "str"
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[Any, Any]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "compose_call": {
+    "name": "compose_call",
+    "docstring": "Composes and submits a call to the network node.\n\nComposes and signs a call with the provided keypair, and submits it to\nthe network. The call can be a standard extrinsic or a sudo extrinsic if\nelevated permissions are required. The method can optionally wait for\nthe call's inclusion in a block and/or its finalization.\n\nArgs:\n    fn: The function name to call on the network.\n    params: A dictionary of parameters for the call.\n    key: The keypair for signing the extrinsic.\n    module: The module containing the function.\n    wait_for_inclusion: Wait for the call's inclusion in a block.\n    wait_for_finalization: Wait for the transaction's finalization.\n    sudo: Execute the call as a sudo (superuser) operation.\n\nReturns:\n    The receipt of the submitted extrinsic, if\n      `wait_for_inclusion` is True. Otherwise, returns a string\n      identifier of the extrinsic.\n\nRaises:\n    ChainTransactionError: If the transaction fails.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "fn",
+        "type": "str"
+      },
+      {
+        "name": "params",
+        "type": "dict[str, Any]"
+      },
+      {
+        "name": "key",
+        "type": "Keypair | None"
+      },
+      {
+        "name": "module",
+        "type": "str"
+      },
+      {
+        "name": "wait_for_inclusion",
+        "type": "bool"
+      },
+      {
+        "name": "wait_for_finalization",
+        "type": "bool | None"
+      },
+      {
+        "name": "sudo",
+        "type": "bool"
+      },
+      {
+        "name": "unsigned",
+        "type": "bool"
+      }
+    ],
+    "returns": "ExtrinsicReceipt",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "compose_call_multisig": {
+    "name": "compose_call_multisig",
+    "docstring": "Composes and submits a multisignature call to the network node.\n\nThis method allows the composition and submission of a call that\nrequires multiple signatures for execution, known as a multisignature\ncall. It supports specifying signatories, a threshold of signatures for\nthe call's execution, and an optional era for the call's mortality. The\ncall can be a standard extrinsic, a sudo extrinsic for elevated\npermissions, or a multisig extrinsic if multiple signatures are\nrequired. Optionally, the method can wait for the call's inclusion in a\nblock and/or its finalization. Make sure to pass all keys,\nthat are part of the multisignature.\n\nArgs:\n    fn: The function name to call on the network. params: A dictionary\n    of parameters for the call. key: The keypair for signing the\n    extrinsic. signatories: List of SS58 addresses of the signatories.\n    Include ALL KEYS that are part of the multisig. threshold: The\n    minimum number of signatories required to execute the extrinsic.\n    module: The module containing the function to call.\n    wait_for_inclusion: Whether to wait for the call's inclusion in a\n    block. wait_for_finalization: Whether to wait for the transaction's\n    finalization. sudo: Execute the call as a sudo (superuser)\n    operation. era: Specifies the call's mortality in terms of blocks in\n    the format\n        {'period': amount_blocks}. If omitted, the extrinsic is\n        immortal.\n\nReturns:\n    The receipt of the submitted extrinsic if `wait_for_inclusion` is\n    True. Otherwise, returns a string identifier of the extrinsic.\n\nRaises:\n    ChainTransactionError: If the transaction fails.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "fn",
+        "type": "str"
+      },
+      {
+        "name": "params",
+        "type": "dict[str, Any]"
+      },
+      {
+        "name": "key",
+        "type": "Keypair"
+      },
+      {
+        "name": "signatories",
+        "type": "list[Ss58Address]"
+      },
+      {
+        "name": "threshold",
+        "type": "int"
+      },
+      {
+        "name": "module",
+        "type": "str"
+      },
+      {
+        "name": "wait_for_inclusion",
+        "type": "bool"
+      },
+      {
+        "name": "wait_for_finalization",
+        "type": "bool | None"
+      },
+      {
+        "name": "sudo",
+        "type": "bool"
+      },
+      {
+        "name": "era",
+        "type": "dict[str, int] | None"
+      }
+    ],
+    "returns": "ExtrinsicReceipt",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "transfer": {
+    "name": "transfer",
+    "docstring": "Transfer amount to destination using key",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "amount",
+        "type": "float"
+      },
+      {
+        "name": "dest",
+        "type": "str"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
+  },
+  "transfer_multiple": {
+    "name": "transfer_multiple",
+    "docstring": "Transfers specified amounts of tokens from the signer's account to\nmultiple target accounts.\n\nThe `destinations` and `amounts` lists must be of the same length.\n\nArgs:\n    key: The keypair associated with the sender's account.\n    destinations: A list of SS58 addresses of the recipients.\n    amounts: Amount to transfer to each recipient, in nanotokens.\n    netuid: The network identifier.\n\nReturns:\n    A receipt of the transaction.\n\nRaises:\n    InsufficientBalanceError: If the sender's account does not have\n      enough balance for all transfers.\n    ChainTransactionError: If the transaction fails.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "Keypair"
+      },
+      {
+        "name": "destinations",
+        "type": "list[Ss58Address]"
+      },
+      {
+        "name": "amounts",
+        "type": "list[int]"
+      },
+      {
+        "name": "netuid",
+        "type": "str | int"
+      }
+    ],
+    "returns": "ExtrinsicReceipt",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "stake": {
+    "name": "stake",
+    "docstring": "Stake amount to destination using key",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "amount",
+        "type": "float"
+      },
+      {
+        "name": "dest",
+        "type": "str"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
+  },
+  "unstake": {
+    "name": "unstake",
+    "docstring": "Unstake amount from destination using key",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "amount",
+        "type": "float"
+      },
+      {
+        "name": "dest",
+        "type": "str"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
+  },
+  "update_module": {
+    "name": "update_module",
+    "docstring": "Updates the parameters of a registered module.\n\nThe delegation fee must be an integer between 0 and 100.\n\nArgs:\n    key: The keypair associated with the module's account.\n    name: The new name for the module. If None, the name is not updated.\n    address: The new address for the module.\n        If None, the address is not updated.\n    delegation_fee: The new delegation fee for the module,\n        between 0 and 100.\n    netuid: The network identifier.\n\nReturns:\n    A receipt of the module update transaction.\n\nRaises:\n    InvalidParameterError: If the provided parameters are invalid.\n    ChainTransactionError: If the transaction fails.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "Keypair"
+      },
+      {
+        "name": "name",
+        "type": "str"
+      },
+      {
+        "name": "address",
+        "type": "str"
+      },
+      {
+        "name": "metadata",
+        "type": "str | None"
+      },
+      {
+        "name": "delegation_fee",
+        "type": "int"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": "ExtrinsicReceipt",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "register_module": {
+    "name": "register_module",
+    "docstring": "Registers a new module in the network.\n\nArgs:\n    key: The keypair used for registering the module.\n    name: The name of the module. If None, a default or previously\n        set name is used. # How does this work?\n    address: The address of the module. If None, a default or\n        previously set address is used. # How does this work?\n    subnet: The network subnet to register the module in.\n    min_stake: The minimum stake required for the module, in nanotokens.\n        If None, a default value is used.\n\nReturns:\n    A receipt of the registration transaction.\n\nRaises:\n    InvalidParameterError: If the provided parameters are invalid.\n    ChainTransactionError: If the transaction fails.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "Keypair"
+      },
+      {
+        "name": "name",
+        "type": "str"
+      },
+      {
+        "name": "address",
+        "type": "str | None"
+      },
+      {
+        "name": "subnet",
+        "type": "str"
+      },
+      {
+        "name": "min_stake",
+        "type": "int | None"
+      },
+      {
+        "name": "metadata",
+        "type": "str | None"
+      }
+    ],
+    "returns": "ExtrinsicReceipt",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "vote": {
+    "name": "vote",
+    "docstring": "Casts votes on a list of module UIDs with corresponding weights.\n\nThe length of the UIDs list and the weights list should be the same.\nEach weight corresponds to the UID at the same index.\n\nArgs:\n    key: The keypair used for signing the vote transaction.\n    uids: A list of module UIDs to vote on.\n    weights: A list of weights corresponding to each UID.\n    netuid: The network identifier.\n\nReturns:\n    A receipt of the voting transaction.\n\nRaises:\n    InvalidParameterError: If the lengths of UIDs and weights lists\n        do not match.\n    ChainTransactionError: If the transaction fails.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "Keypair"
+      },
+      {
+        "name": "uids",
+        "type": "list[int]"
+      },
+      {
+        "name": "weights",
+        "type": "list[int]"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": "ExtrinsicReceipt",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "update_subnet": {
+    "name": "update_subnet",
+    "docstring": "Update a subnet's configuration.\n\nIt requires the founder key for authorization.\n\nArgs:\n    key: The founder keypair of the subnet.\n    params: The new parameters for the subnet.\n    netuid: The network identifier.\n\nReturns:\n    A receipt of the subnet update transaction.\n\nRaises:\n    AuthorizationError: If the key is not authorized.\n    ChainTransactionError: If the transaction fails.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "Keypair"
+      },
+      {
+        "name": "params",
+        "type": "SubnetParams"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": "ExtrinsicReceipt",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "transfer_stake": {
+    "name": "transfer_stake",
+    "docstring": "Transfers stake of key from point A to point B",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "amount",
+        "type": "float"
+      },
+      {
+        "name": "from_key",
+        "type": "str"
+      },
+      {
+        "name": "dest",
+        "type": "str"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
+  },
+  "multiunstake": {
+    "name": "multiunstake",
+    "docstring": "Unstakes tokens from multiple module keys.\n\nAnd the lists `keys` and `amounts` must be of the same length. Each\namount corresponds to the module key at the same index.\n\nArgs:\n    key: The keypair associated with the unstaker's account.\n    keys: A list of SS58 addresses of the module keys to unstake from.\n    amounts: A list of amounts to unstake from each module key,\n      in nanotokens.\n    netuid: The network identifier.\n\nReturns:\n    A receipt of the multi-unstaking transaction.\n\nRaises:\n    MismatchedLengthError: If the lengths of keys and amounts lists do\n    not match. InsufficientStakeError: If any of the module keys do not\n    have enough staked tokens. ChainTransactionError: If the transaction\n    fails.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "Keypair"
+      },
+      {
+        "name": "keys",
+        "type": "list[Ss58Address]"
+      },
+      {
+        "name": "amounts",
+        "type": "list[int]"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": "ExtrinsicReceipt",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "multistake": {
+    "name": "multistake",
+    "docstring": "Stakes tokens to multiple module keys.\n\nThe lengths of the `keys` and `amounts` lists must be the same. Each\namount corresponds to the module key at the same index.\n\nArgs:\n    key: The keypair associated with the staker's account.\n    keys: A list of SS58 addresses of the module keys to stake to.\n    amounts: A list of amounts to stake to each module key,\n        in nanotokens.\n    netuid: The network identifier.\n\nReturns:\n    A receipt of the multi-staking transaction.\n\nRaises:\n    MismatchedLengthError: If the lengths of keys and amounts lists\n        do not match.\n    ChainTransactionError: If the transaction fails.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "Keypair"
+      },
+      {
+        "name": "keys",
+        "type": "list[Ss58Address]"
+      },
+      {
+        "name": "amounts",
+        "type": "list[int]"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": "ExtrinsicReceipt",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "add_profit_shares": {
+    "name": "add_profit_shares",
+    "docstring": "Allocates profit shares to multiple keys.\n\nThe lists `keys` and `shares` must be of the same length,\nwith each share amount corresponding to the key at the same index.\n\nArgs:\n    key: The keypair associated with the account\n        distributing the shares.\n    keys: A list of SS58 addresses to allocate shares to.\n    shares: A list of share amounts to allocate to each key,\n        in nanotokens.\n\nReturns:\n    A receipt of the profit sharing transaction.\n\nRaises:\n    MismatchedLengthError: If the lengths of keys and shares\n        lists do not match.\n    ChainTransactionError: If the transaction fails.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "Keypair"
+      },
+      {
+        "name": "keys",
+        "type": "list[Ss58Address]"
+      },
+      {
+        "name": "shares",
+        "type": "list[int]"
+      }
+    ],
+    "returns": "ExtrinsicReceipt",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "add_subnet_proposal": {
+    "name": "add_subnet_proposal",
+    "docstring": "Submits a proposal for creating or modifying a subnet within the\nnetwork.\n\nThe proposal includes various parameters like the name, founder, share\nallocations, and other subnet-specific settings.\n\nArgs:\n    key: The keypair used for signing the proposal transaction.\n    params: The parameters for the subnet proposal.\n    netuid: The network identifier.\n\nReturns:\n    A receipt of the subnet proposal transaction.\n\nRaises:\n    InvalidParameterError: If the provided subnet\n        parameters are invalid.\n    ChainTransactionError: If the transaction fails.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "Keypair"
+      },
+      {
+        "name": "params",
+        "type": "SubnetParams"
+      },
+      {
+        "name": "ipfs",
+        "type": "str"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": "ExtrinsicReceipt",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "add_custom_proposal": {
+    "name": "add_custom_proposal",
+    "docstring": "Adds a custom proposal to a specific subnet.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "cid",
+        "type": "str"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/subnet.py"
+  },
+  "add_custom_subnet_proposal": {
+    "name": "add_custom_subnet_proposal",
+    "docstring": "Submits a proposal for creating or modifying a custom subnet within the\nnetwork.\n\nThe proposal includes various parameters like the name, founder, share\nallocations, and other subnet-specific settings.\n\nArgs:\n    key: The keypair used for signing the proposal transaction.\n    params: The parameters for the subnet proposal.\n    netuid: The network identifier.\n\nReturns:\n    A receipt of the subnet proposal transaction.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "Keypair"
+      },
+      {
+        "name": "cid",
+        "type": "str"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": "ExtrinsicReceipt",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "add_global_proposal": {
+    "name": "add_global_proposal",
+    "docstring": "Submits a proposal for altering the global network parameters.\n\nAllows for the submission of a proposal to\nchange various global parameters\nof the network, such as emission rates, rate limits, and voting\nthresholds. It is used to\nsuggest changes that affect the entire network's operation.\n\nArgs:\n    key: The keypair used for signing the proposal transaction.\n    params: A dictionary containing global network parameters\n            like maximum allowed subnets, modules,\n            transaction rate limits, and others.\n\nReturns:\n    A receipt of the global proposal transaction.\n\nRaises:\n    InvalidParameterError: If the provided network\n        parameters are invalid.\n    ChainTransactionError: If the transaction fails.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "Keypair"
+      },
+      {
+        "name": "params",
+        "type": "NetworkParams"
+      },
+      {
+        "name": "cid",
+        "type": "str | None"
+      }
+    ],
+    "returns": "ExtrinsicReceipt",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "vote_on_proposal": {
+    "name": "vote_on_proposal",
+    "docstring": "Casts a vote on a specified proposal within the network.\n\nArgs:\n    key: The keypair used for signing the vote transaction.\n    proposal_id: The unique identifier of the proposal to vote on.\n\nReturns:\n    A receipt of the voting transaction in nanotokens.\n\nRaises:\n    InvalidProposalIDError: If the provided proposal ID does not\n        exist or is invalid.\n    ChainTransactionError: If the transaction fails.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "Keypair"
+      },
+      {
+        "name": "proposal_id",
+        "type": "int"
+      },
+      {
+        "name": "agree",
+        "type": "bool"
+      }
+    ],
+    "returns": "ExtrinsicReceipt",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "unvote_on_proposal": {
+    "name": "unvote_on_proposal",
+    "docstring": "Retracts a previously cast vote on a specified proposal.\n\nArgs:\n    key: The keypair used for signing the unvote transaction.\n    proposal_id: The unique identifier of the proposal to withdraw the\n        vote from.\n\nReturns:\n    A receipt of the unvoting transaction in nanotokens.\n\nRaises:\n    InvalidProposalIDError: If the provided proposal ID does not\n        exist or is invalid.\n    ChainTransactionError: If the transaction fails to be processed, or\n        if there was no prior vote to retract.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "Keypair"
+      },
+      {
+        "name": "proposal_id",
+        "type": "int"
+      }
+    ],
+    "returns": "ExtrinsicReceipt",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "enable_vote_power_delegation": {
+    "name": "enable_vote_power_delegation",
+    "docstring": "Enables vote power delegation for the signer's account.\n\nArgs:\n    key: The keypair used for signing the delegation transaction.\n\nReturns:\n    A receipt of the vote power delegation transaction.\n\nRaises:\n    ChainTransactionError: If the transaction fails.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "Keypair"
+      }
+    ],
+    "returns": "ExtrinsicReceipt",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "disable_vote_power_delegation": {
+    "name": "disable_vote_power_delegation",
+    "docstring": "Disables vote power delegation for the signer's account.\n\nArgs:\n    key: The keypair used for signing the delegation transaction.\n\nReturns:\n    A receipt of the vote power delegation transaction.\n\nRaises:\n    ChainTransactionError: If the transaction fails.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "Keypair"
+      }
+    ],
+    "returns": "ExtrinsicReceipt",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "add_dao_application": {
+    "name": "add_dao_application",
+    "docstring": "Submits a new application to the general subnet DAO.\n\nArgs:\n    key: The keypair used for signing the application transaction.\n    application_key: The SS58 address of the application key.\n    data: The data associated with the application.\n\nReturns:\n    A receipt of the application transaction.\n\nRaises:\n    ChainTransactionError: If the transaction fails.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "Keypair"
+      },
+      {
+        "name": "application_key",
+        "type": "Ss58Address"
+      },
+      {
+        "name": "data",
+        "type": "str"
+      }
+    ],
+    "returns": "ExtrinsicReceipt",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_curator_applications": {
+    "name": "query_map_curator_applications",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "dict[str, dict[str, str]]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_proposals": {
+    "name": "query_map_proposals",
+    "docstring": "Retrieves a mappping of proposals from the network.\n\nQueries the network and returns a mapping of proposal IDs to\ntheir respective parameters.\n\nReturns:\n    A dictionary mapping proposal IDs\n    to dictionaries of their parameters.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, dict[str, Any]]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_weights": {
+    "name": "query_map_weights",
+    "docstring": "Retrieves a mapping of weights for keys on the network.\n\nQueries the network and returns a mapping of key UIDs to\ntheir respective weights.\n\nArgs:\n    netuid: The network UID from which to get the weights.\n\nReturns:\n    A dictionary mapping key UIDs to lists of their weights.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, list[int]]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_key": {
+    "name": "query_map_key",
+    "docstring": "Retrieves a map of keys from the network.\n\nFetches a mapping of key UIDs to their associated\naddresses on the network.\nThe query can be targeted at a specific network UID if required.\n\nArgs:\n    netuid: The network UID from which to get the keys.\n\nReturns:\n    A dictionary mapping key UIDs to their addresses.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, Ss58Address]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_address": {
+    "name": "query_map_address",
+    "docstring": "Retrieves a map of key addresses from the network.\n\nQueries the network for a mapping of key UIDs to their addresses.\n\nArgs:\n    netuid: The network UID from which to get the addresses.\n\nReturns:\n    A dictionary mapping key UIDs to their addresses.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, str]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_emission": {
+    "name": "query_map_emission",
+    "docstring": "Retrieves a map of emissions for keys on the network.\n\nQueries the network to get a mapping of\nkey UIDs to their emission values.\n\nReturns:\n    A dictionary mapping key UIDs to lists of their emission values.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, list[int]]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_incentive": {
+    "name": "query_map_incentive",
+    "docstring": "Retrieves a mapping of incentives for keys on the network.\n\nQueries the network and returns a mapping of key UIDs to\ntheir respective incentive values.\n\nReturns:\n    A dictionary mapping key UIDs to lists of their incentive values.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, list[int]]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_dividend": {
+    "name": "query_map_dividend",
+    "docstring": "Retrieves a mapping of dividends for keys on the network.\n\nQueries the network for a mapping of key UIDs to\ntheir dividend values.\n\nReturns:\n    A dictionary mapping key UIDs to lists of their dividend values.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, list[int]]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_regblock": {
+    "name": "query_map_regblock",
+    "docstring": "Retrieves a mapping of registration blocks for keys on the network.\n\nQueries the network for a mapping of key UIDs to\nthe blocks where they were registered.\n\nArgs:\n    netuid: The network UID from which to get the registration blocks.\n\nReturns:\n    A dictionary mapping key UIDs to their registration blocks.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_lastupdate": {
+    "name": "query_map_lastupdate",
+    "docstring": "Retrieves a mapping of the last update times for keys on the network.\n\nQueries the network for a mapping of key UIDs to their last update times.\n\nReturns:\n    A dictionary mapping key UIDs to lists of their last update times.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, list[int]]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_total_stake": {
+    "name": "query_map_total_stake",
+    "docstring": "Retrieves a mapping of total stakes for keys on the network.\n\nQueries the network for a mapping of key UIDs to their total stake amounts.\n\nReturns:\n    A dictionary mapping key UIDs to their total stake amounts.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_stakefrom": {
+    "name": "query_map_stakefrom",
+    "docstring": "Retrieves a mapping of stakes from various sources for keys on the network.\n\nQueries the network to obtain a mapping of key addresses to the sources\nand amounts of stakes they have received.\n\nArgs:\n    netuid: The network UID from which to get the stakes.\n\nReturns:\n    A dictionary mapping key addresses to lists of tuples\n    (module_key_address, amount).\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[str, list[tuple[str, int]]]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_staketo": {
+    "name": "query_map_staketo",
+    "docstring": "Retrieves a mapping of stakes to destinations for keys on the network.\n\nQueries the network for a mapping of key addresses to the destinations\nand amounts of stakes they have made.\n\nArgs:\n    netuid: The network UID from which to get the stakes.\n\nReturns:\n    A dictionary mapping key addresses to lists of tuples\n    (module_key_address, amount).\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[str, list[tuple[str, int]]]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_stake": {
+    "name": "query_map_stake",
+    "docstring": "Retrieves a mapping of stakes for keys on the network.\n\nQueries the network and returns a mapping of key addresses to their\nrespective delegated staked balances amounts.\nThe query can be targeted at a specific network UID if required.\n\nArgs:\n    netuid: The network UID from which to get the stakes.\n\nReturns:\n    A dictionary mapping key addresses to their stake amounts.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[str, int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_delegationfee": {
+    "name": "query_map_delegationfee",
+    "docstring": "Retrieves a mapping of delegation fees for keys on the network.\n\nQueries the network to obtain a mapping of key addresses to their\nrespective delegation fees.\n\nArgs:\n    netuid: The network UID to filter the delegation fees.\n\nReturns:\n    A dictionary mapping key addresses to their delegation fees.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[str, int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_tempo": {
+    "name": "query_map_tempo",
+    "docstring": "Retrieves a mapping of tempo settings for the network.\n\nQueries the network to obtain the tempo (rate of reward distributions)\nsettings for various network subnets.\n\nReturns:\n    A dictionary mapping network UIDs to their tempo settings.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_immunity_period": {
+    "name": "query_map_immunity_period",
+    "docstring": "Retrieves a mapping of immunity periods for the network.\n\nQueries the network for the immunity period settings,\nwhich represent the time duration during which modules\ncan not get deregistered.\n\nReturns:\n    A dictionary mapping network UIDs to their immunity period settings.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_min_allowed_weights": {
+    "name": "query_map_min_allowed_weights",
+    "docstring": "Retrieves a mapping of minimum allowed weights for the network.\n\nQueries the network to obtain the minimum allowed weights,\nwhich are the lowest permissible weight values that can be set by\nvalidators.\n\nReturns:\n    A dictionary mapping network UIDs to\n    their minimum allowed weight values.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_max_allowed_weights": {
+    "name": "query_map_max_allowed_weights",
+    "docstring": "Retrieves a mapping of maximum allowed weights for the network.\n\nQueries the network for the maximum allowed weights,\nwhich are the highest permissible\nweight values that can be set by validators.\n\nReturns:\n    A dictionary mapping network UIDs to\n    their maximum allowed weight values.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_max_allowed_uids": {
+    "name": "query_map_max_allowed_uids",
+    "docstring": "Queries the network for the maximum number of allowed user IDs (UIDs)\nfor each network subnet.\n\nFetches a mapping of network subnets to their respective\nlimits on the number of user IDs that can be created or used.\n\nReturns:\n    A dictionary mapping network UIDs (unique identifiers) to their\n    maximum allowed number of UIDs.\n    Each entry represents a network subnet\n    with its corresponding UID limit.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_min_stake": {
+    "name": "query_map_min_stake",
+    "docstring": "Retrieves a mapping of minimum allowed stake on the network.\n\nQueries the network to obtain the minimum number of stake,\nwhich is represented in nanotokens.\n\nReturns:\n    A dictionary mapping network UIDs to\n    their minimum allowed stake values.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_max_stake": {
+    "name": "query_map_max_stake",
+    "docstring": "Retrieves a mapping of the maximum stake values for the network.\n\nQueries the network for the maximum stake values across various s\nubnets of the network.\n\nReturns:\n    A dictionary mapping network UIDs to their maximum stake values.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_founder": {
+    "name": "query_map_founder",
+    "docstring": "Retrieves a mapping of founders for the network.\n\nQueries the network to obtain the founders associated with\nvarious subnets.\n\nReturns:\n    A dictionary mapping network UIDs to their respective founders.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, str]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_founder_share": {
+    "name": "query_map_founder_share",
+    "docstring": "Retrieves a mapping of founder shares for the network.\n\nQueries the network for the share percentages\nallocated to founders across different subnets.\n\nReturns:\n    A dictionary mapping network UIDs to their founder share percentages.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_incentive_ratio": {
+    "name": "query_map_incentive_ratio",
+    "docstring": "Retrieves a mapping of incentive ratios for the network.\n\nQueries the network for the incentive ratios,\nwhich are the proportions of rewards or incentives\nallocated in different subnets of the network.\n\nReturns:\n    A dictionary mapping network UIDs to their incentive ratios.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_trust_ratio": {
+    "name": "query_map_trust_ratio",
+    "docstring": "Retrieves a mapping of trust ratios for the network.\n\nQueries the network for trust ratios,\nindicative of the level of trust or credibility assigned\nto different subnets of the network.\n\nReturns:\n    A dictionary mapping network UIDs to their trust ratios.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_vote_mode_subnet": {
+    "name": "query_map_vote_mode_subnet",
+    "docstring": "Retrieves a mapping of vote modes for subnets within the network.\n\nQueries the network for the voting modes used in different\nsubnets, which define the methodology or approach of voting within those\nsubnets.\n\nReturns:\n    A dictionary mapping network UIDs to their vote\n    modes for subnets.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, str]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_legit_whitelist": {
+    "name": "query_map_legit_whitelist",
+    "docstring": "Retrieves a mapping of whitelisted addresses for the network.\n\nQueries the network for a mapping of whitelisted addresses\nand their respective legitimacy status.\n\nReturns:\n    A dictionary mapping addresses to their legitimacy status.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[Ss58Address, int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_subnet_names": {
+    "name": "query_map_subnet_names",
+    "docstring": "Retrieves a mapping of subnet names within the network.\n\nQueries the network for the names of various subnets,\nproviding an overview of the different\nsubnets within the network.\n\nReturns:\n    A dictionary mapping network UIDs to their subnet names.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, str]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_balances": {
+    "name": "query_map_balances",
+    "docstring": "Retrieves a mapping of account balances within the network.\n\nQueries the network for the balances associated with different accounts.\nIt provides detailed information including various types of\nbalances for each account.\n\nReturns:\n    A dictionary mapping account addresses to their balance details.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[str, dict['str', int | dict[str, int]]]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_registration_blocks": {
+    "name": "query_map_registration_blocks",
+    "docstring": "Retrieves a mapping of registration blocks for UIDs on the network.\n\nQueries the network to find the block numbers at which various\nUIDs were registered.\n\nArgs:\n    netuid: The network UID from which to get the registrations.\n\nReturns:\n    A dictionary mapping UIDs to their registration block numbers.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_name": {
+    "name": "query_map_name",
+    "docstring": "Retrieves a mapping of names for keys on the network.\n\nQueries the network for the names associated with different keys.\nIt provides a mapping of key UIDs to their registered names.\n\nArgs:\n    netuid: The network UID from which to get the names.\n\nReturns:\n    A dictionary mapping key UIDs to their names.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, str]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_immunity_period": {
+    "name": "get_immunity_period",
+    "docstring": "Queries the network for the immunity period setting.\n\nThe immunity period is a time duration during which a module\ncan not be deregistered from the network.\nFetches the immunity period for a specified network subnet.\n\nArgs:\n    netuid: The network UID for which to query the immunity period.\n\nReturns:\n    The immunity period setting for the specified network subnet.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_max_set_weights_per_epoch": {
+    "name": "get_max_set_weights_per_epoch",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_min_allowed_weights": {
+    "name": "get_min_allowed_weights",
+    "docstring": "Queries the network for the minimum allowed weights setting.\n\nRetrieves the minimum weight values that are possible to set\nby a validator within a specific network subnet.\n\nArgs:\n    netuid: The network UID for which to query the minimum allowed\n      weights.\n\nReturns:\n    The minimum allowed weight values for the specified network\n      subnet.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_dao_treasury_address": {
+    "name": "get_dao_treasury_address",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "Ss58Address",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_max_allowed_weights": {
+    "name": "get_max_allowed_weights",
+    "docstring": "Queries the network for the maximum allowed weights setting.\n\nRetrieves the maximum weight values that are possible to set\nby a validator within a specific network subnet.\n\nArgs:\n    netuid: The network UID for which to query the maximum allowed\n      weights.\n\nReturns:\n    The maximum allowed weight values for the specified network\n      subnet.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_max_allowed_uids": {
+    "name": "get_max_allowed_uids",
+    "docstring": "Queries the network for the maximum allowed UIDs setting.\n\nFetches the upper limit on the number of user IDs that can\nbe allocated or used within a specific network subnet.\n\nArgs:\n    netuid: The network UID for which to query the maximum allowed UIDs.\n\nReturns:\n    The maximum number of allowed UIDs for the specified network subnet.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_name": {
+    "name": "get_name",
+    "docstring": "Queries the network for the name of a specific subnet.\n\nArgs:\n    netuid: The network UID for which to query the name.\n\nReturns:\n    The name of the specified network subnet.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": "str",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_subnet_name": {
+    "name": "get_subnet_name",
+    "docstring": "Queries the network for the name of a specific subnet.\n\nArgs:\n    netuid: The network UID for which to query the name.\n\nReturns:\n    The name of the specified network subnet.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": "str",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_global_dao_treasury": {
+    "name": "get_global_dao_treasury",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_n": {
+    "name": "get_n",
+    "docstring": "Queries the network for the 'N' hyperparameter, which represents how\nmany modules are on the network.\n\nArgs:\n    netuid: The network UID for which to query the 'N' hyperparameter.\n\nReturns:\n    The value of the 'N' hyperparameter for the specified network\n      subnet.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_tempo": {
+    "name": "get_tempo",
+    "docstring": "Queries the network for the tempo setting, measured in blocks, for the\nspecified subnet.\n\nArgs:\n    netuid: The network UID for which to query the tempo.\n\nReturns:\n    The tempo setting for the specified subnet.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_total_stake": {
+    "name": "get_total_stake",
+    "docstring": "Queries the network for the total stake amount.\n\nRetrieves the total amount of stake within a specific network subnet.\n\nArgs:\n    netuid: The network UID for which to query the total stake.\n\nReturns:\n    The total stake amount for the specified network subnet.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_registrations_per_block": {
+    "name": "get_registrations_per_block",
+    "docstring": "Queries the network for the number of registrations per block.\n\nFetches the number of registrations that are processed per\nblock within the network.\n\nReturns:\n    The number of registrations processed per block.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "max_registrations_per_block": {
+    "name": "max_registrations_per_block",
+    "docstring": "Queries the network for the maximum number of registrations per block.\n\nRetrieves the upper limit of registrations that can be processed in\neach block within a specific network subnet.\n\nArgs:\n    netuid: The network UID for which to query.\n\nReturns:\n    The maximum number of registrations per block for\n    the specified network subnet.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_proposal": {
+    "name": "get_proposal",
+    "docstring": "Queries the network for a specific proposal.\n\nArgs:\n    proposal_id: The ID of the proposal to query.\n\nReturns:\n    The details of the specified proposal.\n\nRaises:\n    QueryError: If the query to the network fails, is invalid,\n        or if the proposal ID does not exist.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "proposal_id",
+        "type": "int"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_trust": {
+    "name": "get_trust",
+    "docstring": "Queries the network for the trust setting of a specific network subnet.\n\nRetrieves the trust level or score, which may represent the\nlevel of trustworthiness or reliability within a\nparticular network subnet.\n\nArgs:\n    netuid: The network UID for which to query the trust setting.\n\nReturns:\n    The trust level or score for the specified network subnet.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_uids": {
+    "name": "get_uids",
+    "docstring": "Queries the network for module UIDs associated with a specific key.\n\nArgs:\n    key: The key address for which to query UIDs.\n    netuid: The network UID within which to search for the key.\n\nReturns:\n    A list of UIDs associated with the specified key.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "Ss58Address"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": "bool | None",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_unit_emission": {
+    "name": "get_unit_emission",
+    "docstring": "Queries the network for the unit emission setting.\n\nRetrieves the unit emission value, which represents the\nemission rate or quantity for the $COMAI token.\n\nReturns:\n    The unit emission value in nanos for the network.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_tx_rate_limit": {
+    "name": "get_tx_rate_limit",
+    "docstring": "Queries the network for the transaction rate limit.\n\nRetrieves the rate limit for transactions within the network,\nwhich defines the maximum number of transactions that can be\nprocessed within a certain timeframe.\n\nReturns:\n    The transaction rate limit for the network.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_burn_rate": {
+    "name": "get_burn_rate",
+    "docstring": "Queries the network for the burn rate setting.\n\nRetrieves the burn rate, which represents the rate at\nwhich the $COMAI token is permanently\nremoved or 'burned' from circulation.\n\nReturns:\n    The burn rate for the network.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_burn": {
+    "name": "get_burn",
+    "docstring": "Queries the network for the burn setting.\n\nRetrieves the burn value, which represents the amount of the\n$COMAI token that is 'burned' or permanently removed from\ncirculation.\n\nArgs:\n    netuid: The network UID for which to query the burn value.\n\nReturns:\n    The burn value for the specified network subnet.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_min_burn": {
+    "name": "get_min_burn",
+    "docstring": "Queries the network for the minimum burn setting.\n\nRetrieves the minimum burn value, indicating the lowest\namount of the $COMAI tokens that can be 'burned' or\npermanently removed from circulation.\n\nReturns:\n    The minimum burn value for the network.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_min_weight_stake": {
+    "name": "get_min_weight_stake",
+    "docstring": "Queries the network for the minimum weight stake setting.\n\nRetrieves the minimum weight stake, which represents the lowest\nstake weight that is allowed for certain operations or\ntransactions within the network.\n\nReturns:\n    The minimum weight stake for the network.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_vote_mode_global": {
+    "name": "get_vote_mode_global",
+    "docstring": "Queries the network for the global vote mode setting.\n\nRetrieves the global vote mode, which defines the overall voting\nmethodology or approach used across the network in default.\n\nReturns:\n    The global vote mode setting for the network.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "str",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_max_proposals": {
+    "name": "get_max_proposals",
+    "docstring": "Queries the network for the maximum number of proposals allowed.\n\nRetrieves the upper limit on the number of proposals that can be\nactive or considered at any given time within the network.\n\nReturns:\n    The maximum number of proposals allowed on the network.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_max_registrations_per_block": {
+    "name": "get_max_registrations_per_block",
+    "docstring": "Queries the network for the maximum number of registrations per block.\n\nRetrieves the maximum number of registrations that can\nbe processed in each block within the network.\n\nReturns:\n    The maximum number of registrations per block on the network.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_max_name_length": {
+    "name": "get_max_name_length",
+    "docstring": "Queries the network for the maximum length allowed for names.\n\nRetrieves the maximum character length permitted for names\nwithin the network. Such as the module names\n\nReturns:\n    The maximum length allowed for names on the network.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_global_vote_threshold": {
+    "name": "get_global_vote_threshold",
+    "docstring": "Queries the network for the global vote threshold.\n\nRetrieves the global vote threshold, which is the critical value or\npercentage required for decisions in the network's governance process.\n\nReturns:\n    The global vote threshold for the network.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_max_allowed_subnets": {
+    "name": "get_max_allowed_subnets",
+    "docstring": "Queries the network for the maximum number of allowed subnets.\n\nRetrieves the upper limit on the number of subnets that can\nbe created or operated within the network.\n\nReturns:\n    The maximum number of allowed subnets on the network.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_max_allowed_modules": {
+    "name": "get_max_allowed_modules",
+    "docstring": "Queries the network for the maximum number of allowed modules.\n\nRetrieves the upper limit on the number of modules that\ncan be registered within the network.\n\nReturns:\n    The maximum number of allowed modules on the network.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_min_stake": {
+    "name": "get_min_stake",
+    "docstring": "Queries the network for the minimum stake required to register a key.\n\nRetrieves the minimum amount of stake necessary for\nregistering a key within a specific network subnet.\n\nArgs:\n    netuid: The network UID for which to query the minimum stake.\n\nReturns:\n    The minimum stake required for key registration in nanos.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_stake": {
+    "name": "get_stake",
+    "docstring": "Queries the network for the stake delegated with a specific key.\n\nRetrieves the amount of total staked tokens\ndelegated a specific key address\n\nArgs:\n    key: The address of the key to query the stake for.\n    netuid: The network UID from which to get the query.\n\nReturns:\n    The amount of stake held by the specified key in nanos.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "Ss58Address"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_stakefrom": {
+    "name": "get_stakefrom",
+    "docstring": "Retrieves a list of keys from which a specific key address is staked.\n\nQueries the network for all the stakes received by a\nparticular key from different sources.\n\nArgs:\n    key_addr: The address of the key to query stakes from.\n\n    netuid: The network UID from which to get the query.\n\nReturns:\n    A dictionary mapping key addresses to the amount of stake\n    received from each.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key_addr",
+        "type": "Ss58Address"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": "dict[str, int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_staketo": {
+    "name": "get_staketo",
+    "docstring": "Retrieves a list of keys to which a specific key address stakes to.\n\nQueries the network for all the stakes made by a particular key to\ndifferent destinations.\n\nArgs:\n    key_addr: The address of the key to query stakes to.\n\n    netuid: The network UID from which to get the query.\n\nReturns:\n    A dictionary mapping key addresses to the\n    amount of stake given to each.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key_addr",
+        "type": "Ss58Address"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": "dict[str, int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_balance": {
+    "name": "get_balance",
+    "docstring": "Retrieves the balance of a specific key.\n\nArgs:\n    addr: The address of the key to query the balance for.\n\nReturns:\n    The balance of the specified key.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "addr",
+        "type": "Ss58Address"
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_block": {
+    "name": "get_block",
+    "docstring": "Retrieves information about a specific block in the network.\n\nQueries the network for details about a block, such as its number,\nhash, and other relevant information.\n\nReturns:\n    The requested information about the block,\n    or None if the block does not exist\n    or the information is not available.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "block_hash",
+        "type": "str | None"
+      }
+    ],
+    "returns": "dict[Any, Any] | None",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_existential_deposit": {
+    "name": "get_existential_deposit",
+    "docstring": "Retrieves the existential deposit value for the network.\n\nThe existential deposit is the minimum balance that must be maintained\nin an account to prevent it from being purged. Denotated in nano units.\n\nReturns:\n    The existential deposit value in nano units.\nNote:\n    The value returned is a fixed value defined in the\n    client and may not reflect changes in the network's configuration.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "block_hash",
+        "type": "str | None"
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_voting_power_delegators": {
+    "name": "get_voting_power_delegators",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "list[Ss58Address]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "add_transfer_dao_treasury_proposal": {
+    "name": "add_transfer_dao_treasury_proposal",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "Keypair"
+      },
+      {
+        "name": "data",
+        "type": "str"
+      },
+      {
+        "name": "amount_nano",
+        "type": "int"
+      },
+      {
+        "name": "dest",
+        "type": "Ss58Address"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "estimate_size": {
+    "name": "estimate_size",
+    "docstring": "Convert the batch request to a string and measure its length",
+    "parameters": [
+      {
+        "name": "request",
+        "type": "tuple[T1, T2]"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "split_chunks": {
+    "name": "split_chunks",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "chunk",
+        "type": "Chunk"
+      },
+      {
+        "name": "chunk_info",
+        "type": "list[Chunk]"
+      },
+      {
+        "name": "chunk_info_idx",
+        "type": "int"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "concat_hash_len": {
+    "name": "concat_hash_len",
+    "docstring": "Determines the length of the hash based on the given key hasher type.\n\nArgs:\n    key_hasher: The type of key hasher.\n\nReturns:\n    The length of the hash corresponding to the given key hasher type.\n\nRaises:\n    ValueError: If the key hasher type is not supported.\n\nExample:\n    >>> concat_hash_len(\"Blake2_128Concat\")\n    16",
+    "parameters": [
+      {
+        "name": "key_hasher",
+        "type": "str"
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "recursive_update": {
+    "name": "recursive_update",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "d",
+        "type": "dict[str, dict[T1, T2] | dict[str, Any]]"
+      },
+      {
+        "name": "u",
+        "type": "Mapping[str, dict[Any, Any] | str]"
+      }
+    ],
+    "returns": "dict[str, dict[T1, T2]]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_page": {
+    "name": "get_page",
+    "docstring": null,
+    "parameters": [],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_map_modules": {
+    "name": "get_map_modules",
+    "docstring": "Gets all modules info on the network",
+    "parameters": [
+      {
+        "name": "client",
+        "type": "CommuneClient"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      },
+      {
+        "name": "include_balances",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[str, ModuleInfoWithOptionalBalance]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/misc.py"
+  },
+  "to_snake_case": {
+    "name": "to_snake_case",
+    "docstring": "Converts a dictionary with camelCase keys to snake_case keys",
+    "parameters": [
+      {
+        "name": "d",
+        "type": "dict[str, T]"
+      }
+    ],
+    "returns": "dict[str, T]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/misc.py"
+  },
+  "get_map_subnets_params": {
+    "name": "get_map_subnets_params",
+    "docstring": "Gets all subnets info on the network",
+    "parameters": [
+      {
+        "name": "client",
+        "type": "CommuneClient"
+      },
+      {
+        "name": "block_hash",
+        "type": "str | None"
+      }
+    ],
+    "returns": "dict[int, SubnetParamsWithEmission]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/misc.py"
+  },
+  "get_global_params": {
+    "name": "get_global_params",
+    "docstring": "Returns global parameters of the whole commune ecosystem",
+    "parameters": [
+      {
+        "name": "c_client",
+        "type": "CommuneClient"
+      }
+    ],
+    "returns": "NetworkParams",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/misc.py"
+  },
+  "concat_to_local_keys": {
+    "name": "concat_to_local_keys",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "balance",
+        "type": "dict[str, int]"
+      },
+      {
+        "name": "local_key_info",
+        "type": "dict[str, Ss58Address]"
+      }
+    ],
+    "returns": "dict[str, int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/misc.py"
+  },
+  "local_keys_to_freebalance": {
+    "name": "local_keys_to_freebalance",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "c_client",
+        "type": "CommuneClient"
+      },
+      {
+        "name": "local_keys",
+        "type": "dict[str, Ss58Address]"
+      }
+    ],
+    "returns": "dict[str, int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/misc.py"
+  },
+  "local_keys_to_stakedbalance": {
+    "name": "local_keys_to_stakedbalance",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "netuid",
+        "type": "list[int]"
+      }
+    ],
+    "returns": "dict[str, int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_rate_limiters/_stake_limiter.py"
+  },
+  "local_keys_allbalance": {
+    "name": "local_keys_allbalance",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "c_client",
+        "type": "CommuneClient"
+      },
+      {
+        "name": "local_keys",
+        "type": "dict[str, Ss58Address]"
+      },
+      {
+        "name": "netuid",
+        "type": "int | None"
+      }
+    ],
+    "returns": "tuple[dict[str, int], dict[str, int]]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/misc.py"
+  },
+  "snakerize": {
+    "name": "snakerize",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "camel",
+        "type": "str"
+      }
+    ],
+    "returns": "str",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/misc.py"
+  },
+  "show": {
+    "name": "show",
+    "docstring": "Show information about a key.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "show_private",
+        "type": "bool"
+      },
+      {
+        "name": "password",
+        "type": "Optional[str]"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
+  },
+  "free_balance": {
+    "name": "free_balance",
+    "docstring": "Gets free balance of a key.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "unit",
+        "type": "BalanceUnit"
+      },
+      {
+        "name": "password",
+        "type": "Optional[str]"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
+  },
+  "staked_balance": {
+    "name": "staked_balance",
+    "docstring": "Gets the balance staked on the key itself.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      },
+      {
+        "name": "unit",
+        "type": "BalanceUnit"
+      },
+      {
+        "name": "password",
+        "type": "Optional[str]"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
+  },
+  "all_balance": {
+    "name": "all_balance",
+    "docstring": "Gets entire balance of a key (free balance + staked balance).",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      },
+      {
+        "name": "unit",
+        "type": "BalanceUnit"
+      },
+      {
+        "name": "password",
+        "type": "Optional[str]"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
+  },
+  "get_staked": {
+    "name": "get_staked",
+    "docstring": "Gets total stake of a key it delegated across other keys.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      },
+      {
+        "name": "unit",
+        "type": "BalanceUnit"
+      },
+      {
+        "name": "password",
+        "type": "Optional[str]"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
+  },
+  "run_faucet": {
+    "name": "run_faucet",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "num_processes",
+        "type": "Optional[int]"
+      },
+      {
+        "name": "num_executions",
+        "type": "int"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
+  },
+  "transfer_dao_funds": {
+    "name": "transfer_dao_funds",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "signer_key",
+        "type": "str"
+      },
+      {
+        "name": "amount",
+        "type": "float"
+      },
+      {
+        "name": "cid_hash",
+        "type": "str"
+      },
+      {
+        "name": "dest",
+        "type": "str"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
+  },
+  "last_block": {
+    "name": "last_block",
+    "docstring": "Gets the last block",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "hash",
+        "type": "bool"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
+  },
+  "params": {
+    "name": "params",
+    "docstring": "Gets global params",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
+  },
+  "list_proposals": {
+    "name": "list_proposals",
+    "docstring": "Gets proposals",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "query_cid",
+        "type": "bool"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
+  },
+  "propose_globally": {
+    "name": "propose_globally",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "cid",
+        "type": "str"
+      },
+      {
+        "name": "max_allowed_modules",
+        "type": "int"
+      },
+      {
+        "name": "max_registrations_per_block",
+        "type": "int"
+      },
+      {
+        "name": "max_name_length",
+        "type": "int"
+      },
+      {
+        "name": "min_name_length",
+        "type": "int"
+      },
+      {
+        "name": "min_burn",
+        "type": "int"
+      },
+      {
+        "name": "max_burn",
+        "type": "int"
+      },
+      {
+        "name": "min_weight_stake",
+        "type": "int"
+      },
+      {
+        "name": "max_allowed_subnets",
+        "type": "int"
+      },
+      {
+        "name": "curator",
+        "type": "str"
+      },
+      {
+        "name": "proposal_cost",
+        "type": "int"
+      },
+      {
+        "name": "proposal_expiration",
+        "type": "int"
+      },
+      {
+        "name": "subnet_stake_threshold",
+        "type": "int"
+      },
+      {
+        "name": "general_subnet_application_cost",
+        "type": "int"
+      },
+      {
+        "name": "floor_founder_share",
+        "type": "int"
+      },
+      {
+        "name": "floor_delegation_fee",
+        "type": "int"
+      },
+      {
+        "name": "max_allowed_weights",
+        "type": "int"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
+  },
+  "get_valid_voting_keys": {
+    "name": "get_valid_voting_keys",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "CustomCtx"
+      },
+      {
+        "name": "client",
+        "type": "CommuneClient"
+      },
+      {
+        "name": "proposal",
+        "type": "dict[str, Any]"
+      }
+    ],
+    "returns": "dict[str, int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
+  },
+  "vote_proposal": {
+    "name": "vote_proposal",
+    "docstring": "Casts a vote on a specified proposal. Without specifying a key, all keys on disk will be used.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "proposal_id",
+        "type": "int"
+      },
+      {
+        "name": "key",
+        "type": "Optional[str]"
+      },
+      {
+        "name": "agree",
+        "type": "bool"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
+  },
+  "unvote_proposal": {
+    "name": "unvote_proposal",
+    "docstring": "Retracts a previously cast vote on a specified proposal.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "proposal_id",
+        "type": "int"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
+  },
+  "registration_burn": {
+    "name": "registration_burn",
+    "docstring": "Appraises the cost of registering a module on the Commune network.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
+  },
+  "list_to_ss58": {
+    "name": "list_to_ss58",
+    "docstring": "Raises AssertionError if some input is not a valid Ss58Address.",
+    "parameters": [
+      {
+        "name": "str_list",
+        "type": "list[str] | None"
+      }
+    ],
+    "returns": "list[Ss58Address] | None",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/module.py"
+  },
+  "register": {
+    "name": "register",
+    "docstring": "Registers a module on the Commune network.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "name",
+        "type": "str"
+      },
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "ip",
+        "type": "Optional[str]"
+      },
+      {
+        "name": "port",
+        "type": "Optional[int]"
+      },
+      {
+        "name": "netuid",
+        "type": "Optional[int]"
+      },
+      {
+        "name": "stake",
+        "type": "Optional[float]"
+      },
+      {
+        "name": "metadata",
+        "type": "Optional[str]"
+      },
+      {
+        "name": "new_subnet_name",
+        "type": "Optional[str]"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/module.py"
+  },
+  "update": {
+    "name": "update",
+    "docstring": "Updates a subnet.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      },
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "founder",
+        "type": "str"
+      },
+      {
+        "name": "founder_share",
+        "type": "int"
+      },
+      {
+        "name": "immunity_period",
+        "type": "int"
+      },
+      {
+        "name": "incentive_ratio",
+        "type": "int"
+      },
+      {
+        "name": "max_allowed_uids",
+        "type": "int"
+      },
+      {
+        "name": "max_allowed_weights",
+        "type": "int"
+      },
+      {
+        "name": "min_allowed_weights",
+        "type": "int"
+      },
+      {
+        "name": "max_weight_age",
+        "type": "int"
+      },
+      {
+        "name": "min_stake",
+        "type": "int"
+      },
+      {
+        "name": "name",
+        "type": "str"
+      },
+      {
+        "name": "tempo",
+        "type": "int"
+      },
+      {
+        "name": "trust_ratio",
+        "type": "int"
+      },
+      {
+        "name": "bonds_ma",
+        "type": "int"
+      },
+      {
+        "name": "maximum_set_weight_calls_per_epoch",
+        "type": "int"
+      },
+      {
+        "name": "target_registrations_per_interval",
+        "type": "int"
+      },
+      {
+        "name": "target_registrations_interval",
+        "type": "int"
+      },
+      {
+        "name": "max_registrations_per_interval",
+        "type": "int"
+      },
+      {
+        "name": "vote_mode",
+        "type": "str"
+      },
+      {
+        "name": "adjustment_alpha",
+        "type": "int"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/subnet.py"
+  },
+  "serve": {
+    "name": "serve",
+    "docstring": "Serves a module on `127.0.0.1` on port `port`. `class_path` should specify\nthe dotted path to the module class e.g. `module.submodule.ClassName`.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "typer.Context"
+      },
+      {
+        "name": "class_path",
+        "type": "str"
+      },
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "port",
+        "type": "int"
+      },
+      {
+        "name": "ip",
+        "type": "Optional[str]"
+      },
+      {
+        "name": "subnets_whitelist",
+        "type": "Optional[list[int]]"
+      },
+      {
+        "name": "whitelist",
+        "type": "Optional[list[str]]"
+      },
+      {
+        "name": "blacklist",
+        "type": "Optional[list[str]]"
+      },
+      {
+        "name": "ip_blacklist",
+        "type": "Optional[list[str]]"
+      },
+      {
+        "name": "test_mode",
+        "type": "Optional[bool]"
+      },
+      {
+        "name": "request_staleness",
+        "type": "int"
+      },
+      {
+        "name": "use_ip_limiter",
+        "type": "Optional[bool]"
+      },
+      {
+        "name": "token_refill_rate_base_multiplier",
+        "type": "Optional[int]"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/module.py"
+  },
+  "info": {
+    "name": "info",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "message",
+        "type": "str"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+  },
+  "inventory": {
+    "name": "inventory",
+    "docstring": "Lists all keys stored on disk.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "use_universal_password",
+        "type": "bool"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
+  },
+  "main": {
+    "name": "main",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "client",
+        "type": "CommuneClient"
+      },
+      {
+        "name": "key",
+        "type": "Keypair"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/std/whitelist_validator.py"
+  },
+  "list": {
+    "name": "list",
+    "docstring": "Gets subnets.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/subnet.py"
+  },
+  "legit_whitelist": {
+    "name": "legit_whitelist",
+    "docstring": "Gets the legitimate whitelist of modules for the general subnet 0",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/subnet.py"
+  },
+  "propose_on_subnet": {
+    "name": "propose_on_subnet",
+    "docstring": "Adds a proposal to a specific subnet.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      },
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "cid",
+        "type": "str"
+      },
+      {
+        "name": "founder",
+        "type": "str"
+      },
+      {
+        "name": "founder_share",
+        "type": "int"
+      },
+      {
+        "name": "immunity_period",
+        "type": "int"
+      },
+      {
+        "name": "incentive_ratio",
+        "type": "int"
+      },
+      {
+        "name": "max_allowed_uids",
+        "type": "int"
+      },
+      {
+        "name": "max_allowed_weights",
+        "type": "int"
+      },
+      {
+        "name": "min_allowed_weights",
+        "type": "int"
+      },
+      {
+        "name": "max_weight_age",
+        "type": "int"
+      },
+      {
+        "name": "min_stake",
+        "type": "int"
+      },
+      {
+        "name": "name",
+        "type": "str"
+      },
+      {
+        "name": "tempo",
+        "type": "int"
+      },
+      {
+        "name": "trust_ratio",
+        "type": "int"
+      },
+      {
+        "name": "bonds_ma",
+        "type": "int"
+      },
+      {
+        "name": "maximum_set_weight_calls_per_epoch",
+        "type": "int"
+      },
+      {
+        "name": "target_registrations_per_interval",
+        "type": "int"
+      },
+      {
+        "name": "target_registrations_interval",
+        "type": "int"
+      },
+      {
+        "name": "max_registrations_per_interval",
+        "type": "int"
+      },
+      {
+        "name": "vote_mode",
+        "type": "str"
+      },
+      {
+        "name": "adjustment_alpha",
+        "type": "int"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/subnet.py"
+  },
+  "submit_general_subnet_application": {
+    "name": "submit_general_subnet_application",
+    "docstring": "Submits a legitimate whitelist application to the general subnet, netuid 0.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "application_key",
+        "type": "str"
+      },
+      {
+        "name": "cid",
+        "type": "str"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/subnet.py"
+  },
+  "list_curator_applications": {
+    "name": "list_curator_applications",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/subnet.py"
+  },
+  "make_custom_context": {
+    "name": "make_custom_context",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "typer.Context"
+      }
+    ],
+    "returns": "CustomCtx",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+  },
+  "eprint": {
+    "name": "eprint",
+    "docstring": "Pretty prints an error.",
+    "parameters": [
+      {
+        "name": "e",
+        "type": "Any"
+      }
+    ],
+    "returns": "None",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+  },
+  "print_table_from_plain_dict": {
+    "name": "print_table_from_plain_dict",
+    "docstring": "Creates a table for a plain dictionary.",
+    "parameters": [
+      {
+        "name": "result",
+        "type": "Mapping[str, str | int | float]"
+      },
+      {
+        "name": "column_names",
+        "type": "list[str]"
+      },
+      {
+        "name": "console",
+        "type": "Console"
+      }
+    ],
+    "returns": "None",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+  },
+  "print_table_standardize": {
+    "name": "print_table_standardize",
+    "docstring": "Creates a table for a standardized dictionary.",
+    "parameters": [
+      {
+        "name": "result",
+        "type": "dict[str, list[Any]]"
+      },
+      {
+        "name": "console",
+        "type": "Console"
+      }
+    ],
+    "returns": "None",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+  },
+  "transform_module_into": {
+    "name": "transform_module_into",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "to_exclude",
+        "type": "list[str]"
+      },
+      {
+        "name": "last_block",
+        "type": "int"
+      },
+      {
+        "name": "immunity_period",
+        "type": "int"
+      },
+      {
+        "name": "modules",
+        "type": "list[ModuleInfoWithOptionalBalance]"
+      },
+      {
+        "name": "tempo",
+        "type": "int"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+  },
+  "print_module_info": {
+    "name": "print_module_info",
+    "docstring": "Prints information about a module.",
+    "parameters": [
+      {
+        "name": "client",
+        "type": "CommuneClient"
+      },
+      {
+        "name": "modules",
+        "type": "list[ModuleInfoWithOptionalBalance]"
+      },
+      {
+        "name": "console",
+        "type": "Console"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      },
+      {
+        "name": "title",
+        "type": "str | None"
+      }
+    ],
+    "returns": "None",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+  },
+  "get_universal_password": {
+    "name": "get_universal_password",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "CustomCtx"
+      }
+    ],
+    "returns": "str",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+  },
+  "com_client": {
+    "name": "com_client",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "CommuneClient",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+  },
+  "get_use_testnet": {
+    "name": "get_use_testnet",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "bool",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+  },
+  "output": {
+    "name": "output",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "message",
+        "type": "str"
+      }
+    ],
+    "returns": "None",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+  },
+  "error": {
+    "name": "error",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "message",
+        "type": "str"
+      }
+    ],
+    "returns": "None",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+  },
+  "progress_status": {
+    "name": "progress_status",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "message",
+        "type": "str"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+  },
+  "confirm": {
+    "name": "confirm",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "message",
+        "type": "str"
+      }
+    ],
+    "returns": "bool",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+  },
+  "create": {
+    "name": "create",
+    "docstring": "Generates a new key and stores it on a disk with the given name.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "name",
+        "type": "str"
+      },
+      {
+        "name": "password",
+        "type": "str"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
+  },
+  "regen": {
+    "name": "regen",
+    "docstring": "Stores the given key on a disk. Works with private key or mnemonic.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "name",
+        "type": "str"
+      },
+      {
+        "name": "key_input",
+        "type": "str"
+      },
+      {
+        "name": "password",
+        "type": "Optional[str]"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
+  },
+  "balances": {
+    "name": "balances",
+    "docstring": "Gets balances of all keys.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "netuid",
+        "type": "Optional[int]"
+      },
+      {
+        "name": "unit",
+        "type": "BalanceUnit"
+      },
+      {
+        "name": "sort_balance",
+        "type": "SortBalance"
+      },
+      {
+        "name": "use_universal_password",
+        "type": "bool"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
+  },
+  "stakefrom": {
+    "name": "stakefrom",
+    "docstring": "Gets what keys is key staked from.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      },
+      {
+        "name": "unit",
+        "type": "BalanceUnit"
+      },
+      {
+        "name": "password",
+        "type": "Optional[str]"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
+  },
+  "staketo": {
+    "name": "staketo",
+    "docstring": "Gets stake to a key.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      },
+      {
+        "name": "unit",
+        "type": "BalanceUnit"
+      },
+      {
+        "name": "password",
+        "type": "Optional[str]"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
+  },
+  "total_free_balance": {
+    "name": "total_free_balance",
+    "docstring": "Returns total balance of all keys on a disk",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "unit",
+        "type": "BalanceUnit"
+      },
+      {
+        "name": "use_universal_password",
+        "type": "Optional[str]"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
+  },
+  "total_staked_balance": {
+    "name": "total_staked_balance",
+    "docstring": "Returns total stake of all keys on a disk",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "unit",
+        "type": "BalanceUnit"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      },
+      {
+        "name": "use_universal_password",
+        "type": "bool"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
+  },
+  "total_balance": {
+    "name": "total_balance",
+    "docstring": "Returns total tokens of all keys on a disk",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "unit",
+        "type": "BalanceUnit"
+      },
+      {
+        "name": "netuid",
+        "type": "Optional[int]"
+      },
+      {
+        "name": "use_universal_password",
+        "type": "bool"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
+  },
+  "power_delegation": {
+    "name": "power_delegation",
+    "docstring": "Gets power delegation of a key.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "key",
+        "type": "Optional[str]"
+      },
+      {
+        "name": "enable",
+        "type": "bool"
+      },
+      {
+        "name": "use_universal_password",
+        "type": "bool"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
+  },
+  "_version_callback": {
+    "name": "_version_callback",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "value",
+        "type": "bool"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/root.py"
+  },
+  "flag_option": {
+    "name": "flag_option",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "flag",
+        "type": "str"
+      },
+      {
+        "name": "flag_envvar",
+        "type": "str"
+      },
+      {
+        "name": "flag_help",
+        "type": "str"
+      },
+      {
+        "name": "flag_short",
+        "type": "str | None"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/root.py"
+  },
+  "circulating_tokens": {
+    "name": "circulating_tokens",
+    "docstring": "Gets total circulating supply",
+    "parameters": [
+      {
+        "name": "c_client",
+        "type": "CommuneClient"
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/misc.py"
+  },
+  "circulating_supply": {
+    "name": "circulating_supply",
+    "docstring": "Gets the value of all keys on the network, stake + balances",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "unit",
+        "type": "BalanceUnit"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/misc.py"
+  },
+  "apr": {
+    "name": "apr",
+    "docstring": "Gets the current staking APR on validators.\nThe miner reinvest rate & fee are specified in percentages.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "fee",
+        "type": "int"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/misc.py"
+  },
+  "stats": {
+    "name": "stats",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "balances",
+        "type": "bool"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/misc.py"
+  },
+  "get_treasury_address": {
+    "name": "get_treasury_address",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/misc.py"
+  },
+  "_terminate_workers_and_wait_for_exit": {
+    "name": "_terminate_workers_and_wait_for_exit",
+    "docstring": "Terminates the worker processes and waits for them to exit.\n\nThis function is used to gracefully terminate a list of worker processes\nand wait for them to exit.\n\nArgs:\n    workers: A list of multiprocessing.Process instances representing the worker processes.\n\nReturns:\n    None",
+    "parameters": [
+      {
+        "name": "workers",
+        "type": "list[multiprocessing.Process]"
+      }
+    ],
+    "returns": "None",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+  },
+  "unbox_block_info": {
+    "name": "unbox_block_info",
+    "docstring": "Unboxes the block information from the MutexBox.\n\nThis function retrieves the block information from the MutexBox in a blocking manner.\n\nArgs:\n    block_info_box: A MutexBox containing the block information.\n\nReturns:\n    A tuple containing the block number, block and key hash bytes, and block hash.",
+    "parameters": [
+      {
+        "name": "block_info_box",
+        "type": "MutexBox[BlockInfo]"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+  },
+  "_hash_block_with_key": {
+    "name": "_hash_block_with_key",
+    "docstring": "Hashes the block with the key using Keccak-256 to get 32 bytes.\n\nArgs:\n    block_bytes: The block bytes to be hashed.\n    key_bytes: The key bytes to be hashed with the block.\n\nReturns:\n    The 32-byte hash of the block and key.",
+    "parameters": [
+      {
+        "name": "block_bytes",
+        "type": "bytes"
+      },
+      {
+        "name": "key_bytes",
+        "type": "bytes"
+      }
+    ],
+    "returns": "bytes",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+  },
+  "_update_curr_block_worker": {
+    "name": "_update_curr_block_worker",
+    "docstring": "Updates the current block information in a separate thread.\n\nThis function continuously retrieves the latest block information from the\nCommune client and updates the block_info_box with the new block number,\nblock hash, and block bytes hashed with the key.\n\nArgs:\n    block_info_box: A MutexBox containing the block information.\n    c_client: The CommuneClient instance used to retrieve block information.\n    key_bytes: The key bytes to be hashed with the block.\n    sleep_time: The time (in seconds) to sleep between block updates.",
+    "parameters": [
+      {
+        "name": "block_info_box",
+        "type": "MutexBox[BlockInfo]"
+      },
+      {
+        "name": "c_client",
+        "type": "CommuneClient"
+      },
+      {
+        "name": "key_bytes",
+        "type": "bytes"
+      },
+      {
+        "name": "sleep_time",
+        "type": "int"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+  },
+  "_update_curr_block": {
+    "name": "_update_curr_block",
+    "docstring": "Updates the current block information.\n\nThis function retrieves the latest block information from the Commune client\nand updates the block_info object with the new block number, block hash, and\nblock bytes hashed with the key.\n\nArgs:\n    block_info: The BlockInfo object to be updated.\n    c_client: The CommuneClient instance used to retrieve block information.\n    key_bytes: The key bytes to be hashed with the block.\n\nReturns:\n    A tuple containing a boolean indicating if the block information was updated\n    and the new block number.",
+    "parameters": [
+      {
+        "name": "block_info",
+        "type": "BlockInfo"
+      },
+      {
+        "name": "c_client",
+        "type": "CommuneClient"
+      },
+      {
+        "name": "key_bytes",
+        "type": "bytes"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+  },
+  "_hex_bytes_to_u8_list": {
+    "name": "_hex_bytes_to_u8_list",
+    "docstring": "Converts hex bytes to a list of unsigned 8-bit integers.\n\nArgs:\n    hex_bytes: The hex bytes to be converted.\n\nReturns:\n    A list of unsigned 8-bit integers.",
+    "parameters": [
+      {
+        "name": "hex_bytes",
+        "type": "bytes"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+  },
+  "_create_seal_hash": {
+    "name": "_create_seal_hash",
+    "docstring": "Creates the seal hash using the block and key hash bytes and the nonce.\n\nArgs:\n    block_and_key_hash_bytes: The hash bytes of the block and key.\n    nonce: The nonce value.\n\nReturns:\n    The seal hash as bytes.",
+    "parameters": [
+      {
+        "name": "block_and_key_hash_bytes",
+        "type": "bytes"
+      },
+      {
+        "name": "nonce",
+        "type": "int"
+      }
+    ],
+    "returns": "bytes",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+  },
+  "_seal_meets_difficulty": {
+    "name": "_seal_meets_difficulty",
+    "docstring": "Checks if the seal meets the required difficulty.\n\nArgs:\n    seal: The seal hash as bytes.\n\nReturns:\n    True if the seal meets the difficulty, False otherwise.",
+    "parameters": [
+      {
+        "name": "seal",
+        "type": "bytes"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+  },
+  "_solve_for_nonce_block": {
+    "name": "_solve_for_nonce_block",
+    "docstring": "Tries to solve the proof-of-work for a block of nonces.\n\nThis function iterates over a range of nonces and attempts to find a seal\nthat meets the required difficulty. If a solution is found, it returns a\nPOWSolution object containing the nonce, block number, seal, and block hash.\n\nArgs:\n    nonce_start: The starting nonce value.\n    nonce_end: The ending nonce value.\n    block_and_key_hash_bytes: The hash bytes of the block and key.\n    block_number: The block number.\n    block_hash: The block hash.\n\nReturns:\n    A POWSolution object if a solution is found, None otherwise.",
+    "parameters": [
+      {
+        "name": "nonce_start",
+        "type": "int"
+      },
+      {
+        "name": "nonce_end",
+        "type": "int"
+      },
+      {
+        "name": "block_and_key_hash_bytes",
+        "type": "bytes"
+      },
+      {
+        "name": "block_number",
+        "type": "int"
+      },
+      {
+        "name": "block_hash",
+        "type": "str"
+      }
+    ],
+    "returns": "POWSolution | None",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+  },
+  "get_cpu_count": {
+    "name": "get_cpu_count",
+    "docstring": "Gets the number of allowed CPU cores for the current process.\n\nReturns:\n    The number of allowed CPU cores.",
+    "parameters": [],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+  },
+  "solve_for_difficulty_fast": {
+    "name": "solve_for_difficulty_fast",
+    "docstring": "Solves the proof-of-work using multiple processes.\n\nThis function creates multiple solver processes to find a solution for the\nproof-of-work. It distributes the work among the processes and waits until\na solution is found or all processes have finished.\n\nArgs:\n    c_client: The CommuneClient instance used to retrieve block information.\n    key: The Keypair used for signing.\n    num_processes: The number of solver processes to create (default: number of CPU cores).\n    update_interval: The interval at which the solvers update their progress (default: 50,000).\n\nReturns:\n    A POWSolution object if a solution is found, None otherwise.",
+    "parameters": [
+      {
+        "name": "c_client",
+        "type": "CommuneClient"
+      },
+      {
+        "name": "key",
+        "type": "Keypair"
+      },
+      {
+        "name": "node_url",
+        "type": "str"
+      },
+      {
+        "name": "num_processes",
+        "type": "Optional[int]"
+      },
+      {
+        "name": "update_interval",
+        "type": "Optional[int]"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+  },
+  "put": {
+    "name": "put",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "item",
+        "type": "T"
+      },
+      {
+        "name": "block",
+        "type": "bool"
+      },
+      {
+        "name": "timeout",
+        "type": "float | None"
+      }
+    ],
+    "returns": "None",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+  },
+  "get": {
+    "name": "get",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "block",
+        "type": "bool"
+      },
+      {
+        "name": "timeout",
+        "type": "float | None"
+      }
+    ],
+    "returns": "T | None",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+  },
+  "__getattr__": {
+    "name": "__getattr__",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "name",
+        "type": "str"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+  },
+  "put_nowait": {
+    "name": "put_nowait",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "item",
+        "type": "T"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+  },
+  "is_stale": {
+    "name": "is_stale",
+    "docstring": "Returns True if the POW is stale.\nThis means the block the POW is solved for is within 3 blocks of the current block.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "current_block",
+        "type": "int"
+      }
+    ],
+    "returns": "bool",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+  },
+  "run": {
+    "name": "run",
+    "docstring": "Main solver logic.\n\nThis method runs the solver process, continuously solving for nonce blocks\nuntil the stop event is set.\n\nThe solver retrieves block information from the block_info_box, updates the\ncurrent block information in a separate thread, and solves for nonce blocks\nwithin a specified range. If a solution is found, it is put into the solution\nqueue.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+  },
+  "iso_timestamp_now": {
+    "name": "iso_timestamp_now",
+    "docstring": null,
+    "parameters": [],
+    "returns": "str",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_protocol.py"
+  },
+  "log": {
+    "name": "log",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "msg",
+        "type": "str"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
+  },
+  "log_reffusal": {
+    "name": "log_reffusal",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "reason",
+        "type": "str"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
+  },
+  "json_error": {
+    "name": "json_error",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "code",
+        "type": "int"
+      },
+      {
+        "name": "message",
+        "type": "str"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
+  },
+  "try_ss58_decode": {
+    "name": "try_ss58_decode",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "key",
+        "type": "bytes | str"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
+  },
+  "retry": {
+    "name": "retry",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "max_retries",
+        "type": "int | None"
+      },
+      {
+        "name": "retry_exceptions",
+        "type": "list[type]"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
+  },
+  "make_client": {
+    "name": "make_client",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "node_url",
+        "type": "str"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
+  },
+  "decorator": {
+    "name": "decorator",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "func",
+        "type": "Callable[P, R]"
+      }
+    ],
+    "returns": "Callable[P, R]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
+  },
+  "wrapper": {
+    "name": "wrapper",
+    "docstring": null,
+    "parameters": [],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
+  },
+  "_build_routers": {
+    "name": "_build_routers",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "use_testnet",
+        "type": "bool"
+      },
+      {
+        "name": "limiter",
+        "type": "StakeLimiterParams | IpLimiterParams"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/server.py"
+  },
+  "get_fastapi_app": {
+    "name": "get_fastapi_app",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/server.py"
+  },
+  "register_endpoints": {
+    "name": "register_endpoints",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "router",
+        "type": "APIRouter"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/server.py"
+  },
+  "add_to_blacklist": {
+    "name": "add_to_blacklist",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "ss58_address",
+        "type": "Ss58Address"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/server.py"
+  },
+  "add_to_whitelist": {
+    "name": "add_to_whitelist",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "ss58_address",
+        "type": "Ss58Address"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/server.py"
+  },
+  "do_the_thing": {
+    "name": "do_the_thing",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "awesomness",
+        "type": "int"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/server.py"
+  },
+  "handler": {
+    "name": "handler",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "end_def",
+        "type": "EndpointDefinition[Any, ...]"
+      },
+      {
+        "name": "body",
+        "type": "Body"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/server.py"
+  },
+  "sign": {
+    "name": "sign",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "keypair",
+        "type": "Keypair"
+      },
+      {
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "returns": "bytes",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_signer.py"
+  },
+  "verify": {
+    "name": "verify",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "pubkey",
+        "type": "bytes"
+      },
+      {
+        "name": "crypto_type",
+        "type": "int"
+      },
+      {
+        "name": "data",
+        "type": "bytes"
+      },
+      {
+        "name": "signature",
+        "type": "bytes"
+      }
+    ],
+    "returns": "bool",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_signer.py"
+  },
+  "sign_with_metadate": {
+    "name": "sign_with_metadate",
+    "docstring": "DEPRECATED",
+    "parameters": [
+      {
+        "name": "keypair",
+        "type": "Keypair"
+      },
+      {
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_signer.py"
+  },
+  "endpoint": {
+    "name": "endpoint",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "fn",
+        "type": "Callable[P, T]"
+      }
+    ],
+    "returns": "Callable[P, T]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/module.py"
+  },
+  "function_params_to_model": {
+    "name": "function_params_to_model",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "signature",
+        "type": "inspect.Signature"
+      }
+    ],
+    "returns": "type[EndpointParams]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/module.py"
+  },
+  "get_endpoints": {
+    "name": "get_endpoints",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/module.py"
+  },
+  "extract_endpoints": {
+    "name": "extract_endpoints",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/module.py"
+  },
+  "serialize": {
+    "name": "serialize",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "data",
+        "type": "Any"
+      }
+    ],
+    "returns": "bytes",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_protocol.py"
+  },
+  "create_headers": {
+    "name": "create_headers",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "signature",
+        "type": "bytes"
+      },
+      {
+        "name": "my_key",
+        "type": "Keypair"
+      },
+      {
+        "name": "timestamp_iso",
+        "type": "str"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_protocol.py"
+  },
+  "create_request_data": {
+    "name": "create_request_data",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "my_key",
+        "type": "Keypair"
+      },
+      {
+        "name": "target_key",
+        "type": "Ss58Address"
+      },
+      {
+        "name": "params",
+        "type": "Any"
+      }
+    ],
+    "returns": "tuple[bytes, dict[str, str]]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_protocol.py"
+  },
+  "create_method_endpoint": {
+    "name": "create_method_endpoint",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "host",
+        "type": "str"
+      },
+      {
+        "name": "port",
+        "type": "str | int"
+      },
+      {
+        "name": "method_name",
+        "type": "str"
+      }
+    ],
+    "returns": "str",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_protocol.py"
+  },
+  "prompt": {
+    "name": "prompt",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "text",
+        "type": "str"
+      },
+      {
+        "name": "model",
+        "type": "OpenAIModels"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/example/gpt.py"
+  },
+  "generate": {
+    "name": "generate",
+    "docstring": null,
+    "parameters": [],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+  },
+  "calls_per_epoch": {
+    "name": "calls_per_epoch",
+    "docstring": "Gives how many requests per epoch a stake can make",
+    "parameters": [
+      {
+        "name": "stake",
+        "type": "int"
+      },
+      {
+        "name": "multiplier",
+        "type": "int"
+      }
+    ],
+    "returns": "float",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_rate_limiters/_stake_limiter.py"
+  },
+  "build_keys_refill_rate": {
+    "name": "build_keys_refill_rate",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "netuid",
+        "type": "list[int] | None"
+      },
+      {
+        "name": "get_refill_rate",
+        "type": "Callable[[int], float]"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_rate_limiters/_stake_limiter.py"
+  },
+  "mult_2": {
+    "name": "mult_2",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "x",
+        "type": "int"
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_rate_limiters/_stake_limiter.py"
+  },
+  "limit": {
+    "name": "limit",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "str"
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_rate_limiters/_stake_limiter.py"
+  },
+  "_set_tokens": {
+    "name": "_set_tokens",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "tokens",
+        "type": "float"
+      }
+    ],
+    "returns": "None",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_rate_limiters/_stake_limiter.py"
+  },
+  "is_hex_string": {
+    "name": "is_hex_string",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "string",
+        "type": "str"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
+  },
+  "parse_hex": {
+    "name": "parse_hex",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "hex_str",
+        "type": "str"
+      }
+    ],
+    "returns": "bytes",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
+  },
+  "build_route_class": {
+    "name": "build_route_class",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "verifiers",
+        "type": "Sequence[AbstractVerifier]"
+      }
+    ],
+    "returns": "type[APIRoute]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/routers/module_routers.py"
+  },
+  "_check_inputs": {
+    "name": "_check_inputs",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "request",
+        "type": "Request"
+      },
+      {
+        "name": "body",
+        "type": "bytes"
+      },
+      {
+        "name": "module_key",
+        "type": "Ss58Address"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/routers/module_routers.py"
+  },
+  "_get_headers_dict": {
+    "name": "_get_headers_dict",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "headers",
+        "type": "starlette.datastructures.Headers"
+      },
+      {
+        "name": "required",
+        "type": "list[str]"
+      },
+      {
+        "name": "optional",
+        "type": "list[str]"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/routers/module_routers.py"
+  },
+  "_check_signature": {
+    "name": "_check_signature",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "headers_dict",
+        "type": "dict[str, str]"
+      },
+      {
+        "name": "body",
+        "type": "bytes"
+      },
+      {
+        "name": "module_key",
+        "type": "Ss58Address"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/routers/module_routers.py"
+  },
+  "_check_key_registered": {
+    "name": "_check_key_registered",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "subnets_whitelist",
+        "type": "list[int] | None"
+      },
+      {
+        "name": "headers_dict",
+        "type": "dict[str, str]"
+      },
+      {
+        "name": "blockchain_cache",
+        "type": "TTLDict[str, list[Ss58Address]]"
+      },
+      {
+        "name": "host_key",
+        "type": "Keypair"
+      },
+      {
+        "name": "use_testnet",
+        "type": "bool"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/routers/module_routers.py"
+  },
+  "get_route_handler": {
+    "name": "get_route_handler",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/routers/module_routers.py"
+  },
+  "query_keys": {
+    "name": "query_keys",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "subnet",
+        "type": "int"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/routers/module_routers.py"
+  },
+  "keys_to_uids": {
+    "name": "keys_to_uids",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "keys",
+        "type": "dict[int, Ss58Address]"
+      },
+      {
+        "name": "target_keys",
+        "type": "list[Ss58Address]"
+      }
+    ],
+    "returns": "list[int]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/std/whitelist_validator.py"
+  },
+  "validaiton": {
+    "name": "validaiton",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "client",
+        "type": "CommuneClient"
+      },
+      {
+        "name": "key",
+        "type": "Keypair"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/std/whitelist_validator.py"
+  },
+  "check_str": {
+    "name": "check_str",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "x",
+        "type": "Any"
+      }
+    ],
+    "returns": "str",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/_util.py"
+  },
+  "ensure_dir_exists": {
+    "name": "ensure_dir_exists",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "path",
+        "type": "str"
+      }
+    ],
+    "returns": "None",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/_util.py"
+  },
+  "ensure_parent_dir_exists": {
+    "name": "ensure_parent_dir_exists",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "path",
+        "type": "str"
+      }
+    ],
+    "returns": "None",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/_util.py"
+  },
+  "bytes_to_hex": {
+    "name": "bytes_to_hex",
+    "docstring": "Converts a string or bytes object to its hexadecimal representation.\n\nIf the input is already a string, it assumes that the string is already in\nhexadecimal format and returns it as is. If the input is bytes, it converts\nthe bytes to their hexadecimal string representation.\n\nArgs:\n    x: The input string or bytes object to be converted to hexadecimal.\n\nReturns:\n    The hexadecimal representation of the input.\n\nExamples:\n    _to_hex(b'hello') returns '68656c6c6f'\n    _to_hex('68656c6c6f') returns '68656c6c6f'",
+    "parameters": [
+      {
+        "name": "value",
+        "type": "str | bytes"
+      }
+    ],
+    "returns": "str",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
+  },
+  "is_ip_valid": {
+    "name": "is_ip_valid",
+    "docstring": "Checks if an ip address is valid",
+    "parameters": [
+      {
+        "name": "ip",
+        "type": "str"
+      }
+    ],
+    "returns": "bool",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
+  },
+  "create_state_fn": {
+    "name": "create_state_fn",
+    "docstring": "Creates a state function that can be used to get or set a value.",
+    "parameters": [
+      {
+        "name": "default",
+        "type": "Callable[..., T]"
+      }
+    ],
+    "returns": "SetterGetterFn[T]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
+  },
+  "get_json_from_cid": {
+    "name": "get_json_from_cid",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "cid",
+        "type": "str"
+      }
+    ],
+    "returns": "dict[Any, Any] | None",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
+  },
+  "convert_cid_on_proposal": {
+    "name": "convert_cid_on_proposal",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "proposals",
+        "type": "dict[int, dict[str, Any]]"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
+  },
+  "__call__": {
+    "name": "__call__",
+    "docstring": null,
+    "parameters": [],
+    "returns": "T",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
+  },
+  "state_function": {
+    "name": "state_function",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "input",
+        "type": "Optional[T]"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
+  },
+  "__test": {
+    "name": "__test",
+    "docstring": null,
+    "parameters": [],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+  },
+  "ttl_in_ns": {
+    "name": "ttl_in_ns",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+  },
+  "__repr__": {
+    "name": "__repr__",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "str",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+  },
+  "__is_expired": {
+    "name": "__is_expired",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "K"
+      }
+    ],
+    "returns": "bool",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+  },
+  "__remove_if_expired": {
+    "name": "__remove_if_expired",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "K"
+      }
+    ],
+    "returns": "bool",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+  },
+  "clean": {
+    "name": "clean",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+  },
+  "__setitem__": {
+    "name": "__setitem__",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "K"
+      },
+      {
+        "name": "value",
+        "type": "V"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+  },
+  "__getitem__": {
+    "name": "__getitem__",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "K"
+      }
+    ],
+    "returns": "V",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+  },
+  "__delitem__": {
+    "name": "__delitem__",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "K"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+  },
+  "__iter__": {
+    "name": "__iter__",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "Iterator[K]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+  },
+  "__len__": {
+    "name": "__len__",
+    "docstring": "Warning: this triggers a cleanup, and is O(n) in the number of items in\nthe dict.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+  },
+  "get_or_insert_lazy": {
+    "name": "get_or_insert_lazy",
+    "docstring": "Gets the value for the given key, or inserts the value returned by the\ngiven function if the key is not present, returning it.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "key",
+        "type": "K"
+      },
+      {
+        "name": "fn",
+        "type": "Callable[[], V]"
+      }
+    ],
+    "returns": "V",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+  },
+  "__enter__": {
+    "name": "__enter__",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "T",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/mutex.py"
+  },
+  "__exit__": {
+    "name": "__exit__",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "exc_type",
+        "type": "type[BaseException] | None"
+      },
+      {
+        "name": "exc_value",
+        "type": "BaseException | None"
+      },
+      {
+        "name": "traceback",
+        "type": "TracebackType | None"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/mutex.py"
+  },
+  "_derive_key": {
+    "name": "_derive_key",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "password",
+        "type": "str"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/storage.py"
+  },
+  "_encrypt_data": {
+    "name": "_encrypt_data",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "password",
+        "type": "str"
+      },
+      {
+        "name": "data",
+        "type": "Any"
+      }
+    ],
+    "returns": "str",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/storage.py"
+  },
+  "_decrypt_data": {
+    "name": "_decrypt_data",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "password",
+        "type": "str"
+      },
+      {
+        "name": "data",
+        "type": "str"
+      }
+    ],
+    "returns": "Any",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/storage.py"
+  },
+  "classic_load": {
+    "name": "classic_load",
+    "docstring": "Load data from commune data storage.\n\nArgs:\n    path: Data storage file path.\n    mode: Data storage mode.\n\nReturns:\n    Data loaded from the data storage.\n\nTodo:\n    * Other serialization modes support. Only json mode is supported now.\n\nRaises:\n    NotImplementedError: See Todo.\n    AssertionError: Raised when the data is not in the classic format.",
+    "parameters": [
+      {
+        "name": "path",
+        "type": "str"
+      },
+      {
+        "name": "mode",
+        "type": "str"
+      },
+      {
+        "name": "password",
+        "type": "str | None"
+      }
+    ],
+    "returns": "Any",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/storage.py"
+  },
+  "classic_put": {
+    "name": "classic_put",
+    "docstring": "Put data into commune data storage.\n\nArgs:\n    path: Data storage path.\n    value: Data to store.\n    mode: Data storage mode.\n    encrypt: Whether to encrypt the data.\n\nTodo:\n    * Encryption support.\n    * Other serialization modes support. Only json mode is supported now.\n\nRaises:\n    NotImplementedError: See Todo.\n    TypeError: Raised when value is not a valid type.\n    FileExistsError: Raised when the file already exists.",
+    "parameters": [
+      {
+        "name": "path",
+        "type": "str"
+      },
+      {
+        "name": "value",
+        "type": "Any"
+      },
+      {
+        "name": "mode",
+        "type": "str"
+      },
+      {
+        "name": "password",
+        "type": "str | None"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/storage.py"
+  },
+  "check_key_dict": {
+    "name": "check_key_dict",
+    "docstring": "Validates a given dictionary as a commune key dictionary and returns it.\n\nThis function checks if the provided dictionary adheres to the structure of\na CommuneKeyDict, that is used by the classic `commune` library and returns\nit if valid.\n\nArgs:\n    key_dict: The dictionary to validate.\n\nReturns:\n    The validated commune key dictionary. Same as input.\n\nRaises:\n  AssertionError: If the dictionary does not conform to the expected\n    structure.",
+    "parameters": [
+      {
+        "name": "key_dict",
+        "type": "Any"
+      }
+    ],
+    "returns": "CommuneKeyDict",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+  },
+  "classic_key_path": {
+    "name": "classic_key_path",
+    "docstring": "Constructs the file path for a key name in the classic commune format.",
+    "parameters": [
+      {
+        "name": "name",
+        "type": "str"
+      }
+    ],
+    "returns": "str",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+  },
+  "from_classic_dict": {
+    "name": "from_classic_dict",
+    "docstring": "Creates a `Key` from a dict conforming to the classic `commune` format.\n\nArgs:\n    data: The key data in a classic commune format.\n    name: The name to assign to the key.\n\nReturns:\n    The reconstructed `Key` instance.\n\nRaises:\n    AssertionError: If `data` does not conform to the expected format.",
+    "parameters": [
+      {
+        "name": "data",
+        "type": "dict[Any, Any]"
+      }
+    ],
+    "returns": "Keypair",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+  },
+  "to_classic_dict": {
+    "name": "to_classic_dict",
+    "docstring": "Converts a keypair to a dictionary conforming to the classic commune format.\n\nArgs:\n    keypair: The keypair to convert.\n    path: The path/name of the key file.",
+    "parameters": [
+      {
+        "name": "keypair",
+        "type": "Keypair"
+      },
+      {
+        "name": "path",
+        "type": "str"
+      }
+    ],
+    "returns": "CommuneKeyDict",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+  },
+  "classic_load_key": {
+    "name": "classic_load_key",
+    "docstring": "Loads the keypair with the given name from a disk.",
+    "parameters": [
+      {
+        "name": "name",
+        "type": "str"
+      },
+      {
+        "name": "password",
+        "type": "str | None"
+      }
+    ],
+    "returns": "Keypair",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+  },
+  "is_encrypted": {
+    "name": "is_encrypted",
+    "docstring": "Checks if the key with the given name is encrypted.",
+    "parameters": [
+      {
+        "name": "name",
+        "type": "str"
+      }
+    ],
+    "returns": "bool",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+  },
+  "classic_store_key": {
+    "name": "classic_store_key",
+    "docstring": "Stores the given keypair on a disk under the given name.",
+    "parameters": [
+      {
+        "name": "keypair",
+        "type": "Keypair"
+      },
+      {
+        "name": "name",
+        "type": "str"
+      },
+      {
+        "name": "password",
+        "type": "str | None"
+      }
+    ],
+    "returns": "None",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+  },
+  "try_classic_load_key": {
+    "name": "try_classic_load_key",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "name",
+        "type": "str"
+      },
+      {
+        "name": "context",
+        "type": "GenericCtx | None"
+      },
+      {
+        "name": "password",
+        "type": "str | None"
+      }
+    ],
+    "returns": "Keypair",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+  },
+  "try_load_key": {
+    "name": "try_load_key",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "name",
+        "type": "str"
+      },
+      {
+        "name": "context",
+        "type": "GenericCtx | None"
+      },
+      {
+        "name": "password",
+        "type": "str | None"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+  },
+  "local_key_addresses": {
+    "name": "local_key_addresses",
+    "docstring": "Retrieves a mapping of local key names to their SS58 addresses.\nIf password is passed, it will be used to decrypt every key.\nIf password is not passed and ctx is,\nthe user will be prompted for the password.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "GenericCtx | None"
+      },
+      {
+        "name": "universal_password",
+        "type": "str | None"
+      }
+    ],
+    "returns": "dict[str, Ss58Address]",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+  },
+  "resolve_key_ss58": {
+    "name": "resolve_key_ss58",
+    "docstring": "Resolves a keypair or key name to its corresponding SS58 address.\n\nIf the input is already an SS58 address, it is returned as is.",
+    "parameters": [
+      {
+        "name": "key",
+        "type": "Ss58Address | Keypair | str"
+      }
+    ],
+    "returns": "Ss58Address",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+  },
+  "resolve_key_ss58_encrypted": {
+    "name": "resolve_key_ss58_encrypted",
+    "docstring": "Resolves a keypair or key name to its corresponding SS58 address.\n\nIf the input is already an SS58 address, it is returned as is.",
+    "parameters": [
+      {
+        "name": "key",
+        "type": "Ss58Address | Keypair | str"
+      },
+      {
+        "name": "context",
+        "type": "GenericCtx"
+      },
+      {
+        "name": "password",
+        "type": "str | None"
+      }
+    ],
+    "returns": "Ss58Address",
+    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+  }
+}

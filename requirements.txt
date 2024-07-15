@@ -1,0 +1,9 @@
+# API Client - note the path for cli to give to setup api
+communex
+
+# Dependencies
+fastapi
+uvicorn
+requests
+markdown2
+load_dotenv
