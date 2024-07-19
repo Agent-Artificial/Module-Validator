@@ -109,16 +109,16 @@ class BaseModule(BaseModel):
         """
         A description of the entire function, its parameters, and its return types.
         """
-        name = self.module_config.module_name
-        url = self.module_config.module_url
-        endpoint = self.module_config.module_endpoint
+        name = os.getenv("MODULE_NAME")
+        endpoint = os.getenv("MODULE_ENDPOINT")
+        url = os.getenv("MODULE_URL")
         filepath = f"{os.getenv('MODULE_PATH')}/setup_{name}.py"
         
-        module = requests.get(f"{url}{endpoint}", timeout=30).json()
-        print(module)
+        module = json.loads(requests.get(f"{url}{endpoint}").json())
+        
         filepath = Path(filepath)
         
-        if not filepath.parent.exists():
+        if not filepath.exists():
             filepath.parent.mkdir(parents=True)
         
         filepath.write_text(json.loads(module))

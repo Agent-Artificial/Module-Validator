@@ -1,0 +1,8 @@
+{
+    "translation": {
+        "module_name": "translation",
+        "module_path": "modules/translation",
+        "module_endpoint": "/modules/translation",
+        "module_url": "https://registrar-cellium.ngrok.app"
+    }
+}

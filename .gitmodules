@@ -1,0 +1,6 @@
+[submodule "bittensor-subnet-template"]
+	path = bittensor-subnet-template
+	url = https://github.com/opentensor/bittensor-subnet-template
+[submodule "subnet_template"]
+	path = subnet_template
+	url = https://github.com/opentensor/bittensor-subnet-template
