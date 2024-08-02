@@ -1,22 +1,17 @@
 import os
 import time
-import base64
 import uvicorn
 import asyncio
 from loguru import logger
-from fastapi import Response, FastAPI
-from pydantic import ConfigDict
-from typing import List, Optional, Any, Dict
+from fastapi import FastAPI
+from typing import List, Any, Dict
 from dotenv import load_dotenv
 from data_models import ModuleConfig
-from modules.translation.data_models import TranslationConfig
-from chains.tao.axons.protocol import SynapseRequest
-from chains.tao.neurons.validator import TAOValidator
-from chains.tao.neurons.config import get_config
+from base.base_validator import ValdiatorExecutor, ValidatorSettings
 
 load_dotenv()
 
-config = get_config()
+settings = ValidatorSettings()
 
 module_config = ModuleConfig(
     module_name=os.getenv("MODULE_NAME"),
@@ -25,11 +20,10 @@ module_config = ModuleConfig(
     module_url=os.getenv("MODULE_URL")
 )
 
-class BittensorValidator(TAOValidator):
+class CommuneValidator():
     def __init__(self):
         super().__init__()
         self.module_config = module_config
-        self.set_module(module_config)
         
     def serve_api(self, app: FastAPI):
         uvicorn.run(app, host="0.0.0.0", port=4268)

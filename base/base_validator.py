@@ -3,13 +3,14 @@ import subprocess
 import uvicorn
 import json
 import os
+from pydantic import BaseModel
 from substrateinterface import ExtrinsicReceipt
 from abc import ABC, abstractmethod
 from importlib import import_module
 from multiprocessing import Pool, process
-from typing import Any, Dict, List, Optional, Tuple
-from data_models import MinerRequest, ValidatorSettings
+from typing import Any, Dict, List, Optional, Tuple, Union
 from base.base_module import BaseModule, ModuleConfig
+from data_models import MinerRequest
 from fastapi import FastAPI, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse
@@ -18,15 +19,33 @@ from api.api import serve_spa
 from dotenv import load_dotenv
 
 load_dotenv()
+    
+    
+class ValidatorRequest(BaseModel):
+    data: Optional[Any] = None
+    
+
+class ValidatorSettings(BaseModel):
+    validator_name: Optional[str] = None
+    validator_keypath: Optional[str] = None
+    validator_port: Optional[str] = None
+    validator_host: Optional[str] = None
+    use_testnet: Optional[bool] = None
+    netuid: Optional[int] = None
+    stake: Optional[float] = None
+    funding_key: Optional[str] = None
+    modifier: Optional[float] = None
+    inference_url: Optional[str] = None
+    inference_api_key: Optional[str] = None
 
 
-class ValdiatorExecutor:
+class ValidatorExecutor:
     chain_api: Optional[Dict[str, Any]]
     module_registry: Optional[Dict[str, Any]]
     module_config: Optional[Dict[str, Any]]
-    validator_config: ValidatorSettings
+    validator_config: Optional[Union[ValidatorSettings, Dict[str, Any]]]
     module: Optional[BaseModule]
-    miner_statistics: Optional[Dict[str, Any]]
+    Validator_statistics: Optional[Dict[str, Any]]
     
     def __init__(
         self, 
@@ -43,11 +62,12 @@ class ValdiatorExecutor:
         self.process = self.module.process
         self.miner_statistics = {}
         
+        
     def set_module_config(
         self,
-        module_name: str = "translation",
-        module_endpoint: str = "/modules/translation",
-        module_path: str = "modules/translation",
+        module_name: str = "embedding",
+        module_endpoint: str = "/modules/embedding",
+        module_path: str = "modules/embedding",
         module_url: str = "https://registrar-cellium.ngrok.app/"
     ):
         return ModuleConfig(
@@ -78,36 +98,35 @@ class ValdiatorExecutor:
         module = getattr(module, f"{module_config.module_name.title()}")
         return module
     
-    def construct_miner_request(self, sample_data: Any, request: MinerRequest) -> MinerRequest:
-        request_dict = request.model_dump()
-        return MinerRequest(data={"request_data": sample_data, **request_dict})
+    def construct_validator_request(self, sample_data: Any) -> ValidatorRequest:
+        return ValidatorRequest(data={**sample_data})
         
-    def process_sample_data(self, sample_data: str, request: MinerRequest):
-        miner_request = self.construct_miner_request(sample_data, request)
-        return self.module.process(miner_request)
+    def process_sample_data(self, sample_data: str):
+        request = self.construct_validator_request(sample_data)
+        return self.module.process(request)
         
     @abstractmethod
     def collect_miner_addresses(self) -> Tuple[List[int], List[str]]:
-        """returns a tuple of (miner_uids, miner_addresses)"""
+        """returns a tuple of (validator_uids, validator_addresses)"""
         
     @abstractmethod
-    def validate(self, sample_data: Any, request: MinerRequest, miners: List[str]) -> Tuple[int, List[float]]:
-        """returns a tuple of (miner_uid, result_tensors)"""
+    def validate(self, sample_data: Any, request: ValidatorRequest, validators: List[str]) -> Tuple[int, List[float]]:
+        """returns a tuple of (validator_uid, result_tensors)"""
         
     @abstractmethod
     def normalize(self, results: List[float]) -> List[float]:
-        """returns a tuple of (miner_uids, normalized_results)"""
+        """returns a tuple of (validator_uids, normalized_results)"""
         
     @abstractmethod
     def scale(self, normalized_results: List[float]) -> List[float]:
         """returns a list of scaled results"""
         
     @abstractmethod
-    def vote(self, miner_uids: List[int], scaled_results: List[float], miner_addresses: List[str]) -> Any:
+    def vote(self, validator_uids: List[int], scaled_results: List[float], validator_addresses: List[str]) -> Any:
         """votes on the chain, returns the receipt"""
 
     @abstractmethod
-    def voteloop(self, miner_uids: List[int], scaled_results: List[float], miner_addresses: List[str]) -> Any:
+    def voteloop(self, validator_uids: List[int], scaled_results: List[float], validator_addresses: List[str]) -> Any:
         """main voting loop""" 
         
     def serve(self):
@@ -126,12 +145,13 @@ class ValdiatorExecutor:
             return {"status": "healthy"}
         
         @app.get("/miners")
-        def miners():
-            miner_uids, miner_addresses = self.collect_miner_addresses()
-            return {"miner_uids": miner_uids, "miner_addresses": miner_addresses}
+        def miner_statistics():
+            validator_uids, validator_addresses = self.collect_miner_addresses()
+            return {"miners_uids": validator_uids, "miner_addresses": validator_addresses}
         
-        @app.get("/stats")
-        def stats():
-            return self.miner_statistics
+        @app.post("/validate")
+        def validate(sample_data: str, request: MinerRequest, validator_addresses: List[str]):
+            result = self.validate(sample_data, request, validator_addresses)
+            return {"results": result}
             
-        uvicorn.run(app, host="0.0.0.0", port=6767, reload=True)
+        uvicorn.run(app, host=os.getenv("VALIDATOR_HOST"), port=os.getenv("VALIDATOR_PORT"), reload=True)

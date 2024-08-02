@@ -4,7 +4,6 @@ import math
 import json
 from transformers import AutoTokenizer
 from loguru import logger
-from typing import Optional, Any
 from bittensor.utils.weight_utils import process_weights_for_netuid
 from chains.tao.neurons.miner import TAOMiner
 from chains.tao.neurons.config import get_config
@@ -38,7 +37,7 @@ class TAOValidator(TAOMiner):
         return await ping_uids(dendrite, metagraph, uids, timeout=timeout)
     
     async def forward(self, sample_request: MinerRequest):
-        return await self.module.process(miner_request=sample_request)
+        return await self.module.process(sample_request)
             
     async def get_sample_data(self, timeout=30):
         url = f"{self.module_config.module_url}{self.module_config.module_endpoint}/sample_request"
@@ -50,14 +49,15 @@ class TAOValidator(TAOMiner):
         return response.text
         
     def get_sample_request(self, request_data):
-        return MinerRequest(dataa=request_data)
-    
-    async def get_sample_response(self, sample_request: MinerRequest):
-        return await self.forward(sample_request)
+        logger.debug(request_data)
+        return MinerRequest(
+            data=json.loads(request_data)
+        )
     
     async def evaluate(self):
         sample_request = self.get_sample_request(await self.get_sample_data())
-        sample_response = await self.get_sample_response(sample_request)
+        logger.debug(sample_request)
+        sample_response = await self.module.process(sample_request)
         uids = self.get_uids()
         responses = []
         try:
@@ -67,11 +67,8 @@ class TAOValidator(TAOMiner):
                 responses.append(requests.post(
                     axon.url,
                     data={
-                        "input": sample_request.data["in_file"],
-                        "task_string": sample_request.data["task_string"],
-                        "source_langauge": sample_request.data["source_langauge"],
-                        "target_languages": sample_request.data["target_languages"]
-                },
+                        "data": sample_request.data
+                    },
                     timeout=30
                 ))
         except Exception as e:

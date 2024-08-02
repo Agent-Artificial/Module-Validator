@@ -32,7 +32,6 @@ class BaseModule(BaseModel):
         """
         super().__init__(module_config=module_config)
         self.module_config = module_config
-        self.init_module()
 
     def init_module(self):
         """
@@ -112,7 +111,7 @@ class BaseModule(BaseModel):
         name = self.module_config.module_name
         url = self.module_config.module_url
         endpoint = self.module_config.module_endpoint
-        filepath = f"{os.getenv('MODULE_PATH')}/setup_{name}.py"
+        filepath = f"{self.module_config.module_path}/setup_{name}.py"
         
         module = requests.get(f"{url}{endpoint}", timeout=30).json()
         print(module)

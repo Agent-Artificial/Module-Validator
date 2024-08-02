@@ -31,7 +31,7 @@ miner_settings = MinerConfig(
     funding_modifier=os.getenv("MODIFIER"),
     module_name=os.getenv("MODULE_NAME")
 )
-translator = Translation(TranslationConfig())
+translator = Translation()
 
 
 class TranslationMiner(BaseMiner):
@@ -74,8 +74,5 @@ class TranslationMiner(BaseMiner):
             raise HTTPException(status_code=500, detail=f"Error processing translation: {e}") from e
     
         
-miner = TranslationMiner(module_config=module_settings, miner_config=miner_settings)
 
-miner.add_route(module_settings.module_name)
 
-miner.run_server(miner_settings.miner_host, miner_settings.miner_port)

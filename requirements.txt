@@ -7,3 +7,4 @@ uvicorn
 requests
 markdown2
 load_dotenv
+openai

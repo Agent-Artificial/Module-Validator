@@ -82,6 +82,7 @@ class Translation:
                 A tuple containing either a string or None, and either a torch.Tensor or None, 
                 representing the processed output.
         """
+        logger.debug(f"Processing translation request: {miner_request}")
         if "input" in miner_request.data:
             self.data_input = miner_request.data["input"]
         if "task_string" in miner_request.data:

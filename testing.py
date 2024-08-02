@@ -1,20 +1,11 @@
+import json
 import requests
-import base64
+from modules.translation.translation_module import Translation
+from data_models import MinerRequest
 
+response = requests.get('https://registrar-cellium.ngrok.app/modules/translation/sample_request')
+miner_request = MinerRequest(data=json.loads(response))
 
-def install_module(module_config: ModuleConfig):
-        try:
-            response = requests.get(
-                f"{module_config.module_url}/modules/{module_config.module_name}",
-                timeout=30,
-            )
-            response.raise_for_status()
-            setup_file = response.text
-            with open(
-                f"modules/{module_config.module_name}/setup_{module_config.module_name}.py",
-                "w",
-                encoding="utf-8",
-            ) as f:
-                f.write(base64.b64decode(setup_file).decode("utf-8"))
-        except requests.RequestException as e:
-            print(f"Error requesting module: {e}")
+trans = Translation()
+print(miner_request)
+trans.process(miner_request)
