@@ -1,22 +1,19 @@
 import requests
-import subprocess
 import uvicorn
 import json
 import os
 from pydantic import BaseModel
-from substrateinterface import ExtrinsicReceipt
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 from importlib import import_module
-from multiprocessing import Pool, process
 from typing import Any, Dict, List, Optional, Tuple, Union
 from base.base_module import BaseModule, ModuleConfig
 from data_models import MinerRequest
-from fastapi import FastAPI, Request, Response
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse
 from api.api import serve_spa
-
+import asyncio
 from dotenv import load_dotenv
+from loguru import logger
 
 load_dotenv()
     
@@ -37,6 +34,7 @@ class ValidatorSettings(BaseModel):
     modifier: Optional[float] = None
     inference_url: Optional[str] = None
     inference_api_key: Optional[str] = None
+    inference_model: Optional[str] = None
 
 
 class ValidatorExecutor:
@@ -51,17 +49,17 @@ class ValidatorExecutor:
         self, 
         validator_config: ValidatorSettings,
     ):
+        logger.info("Starting Validator")
         self.validator_config = validator_config
         self.module_config = self.set_module_config()
         self.module_registry = self.get_module_registry(self.module_config.module_url)
-        self.chain_api = self.init_chain_api()
+        self.chain_api = asyncio.run(self.init_chain_api())
         if self.module_config.module_name not in os.listdir("modules"):
             self.install_module(self.module_config)
         
         self.module = self.get_module(self.module_config)
         self.process = self.module.process
         self.miner_statistics = {}
-        
         
     def set_module_config(
         self,
@@ -70,6 +68,7 @@ class ValidatorExecutor:
         module_path: str = "modules/embedding",
         module_url: str = "https://registrar-cellium.ngrok.app/"
     ):
+        logger.info("Setting module config")
         return ModuleConfig(
             module_name=module_name,
             module_endpoint=module_endpoint,
@@ -78,6 +77,7 @@ class ValidatorExecutor:
         )
         
     def get_module_registry(self, module_url: str):
+        logger.info("Getting module registry")
         url = f"{module_url}/modules/registry"
         response = requests.get(url, timeout=30)
         with open("data/registry.json", "w", encoding="utf-8") as f:
@@ -85,23 +85,28 @@ class ValidatorExecutor:
         return response.content
         
     async def init_chain_api(self):
+        logger.info("Initializing chain api")
         await serve_spa()
         return "https://comx-cellium.ngrok.app/comx"
 
-    def install_module(self, module_config: ModuleConfig):
+    async def install_module(self, module_config: ModuleConfig):
+        logger.info("Installing module")
         module_config = module_config or self.module_config
-        base_module = BaseModule(module_config)
+        base_module = await BaseModule(module_config)
         base_module.install_module(module_config)
     
     def get_module(self, module_config: ModuleConfig):
+        logger.info("Getting module")
         module = import_module(f"modules.{module_config.module_name}.{module_config.module_name}")
         module = getattr(module, f"{module_config.module_name.title()}")
         return module
     
     def construct_validator_request(self, sample_data: Any) -> ValidatorRequest:
+        logger.info("Constructing validator request")
         return ValidatorRequest(data={**sample_data})
         
     def process_sample_data(self, sample_data: str):
+        logger.info("Processing sample data")
         request = self.construct_validator_request(sample_data)
         return self.module.process(request)
         
@@ -130,6 +135,7 @@ class ValidatorExecutor:
         """main voting loop""" 
         
     def serve(self):
+        logger.info("Serving")
         app = FastAPI()
         
         app.add_middleware(

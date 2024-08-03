@@ -30,7 +30,7 @@ class CommuneValidator():
     
     async def voteloop(self):
         while True:
-            await self.evaluate()
+            await self.validate()
             time.sleep(30)
             
             

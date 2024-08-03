@@ -4,7 +4,6 @@ import ast
 import uvicorn
 import importlib
 import markdown2
-import asyncio
 from contextlib import asynccontextmanager
 from loguru import logger
 from fastapi import FastAPI, HTTPException
@@ -20,6 +19,7 @@ load_dotenv()
 
 FUNCTION_DATA = {}
 MARKDOWN_CONTENT = ""
+
 
 def extract_function_info(file_path: str) -> List[Dict[str, Any]]:
     with open(file_path, 'r', encoding='utf-8') as file:
@@ -49,6 +49,7 @@ def extract_function_info(file_path: str) -> List[Dict[str, Any]]:
 
     return functions
 
+
 def walk_directory(directory: str) -> Dict[str, Dict[str, Any]]:
     result = {}
     for root, _, files in os.walk(directory):
@@ -62,6 +63,7 @@ def walk_directory(directory: str) -> Dict[str, Dict[str, Any]]:
                 except Exception as e:
                     print(f"Error processing {file_path}: {str(e)}")
     return result
+
 
 def generate_markdown(data: Dict[str, Dict[str, Any]]) -> str:
     md = "# Python Functions Documentation\n\n"
@@ -220,4 +222,4 @@ async def execute_function(function_name: str, params: FunctionParams):
         raise HTTPException(status_code=500, detail=str(e)) from e
 
 if __name__ == "__main__":
-    uvicorn.run("api.api:app", host="0.0.0.0", port=7575, reload=True)
+    uvicorn.run("api.api:app", host=os.getenv("API_HOST"), port=os.getenv("API_PORT"), reload=True)

@@ -1,5 +1,4 @@
 import io
-import scipy
 import torch
 import base64
 import torchaudio
@@ -9,11 +8,11 @@ from typing import Optional
 from functools import lru_cache
 from typing import Dict, Tuple, Union
 from transformers import AutoProcessor, SeamlessM4Tv2Model
-from pydub import AudioSegment
 
 from .data_models import TARGET_LANGUAGES, TASK_STRINGS, TranslationRequest, TranslationConfig
 
 translation_config = TranslationConfig()
+
 
 class Translation:
     def __init__(self):
@@ -361,7 +360,7 @@ def speech2speech(translation: Translation, miner_request: Optional[TranslationR
     
 
 if __name__ == "__main__":
-    translation = Translation(TranslationConfig())
+    translation = Translation()
     result = speech2text(translation)
     print(f"speech2text: {result}")
     result = speech2speech(translation)

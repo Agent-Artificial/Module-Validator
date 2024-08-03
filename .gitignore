@@ -5,5 +5,5 @@ __pycache__
 translation/seamless
 translation/in
 translation/out
-
+embedding
 .json

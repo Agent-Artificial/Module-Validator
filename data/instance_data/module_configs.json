@@ -4,5 +4,11 @@
         "module_path": "modules/translation",
         "module_endpoint": "/modules/translation",
         "module_url": "https://registrar-cellium.ngrok.app"
+    },
+    "embedding": {
+        "module_name": "embedding",
+        "module_path": "modules/embedding",
+        "module_endpoint": "/modules/embedding",
+        "module_url": "https://registrar-cellium.ngrok.app"
     }
 }

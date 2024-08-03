@@ -4,6 +4,7 @@ import time
 import asyncio
 import requests
 import json
+import random
 import numpy as np
 from openai import OpenAI
 from fastapi import FastAPI
@@ -12,13 +13,16 @@ from typing import List, Optional, Union, Dict, Any
 from communex.compat.key import Keypair
 from communex.client import CommuneClient
 from communex._common import get_node_url
-from data_models import ModuleConfig, TOPICS
+from data_models import ModuleConfig
 from base.base_validator import ValidatorExecutor, ValidatorSettings, ValidatorRequest
-
+from validators.config import use_default_config
+from loguru import logger
 
 load_dotenv()
 
 comx = CommuneClient(get_node_url())
+
+use_default_config()
 
 
 settings = ValidatorSettings(
@@ -42,24 +46,31 @@ config = ModuleConfig(
     module_url=os.getenv("MODULE_URL")
 )
 
+openai = OpenAI(
+    api_key=settings.inference_api_key,
+    base_url=settings.inference_url
+)
+
 
 class Validator(ValidatorExecutor):
-    miner_addresses: List[str] = []
+    logger.info("Starting Validator")
+    addresses: List[str] = []
     uids: List[int] = []
     keys: List[str] = []
     address_skips: set[str] = ("none:none", "", "localhost", "127.0.0.1", "0.0.0.0")
     topics: List[str] = []
+    miner_statistics: Dict[str, Any] = {}
+    
     def __init__(self):
         super().__init__(settings)
         self.module_config = config
-        self.miner_statistics = {}
-        self.openai = OpenAI(
-            api_key=self.validator_settings.inference_api_key,
-            base_url=self.validator_settings.inference_url
-            )
+        self.init_module(self.module_config)
         self.topics = self.init_topics()
+        self.miner_statistics = {}
+
         
     def init_topics(self):
+        logger.info("Initializing topics")
         request = "Please provide a list of 20 interesting topics"
         messages = [
             {
@@ -67,101 +78,121 @@ class Validator(ValidatorExecutor):
                 "content": request
             }
         ]
-        model=self.validator_settings.inference_model
-        completion = self.openai.chat.completions(
-            model=model,
-            messages=messages
+        model = settings.inference_model
+        completion = openai.chat.completions.create(
+            messages=messages,
+            model=model
         )
-        return completion.choices[0].message.content.split('\n')
         
+        return completion.choices[0].message.content.split('**')
+    
     def serve_api(self, app: FastAPI):
+        logger.info("Serving API")
         uvicorn.run(app, host=self.validator_config.validator_host, port=self.validator_config.validator_port)
     
     async def voteloop(self):
+        logger.info("Starting Voteloop")
         while True:
-            await self.evaluate()
+            await self.validate(self.module_config)
             time.sleep(30)
 
     def collect_miner_addresses(self, subnet=10):
+        logger.info("Collecting miner addresses")
         address_map = comx.query_map_address(netuid=subnet)
         for uid, address in address_map.items():
             if address.lower() in self.address_skips:
                 continue
             self.uids.append(uid)
-            self.addressess.append(address)
+            self.addresses.append(address)
+            
+        return self.addresses, self.uids
 
     def init_module(self, module_config: Dict[str, Any]):
+        logger.info("Initializing module")
         if module_config.module_name not in os.listdir("modules"):
             self.install_module(module_config)
 
     def collect_sample_data(self, module_config: Optional[Union[ModuleConfig, Dict[str, Any]]]):
+        logger.info("Collecting sample data")
         if isinstance(module_config, dict):
             module_config = ModuleConfig(**module_config)
         if module_config.module_name not in os.listdir("modules"):
             self.init_module(module_config)
-        sample_request = f"Please provide a paragraph written about {self.topic}"
+        sample_request = f"Please provide a paragraph written about {random.choice(self.topics)}"
         messages = [
             {
                 "role": "system",
                 "content": sample_request
             }
         ]
-        model = self.validator_settings.inference_model
-        return self.openai.chat.completions(
+        model = settings.inference_model
+        return openai.chat.completions.create(
             model=model,
             messages=messages
-        ).choices[0].message
+        ).choices[0].message.content
 
     def sigmoid(self, x):
+        logger.info("Performing sigmoid")
         return 1 / (1 + np.exp(-x))
     
     def similairty(self, x, y):
+        logger.info("Performing similairty")
         for _ in range(len(x)):
             return np.dot(x, y)
 
-    def validate(self):
+    def validate(self, module_config: Optional[Dict[str, Any]]):
+        logger.info("Validating")
+        self.module = self.module()
         if module_config is None:
             module_config = self.module_config
         if isinstance(module_config, dict):
             module_config = ModuleConfig(**module_config)
         if module_config.module_name not in os.listdir("modules"):
             self.install_module(module_config)
-        self.module = self.get_module(module_config)
-        sampledata= self.collect_sample_data(self.module_config)
-        sample_request = ValidatorRequest(data=sampledata)
-        sample_tokens = self.process(sample_request["data"])
-        miner_addresses = self.collect_miner_addresses()
+        sample_data = self.collect_sample_data(self.module_config)
+        logger.debug(sample_data)
+        sample_request = ValidatorRequest(data=sample_data)
+        sample_tokens = self.process(self.module, request=sample_request)
+        miner_addresses, uids = self.collect_miner_addresses()
         responses = []
-        uids = []
-        for address in miner_addresses:
-            response = (requests.post(url=f"https://{address}/generate", json=sample_request.model_dump())).text
+        for i, address in enumerate(miner_addresses):
+            response = None
+            try:
+                logger.info(f"Requesting to miner {uids[i]} at {address}")
+                response = requests.post(url=f"http://{address}/generate", json=sample_request.model_dump(), timeout=10).text
+            except Exception as e:
+                logger.error(f"Request to miner {uids[i]} failed. Setting score to 0. Error: {e}")
+                responses.append("0")
             if response is not None:
                 responses.append(response)
-                uids.append(address)
+                uids.append(uids[i])
         responses = self.similairty(responses, sample_tokens)
         scores = [self.sigmoid(response) for response in responses]
         normalized_results = self.normalize(scores)
         final_scores = self.scale(normalized_results)
         self.miner_statistics = dict(zip(uids, final_scores))
-        self.vote(self, uids, final_scores)
+        self.vote(uids, final_scores)
         
     def normalize(self, scores: List[Any]):
-        for score in score:
+        logger.info("Normalizing")
+        for _ in scores:
             min_score = min(scores)
             max_score = max(scores)
-            return [(score - min_score) / (max_score - min_score) for score]
+            return [(score - min_score) / (max_score - min_score) for score in scores]
 
     def scale(self, normalized_results: List[float]):
+        logger.info("Scaling")
         return [result * 100 for result in normalized_results]
 
     def vote(self, uids, weights):
-        with open("~/.commune/key/{self.settings.validator_key}.json", "r") as f:
-            json_data  = json.loads(f.read())["data"]
+        logger.info("Voting")
+        with open(f"~/.commune/key/{settings.validator_key}.json", "r", encoding="utf-8") as f:
+            json_data = json.loads(f.read())["data"]
             data = json.loads(json_data)
         keypair = Keypair(
-            ss58_address = data["ss58_address"]
-            private_key = data["private_key"]
-            public_key = data["public_key"]
+            ss58_address=data["ss58_address"],
+            private_key=data["private_key"],
+            public_key=data["public_key"]
         )
         result = comx.vote(keypair, uids, weights)
         if result.is_success:
@@ -169,6 +200,8 @@ class Validator(ValidatorExecutor):
             print(result.extrinsic)
         else:
             print(result.error_message)
-        
-    def voteloop(self):
-        
+
+
+if __name__ == "__main__":
+    vali = Validator()
+    asyncio.run(vali.voteloop())

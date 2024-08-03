@@ -1,1 +1,1 @@
-{"error": "Module not found.\nAvailable modules: ['embedding', 'public_key', 'translation', 'whisper', 'financial_news']"}
+{"error": "Module not found.\nAvailable modules: ['public_key', 'translation', 'embedding']"}
