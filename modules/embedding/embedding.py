@@ -122,9 +122,7 @@ class Embedding(BaseModule):
         np_embedding2 = np.array(object=embedding2)
         return 1 - distance.cosine(u=np_embedding1, v=np_embedding2)
 
-    def process(self, request: Request) -> List[int]:
-        string = request.data
-        print(string)
+    def process(self, string) -> List[int]:
         embedding = encoding("cl100k_base").encode(string)
         self.update(request=len(embedding), response=0)
         return embedding
@@ -133,3 +131,6 @@ class Embedding(BaseModule):
 if __name__ == '__main__':
     module = EmbeddingModule()
     print(module.process("hello world"))
+    
+    
+    

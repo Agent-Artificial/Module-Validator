@@ -103,7 +103,7 @@ class ValidatorExecutor:
     
     def construct_validator_request(self, sample_data: Any) -> ValidatorRequest:
         logger.info("Constructing validator request")
-        return ValidatorRequest(data={**sample_data})
+        return ValidatorRequest(data=sample_data)
         
     def process_sample_data(self, sample_data: str):
         logger.info("Processing sample data")
