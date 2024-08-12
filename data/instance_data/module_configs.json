@@ -7,8 +7,8 @@
     },
     "embedding": {
         "module_name": "embedding",
-        "module_path": "modules/embedding",
-        "module_endpoint": "/modules/embedding",
+        "module_path": "modules/embdding",
+        "module_endpoint": "/modules/embdding",
         "module_url": "https://registrar-cellium.ngrok.app"
     }
 }

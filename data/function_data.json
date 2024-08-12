@@ -9,7 +9,7 @@
       }
     ],
     "returns": "float",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/balance.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/balance.py"
   },
   "to_nano": {
     "name": "to_nano",
@@ -21,7 +21,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/balance.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/balance.py"
   },
   "from_horus": {
     "name": "from_horus",
@@ -37,7 +37,7 @@
       }
     ],
     "returns": "float",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/balance.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/balance.py"
   },
   "repr_j": {
     "name": "repr_j",
@@ -49,7 +49,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/balance.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/balance.py"
   },
   "get_node_url": {
     "name": "get_node_url",
@@ -61,7 +61,7 @@
       }
     ],
     "returns": "str",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/_common.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/_common.py"
   },
   "get_available_nodes": {
     "name": "get_available_nodes",
@@ -73,7 +73,7 @@
       }
     ],
     "returns": "list[str]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/_common.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/_common.py"
   },
   "format_balance": {
     "name": "format_balance",
@@ -89,7 +89,7 @@
       }
     ],
     "returns": "str",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/_common.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/_common.py"
   },
   "intersection_update": {
     "name": "intersection_update",
@@ -105,7 +105,19 @@
       }
     ],
     "returns": "Mapping[K, V | Z]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/_common.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/_common.py"
+  },
+  "transform_stake_dmap": {
+    "name": "transform_stake_dmap",
+    "docstring": "Transforms either the StakeTo or StakeFrom storage into the stake legacy data type.",
+    "parameters": [
+      {
+        "name": "stake_storage",
+        "type": "dict[tuple[str, str], int]"
+      }
+    ],
+    "returns": "dict[str, list[tuple[str, int]]]",
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/_common.py"
   },
   "is_ss58_address": {
     "name": "is_ss58_address",
@@ -121,7 +133,7 @@
       }
     ],
     "returns": "TypeGuard[Ss58Address]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/key.py"
   },
   "check_ss58_address": {
     "name": "check_ss58_address",
@@ -137,14 +149,14 @@
       }
     ],
     "returns": "Ss58Address",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/key.py"
   },
   "generate_keypair": {
     "name": "generate_keypair",
     "docstring": "Generates a new keypair.",
     "parameters": [],
     "returns": "Keypair",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/key.py"
   },
   "__init__": {
     "name": "__init__",
@@ -160,7 +172,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/mutex.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/mutex.py"
   },
   "connections": {
     "name": "connections",
@@ -172,7 +184,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_conn": {
     "name": "get_conn",
@@ -192,7 +204,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "_get_storage_keys": {
     "name": "_get_storage_keys",
@@ -216,7 +228,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "_get_lists": {
     "name": "_get_lists",
@@ -240,7 +252,7 @@
       }
     ],
     "returns": "list[tuple[Any, Any, Any, Any, str]]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "_send_batch": {
     "name": "_send_batch",
@@ -264,7 +276,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "_make_request_smaller": {
     "name": "_make_request_smaller",
@@ -288,7 +300,7 @@
       }
     ],
     "returns": "tuple[list[list[tuple[T1, T2]]], list[Chunk]]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "_are_changes_equal": {
     "name": "_are_changes_equal",
@@ -308,7 +320,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "_rpc_request_batch": {
     "name": "_rpc_request_batch",
@@ -328,7 +340,7 @@
       }
     ],
     "returns": "list[str]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "_rpc_request_batch_chunked": {
     "name": "_rpc_request_batch_chunked",
@@ -348,7 +360,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "_decode_response": {
     "name": "_decode_response",
@@ -376,7 +388,7 @@
       }
     ],
     "returns": "dict[str, dict[Any, Any]]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_batch": {
     "name": "query_batch",
@@ -392,7 +404,7 @@
       }
     ],
     "returns": "dict[str, str]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_batch_map": {
     "name": "query_batch_map",
@@ -412,7 +424,7 @@
       }
     ],
     "returns": "dict[str, dict[Any, Any]]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query": {
     "name": "query",
@@ -433,10 +445,14 @@
       {
         "name": "module",
         "type": "str"
+      },
+      {
+        "name": "block_hash",
+        "type": "str | None"
       }
     ],
     "returns": "Any",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map": {
     "name": "query_map",
@@ -464,7 +480,7 @@
       }
     ],
     "returns": "dict[Any, Any]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "compose_call": {
     "name": "compose_call",
@@ -508,7 +524,7 @@
       }
     ],
     "returns": "ExtrinsicReceipt",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "compose_call_multisig": {
     "name": "compose_call_multisig",
@@ -560,7 +576,7 @@
       }
     ],
     "returns": "ExtrinsicReceipt",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "transfer": {
     "name": "transfer",
@@ -584,7 +600,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
   },
   "transfer_multiple": {
     "name": "transfer_multiple",
@@ -612,7 +628,7 @@
       }
     ],
     "returns": "ExtrinsicReceipt",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "stake": {
     "name": "stake",
@@ -633,14 +649,10 @@
       {
         "name": "dest",
         "type": "str"
-      },
-      {
-        "name": "netuid",
-        "type": "int"
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
   },
   "unstake": {
     "name": "unstake",
@@ -661,14 +673,10 @@
       {
         "name": "dest",
         "type": "str"
-      },
-      {
-        "name": "netuid",
-        "type": "int"
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
   },
   "update_module": {
     "name": "update_module",
@@ -704,7 +712,7 @@
       }
     ],
     "returns": "ExtrinsicReceipt",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "register_module": {
     "name": "register_module",
@@ -731,16 +739,12 @@
         "type": "str"
       },
       {
-        "name": "min_stake",
-        "type": "int | None"
-      },
-      {
         "name": "metadata",
         "type": "str | None"
       }
     ],
     "returns": "ExtrinsicReceipt",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "vote": {
     "name": "vote",
@@ -768,7 +772,7 @@
       }
     ],
     "returns": "ExtrinsicReceipt",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "update_subnet": {
     "name": "update_subnet",
@@ -792,7 +796,7 @@
       }
     ],
     "returns": "ExtrinsicReceipt",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "transfer_stake": {
     "name": "transfer_stake",
@@ -817,14 +821,10 @@
       {
         "name": "dest",
         "type": "str"
-      },
-      {
-        "name": "netuid",
-        "type": "int"
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
   },
   "multiunstake": {
     "name": "multiunstake",
@@ -845,14 +845,10 @@
       {
         "name": "amounts",
         "type": "list[int]"
-      },
-      {
-        "name": "netuid",
-        "type": "int"
       }
     ],
     "returns": "ExtrinsicReceipt",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "multistake": {
     "name": "multistake",
@@ -873,14 +869,10 @@
       {
         "name": "amounts",
         "type": "list[int]"
-      },
-      {
-        "name": "netuid",
-        "type": "int"
       }
     ],
     "returns": "ExtrinsicReceipt",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "add_profit_shares": {
     "name": "add_profit_shares",
@@ -904,7 +896,7 @@
       }
     ],
     "returns": "ExtrinsicReceipt",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "add_subnet_proposal": {
     "name": "add_subnet_proposal",
@@ -920,7 +912,7 @@
       },
       {
         "name": "params",
-        "type": "SubnetParams"
+        "type": "dict[str, Any]"
       },
       {
         "name": "ipfs",
@@ -932,7 +924,7 @@
       }
     ],
     "returns": "ExtrinsicReceipt",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "add_custom_proposal": {
     "name": "add_custom_proposal",
@@ -956,7 +948,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/subnet.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/subnet.py"
   },
   "add_custom_subnet_proposal": {
     "name": "add_custom_subnet_proposal",
@@ -980,7 +972,7 @@
       }
     ],
     "returns": "ExtrinsicReceipt",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "add_global_proposal": {
     "name": "add_global_proposal",
@@ -1004,7 +996,7 @@
       }
     ],
     "returns": "ExtrinsicReceipt",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "vote_on_proposal": {
     "name": "vote_on_proposal",
@@ -1028,7 +1020,7 @@
       }
     ],
     "returns": "ExtrinsicReceipt",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "unvote_on_proposal": {
     "name": "unvote_on_proposal",
@@ -1048,7 +1040,7 @@
       }
     ],
     "returns": "ExtrinsicReceipt",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "enable_vote_power_delegation": {
     "name": "enable_vote_power_delegation",
@@ -1064,7 +1056,7 @@
       }
     ],
     "returns": "ExtrinsicReceipt",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "disable_vote_power_delegation": {
     "name": "disable_vote_power_delegation",
@@ -1080,7 +1072,7 @@
       }
     ],
     "returns": "ExtrinsicReceipt",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "add_dao_application": {
     "name": "add_dao_application",
@@ -1104,7 +1096,7 @@
       }
     ],
     "returns": "ExtrinsicReceipt",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_curator_applications": {
     "name": "query_map_curator_applications",
@@ -1116,7 +1108,7 @@
       }
     ],
     "returns": "dict[str, dict[str, str]]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_proposals": {
     "name": "query_map_proposals",
@@ -1132,7 +1124,7 @@
       }
     ],
     "returns": "dict[int, dict[str, Any]]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_weights": {
     "name": "query_map_weights",
@@ -1151,8 +1143,8 @@
         "type": "bool"
       }
     ],
-    "returns": "dict[int, list[int]]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "returns": "dict[int, list[tuple[int, int]]] | None",
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_key": {
     "name": "query_map_key",
@@ -1172,7 +1164,7 @@
       }
     ],
     "returns": "dict[int, Ss58Address]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_address": {
     "name": "query_map_address",
@@ -1192,7 +1184,7 @@
       }
     ],
     "returns": "dict[int, str]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_emission": {
     "name": "query_map_emission",
@@ -1208,7 +1200,55 @@
       }
     ],
     "returns": "dict[int, list[int]]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_pending_emission": {
+    "name": "query_map_pending_emission",
+    "docstring": "Retrieves a map of pending emissions for the subnets.\n\nQueries the network for a mapping of subnet UIDs to their pending emission values.\n\nReturns:\n    A dictionary mapping subnet UIDs to their pending emission values.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_subnet_emission": {
+    "name": "query_map_subnet_emission",
+    "docstring": "Retrieves a map of subnet emissions for the network.\n\nQueries the network for a mapping of subnet UIDs to their emission values.\n\nReturns:\n    A dictionary mapping subnet UIDs to their emission values.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, int]",
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "query_map_subnet_consensus": {
+    "name": "query_map_subnet_consensus",
+    "docstring": "Retrieves a map of subnet consensus types for the network.\n\nQueries the network for a mapping of subnet UIDs to their consensus types.\n\nReturns:\n    A dictionary mapping subnet UIDs to their consensus types.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      },
+      {
+        "name": "extract_value",
+        "type": "bool"
+      }
+    ],
+    "returns": "dict[int, str]",
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_incentive": {
     "name": "query_map_incentive",
@@ -1224,7 +1264,7 @@
       }
     ],
     "returns": "dict[int, list[int]]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_dividend": {
     "name": "query_map_dividend",
@@ -1240,7 +1280,7 @@
       }
     ],
     "returns": "dict[int, list[int]]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_regblock": {
     "name": "query_map_regblock",
@@ -1260,7 +1300,7 @@
       }
     ],
     "returns": "dict[int, int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_lastupdate": {
     "name": "query_map_lastupdate",
@@ -1276,23 +1316,7 @@
       }
     ],
     "returns": "dict[int, list[int]]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
-  },
-  "query_map_total_stake": {
-    "name": "query_map_total_stake",
-    "docstring": "Retrieves a mapping of total stakes for keys on the network.\n\nQueries the network for a mapping of key UIDs to their total stake amounts.\n\nReturns:\n    A dictionary mapping key UIDs to their total stake amounts.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
-    "parameters": [
-      {
-        "name": "self",
-        "type": null
-      },
-      {
-        "name": "extract_value",
-        "type": "bool"
-      }
-    ],
-    "returns": "dict[int, int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_stakefrom": {
     "name": "query_map_stakefrom",
@@ -1303,16 +1327,12 @@
         "type": null
       },
       {
-        "name": "netuid",
-        "type": "int"
-      },
-      {
         "name": "extract_value",
         "type": "bool"
       }
     ],
-    "returns": "dict[str, list[tuple[str, int]]]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "returns": "dict[Ss58Address, list[tuple[Ss58Address, int]]]",
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_staketo": {
     "name": "query_map_staketo",
@@ -1323,36 +1343,12 @@
         "type": null
       },
       {
-        "name": "netuid",
-        "type": "int"
-      },
-      {
         "name": "extract_value",
         "type": "bool"
       }
     ],
     "returns": "dict[str, list[tuple[str, int]]]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
-  },
-  "query_map_stake": {
-    "name": "query_map_stake",
-    "docstring": "Retrieves a mapping of stakes for keys on the network.\n\nQueries the network and returns a mapping of key addresses to their\nrespective delegated staked balances amounts.\nThe query can be targeted at a specific network UID if required.\n\nArgs:\n    netuid: The network UID from which to get the stakes.\n\nReturns:\n    A dictionary mapping key addresses to their stake amounts.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
-    "parameters": [
-      {
-        "name": "self",
-        "type": null
-      },
-      {
-        "name": "netuid",
-        "type": "int"
-      },
-      {
-        "name": "extract_value",
-        "type": "bool"
-      }
-    ],
-    "returns": "dict[str, int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_delegationfee": {
     "name": "query_map_delegationfee",
@@ -1372,7 +1368,7 @@
       }
     ],
     "returns": "dict[str, int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_tempo": {
     "name": "query_map_tempo",
@@ -1388,7 +1384,7 @@
       }
     ],
     "returns": "dict[int, int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_immunity_period": {
     "name": "query_map_immunity_period",
@@ -1404,7 +1400,7 @@
       }
     ],
     "returns": "dict[int, int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_min_allowed_weights": {
     "name": "query_map_min_allowed_weights",
@@ -1420,7 +1416,7 @@
       }
     ],
     "returns": "dict[int, int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_max_allowed_weights": {
     "name": "query_map_max_allowed_weights",
@@ -1436,7 +1432,7 @@
       }
     ],
     "returns": "dict[int, int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_max_allowed_uids": {
     "name": "query_map_max_allowed_uids",
@@ -1452,7 +1448,7 @@
       }
     ],
     "returns": "dict[int, int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_min_stake": {
     "name": "query_map_min_stake",
@@ -1468,7 +1464,7 @@
       }
     ],
     "returns": "dict[int, int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_max_stake": {
     "name": "query_map_max_stake",
@@ -1484,7 +1480,7 @@
       }
     ],
     "returns": "dict[int, int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_founder": {
     "name": "query_map_founder",
@@ -1500,7 +1496,7 @@
       }
     ],
     "returns": "dict[int, str]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_founder_share": {
     "name": "query_map_founder_share",
@@ -1516,7 +1512,7 @@
       }
     ],
     "returns": "dict[int, int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_incentive_ratio": {
     "name": "query_map_incentive_ratio",
@@ -1532,7 +1528,7 @@
       }
     ],
     "returns": "dict[int, int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_trust_ratio": {
     "name": "query_map_trust_ratio",
@@ -1548,7 +1544,7 @@
       }
     ],
     "returns": "dict[int, int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_vote_mode_subnet": {
     "name": "query_map_vote_mode_subnet",
@@ -1564,7 +1560,7 @@
       }
     ],
     "returns": "dict[int, str]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_legit_whitelist": {
     "name": "query_map_legit_whitelist",
@@ -1580,7 +1576,7 @@
       }
     ],
     "returns": "dict[Ss58Address, int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_subnet_names": {
     "name": "query_map_subnet_names",
@@ -1596,7 +1592,7 @@
       }
     ],
     "returns": "dict[int, str]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_balances": {
     "name": "query_map_balances",
@@ -1611,8 +1607,8 @@
         "type": "bool"
       }
     ],
-    "returns": "dict[str, dict['str', int | dict[str, int]]]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "returns": "dict[str, dict[str, int | dict[str, int | float]]]",
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_registration_blocks": {
     "name": "query_map_registration_blocks",
@@ -1632,7 +1628,7 @@
       }
     ],
     "returns": "dict[int, int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "query_map_name": {
     "name": "query_map_name",
@@ -1652,7 +1648,7 @@
       }
     ],
     "returns": "dict[int, str]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_immunity_period": {
     "name": "get_immunity_period",
@@ -1668,7 +1664,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_max_set_weights_per_epoch": {
     "name": "get_max_set_weights_per_epoch",
@@ -1680,7 +1676,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_min_allowed_weights": {
     "name": "get_min_allowed_weights",
@@ -1696,7 +1692,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_dao_treasury_address": {
     "name": "get_dao_treasury_address",
@@ -1708,7 +1704,7 @@
       }
     ],
     "returns": "Ss58Address",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_max_allowed_weights": {
     "name": "get_max_allowed_weights",
@@ -1724,7 +1720,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_max_allowed_uids": {
     "name": "get_max_allowed_uids",
@@ -1740,7 +1736,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_name": {
     "name": "get_name",
@@ -1756,7 +1752,7 @@
       }
     ],
     "returns": "str",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_subnet_name": {
     "name": "get_subnet_name",
@@ -1772,7 +1768,7 @@
       }
     ],
     "returns": "str",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_global_dao_treasury": {
     "name": "get_global_dao_treasury",
@@ -1784,7 +1780,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_n": {
     "name": "get_n",
@@ -1800,7 +1796,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_tempo": {
     "name": "get_tempo",
@@ -1816,23 +1812,19 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_total_stake": {
     "name": "get_total_stake",
-    "docstring": "Queries the network for the total stake amount.\n\nRetrieves the total amount of stake within a specific network subnet.\n\nArgs:\n    netuid: The network UID for which to query the total stake.\n\nReturns:\n    The total stake amount for the specified network subnet.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "docstring": "Retrieves a mapping of total stakes for keys on the network.\n\nQueries the network for a mapping of key UIDs to their total stake amounts.\n\nReturns:\n    A dictionary mapping key UIDs to their total stake amounts.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
     "parameters": [
       {
         "name": "self",
         "type": null
-      },
-      {
-        "name": "netuid",
-        "type": "int"
       }
     ],
-    "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "returns": "int",
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_registrations_per_block": {
     "name": "get_registrations_per_block",
@@ -1844,7 +1836,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "max_registrations_per_block": {
     "name": "max_registrations_per_block",
@@ -1860,7 +1852,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_proposal": {
     "name": "get_proposal",
@@ -1876,7 +1868,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_trust": {
     "name": "get_trust",
@@ -1892,7 +1884,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_uids": {
     "name": "get_uids",
@@ -1912,11 +1904,11 @@
       }
     ],
     "returns": "bool | None",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_unit_emission": {
     "name": "get_unit_emission",
-    "docstring": "Queries the network for the unit emission setting.\n\nRetrieves the unit emission value, which represents the\nemission rate or quantity for the $COMAI token.\n\nReturns:\n    The unit emission value in nanos for the network.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "docstring": "Queries the network for the unit emission setting.\n\nRetrieves the unit emission value, which represents the\nemission rate or quantity for the $COMM token.\n\nReturns:\n    The unit emission value in nanos for the network.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
     "parameters": [
       {
         "name": "self",
@@ -1924,7 +1916,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_tx_rate_limit": {
     "name": "get_tx_rate_limit",
@@ -1936,11 +1928,11 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
-  "get_burn_rate": {
-    "name": "get_burn_rate",
-    "docstring": "Queries the network for the burn rate setting.\n\nRetrieves the burn rate, which represents the rate at\nwhich the $COMAI token is permanently\nremoved or 'burned' from circulation.\n\nReturns:\n    The burn rate for the network.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+  "get_subnet_burn": {
+    "name": "get_subnet_burn",
+    "docstring": "Queries the network for the subnet burn value.\n\nRetrieves the subnet burn value from the network, which represents\nthe amount of tokens that are burned (permanently removed from\ncirculation) for subnet-related operations.\n\nReturns:\n    int: The subnet burn value.\n\nRaises:\n    QueryError: If the query to the network fails or returns invalid data.",
     "parameters": [
       {
         "name": "self",
@@ -1948,11 +1940,23 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_burn_rate": {
+    "name": "get_burn_rate",
+    "docstring": "Queries the network for the burn rate setting.\n\nRetrieves the burn rate, which represents the rate at\nwhich the $COMM token is permanently\nremoved or 'burned' from circulation.\n\nReturns:\n    The burn rate for the network.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "parameters": [
+      {
+        "name": "self",
+        "type": null
+      }
+    ],
+    "returns": "int",
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_burn": {
     "name": "get_burn",
-    "docstring": "Queries the network for the burn setting.\n\nRetrieves the burn value, which represents the amount of the\n$COMAI token that is 'burned' or permanently removed from\ncirculation.\n\nArgs:\n    netuid: The network UID for which to query the burn value.\n\nReturns:\n    The burn value for the specified network subnet.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "docstring": "Queries the network for the burn setting.\n\nRetrieves the burn value, which represents the amount of the\n$COMM token that is 'burned' or permanently removed from\ncirculation.\n\nArgs:\n    netuid: The network UID for which to query the burn value.\n\nReturns:\n    The burn value for the specified network subnet.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
     "parameters": [
       {
         "name": "self",
@@ -1964,11 +1968,11 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_min_burn": {
     "name": "get_min_burn",
-    "docstring": "Queries the network for the minimum burn setting.\n\nRetrieves the minimum burn value, indicating the lowest\namount of the $COMAI tokens that can be 'burned' or\npermanently removed from circulation.\n\nReturns:\n    The minimum burn value for the network.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "docstring": "Queries the network for the minimum burn setting.\n\nRetrieves the minimum burn value, indicating the lowest\namount of the $COMM tokens that can be 'burned' or\npermanently removed from circulation.\n\nReturns:\n    The minimum burn value for the network.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
     "parameters": [
       {
         "name": "self",
@@ -1976,7 +1980,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_min_weight_stake": {
     "name": "get_min_weight_stake",
@@ -1988,7 +1992,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_vote_mode_global": {
     "name": "get_vote_mode_global",
@@ -2000,7 +2004,7 @@
       }
     ],
     "returns": "str",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_max_proposals": {
     "name": "get_max_proposals",
@@ -2012,7 +2016,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_max_registrations_per_block": {
     "name": "get_max_registrations_per_block",
@@ -2024,7 +2028,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_max_name_length": {
     "name": "get_max_name_length",
@@ -2036,7 +2040,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_global_vote_threshold": {
     "name": "get_global_vote_threshold",
@@ -2048,7 +2052,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_max_allowed_subnets": {
     "name": "get_max_allowed_subnets",
@@ -2060,7 +2064,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_max_allowed_modules": {
     "name": "get_max_allowed_modules",
@@ -2072,7 +2076,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_min_stake": {
     "name": "get_min_stake",
@@ -2088,11 +2092,11 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
-  "get_stake": {
-    "name": "get_stake",
-    "docstring": "Queries the network for the stake delegated with a specific key.\n\nRetrieves the amount of total staked tokens\ndelegated a specific key address\n\nArgs:\n    key: The address of the key to query the stake for.\n    netuid: The network UID from which to get the query.\n\nReturns:\n    The amount of stake held by the specified key in nanos.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+  "get_stakefrom": {
+    "name": "get_stakefrom",
+    "docstring": "Retrieves the stake amounts from all stakers to a specific staked address.\n\nQueries the network for the stakes received by a particular staked address\nfrom all stakers.\n\nArgs:\n    key: The address of the key receiving the stakes.\n\nReturns:\n    A dictionary mapping staker addresses to their respective stake amounts.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
     "parameters": [
       {
         "name": "self",
@@ -2101,54 +2105,26 @@
       {
         "name": "key",
         "type": "Ss58Address"
-      },
-      {
-        "name": "netuid",
-        "type": "int"
-      }
-    ],
-    "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
-  },
-  "get_stakefrom": {
-    "name": "get_stakefrom",
-    "docstring": "Retrieves a list of keys from which a specific key address is staked.\n\nQueries the network for all the stakes received by a\nparticular key from different sources.\n\nArgs:\n    key_addr: The address of the key to query stakes from.\n\n    netuid: The network UID from which to get the query.\n\nReturns:\n    A dictionary mapping key addresses to the amount of stake\n    received from each.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
-    "parameters": [
-      {
-        "name": "self",
-        "type": null
-      },
-      {
-        "name": "key_addr",
-        "type": "Ss58Address"
-      },
-      {
-        "name": "netuid",
-        "type": "int"
       }
     ],
     "returns": "dict[str, int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_staketo": {
     "name": "get_staketo",
-    "docstring": "Retrieves a list of keys to which a specific key address stakes to.\n\nQueries the network for all the stakes made by a particular key to\ndifferent destinations.\n\nArgs:\n    key_addr: The address of the key to query stakes to.\n\n    netuid: The network UID from which to get the query.\n\nReturns:\n    A dictionary mapping key addresses to the\n    amount of stake given to each.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
+    "docstring": "Retrieves the stake amounts provided by a specific staker to all staked addresses.\n\nQueries the network for the stakes provided by a particular staker to\nall staked addresses.\n\nArgs:\n    key: The address of the key providing the stakes.\n\nReturns:\n    A dictionary mapping staked addresses to their respective received stake amounts.\n\nRaises:\n    QueryError: If the query to the network fails or is invalid.",
     "parameters": [
       {
         "name": "self",
         "type": null
       },
       {
-        "name": "key_addr",
+        "name": "key",
         "type": "Ss58Address"
-      },
-      {
-        "name": "netuid",
-        "type": "int"
       }
     ],
     "returns": "dict[str, int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_balance": {
     "name": "get_balance",
@@ -2164,7 +2140,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_block": {
     "name": "get_block",
@@ -2180,7 +2156,7 @@
       }
     ],
     "returns": "dict[Any, Any] | None",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_existential_deposit": {
     "name": "get_existential_deposit",
@@ -2196,7 +2172,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_voting_power_delegators": {
     "name": "get_voting_power_delegators",
@@ -2208,7 +2184,7 @@
       }
     ],
     "returns": "list[Ss58Address]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "add_transfer_dao_treasury_proposal": {
     "name": "add_transfer_dao_treasury_proposal",
@@ -2236,7 +2212,27 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "delegate_rootnet_control": {
+    "name": "delegate_rootnet_control",
+    "docstring": "Delegates control of the rootnet to a key",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "key",
+        "type": "str"
+      },
+      {
+        "name": "target",
+        "type": "str"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/misc.py"
   },
   "estimate_size": {
     "name": "estimate_size",
@@ -2248,7 +2244,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "split_chunks": {
     "name": "split_chunks",
@@ -2268,7 +2264,19 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
+  },
+  "get_item_key_value": {
+    "name": "get_item_key_value",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "item_key",
+        "type": "tuple[Any, ...] | Any"
+      }
+    ],
+    "returns": "tuple[Any, ...] | Any",
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "concat_hash_len": {
     "name": "concat_hash_len",
@@ -2280,7 +2288,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "recursive_update": {
     "name": "recursive_update",
@@ -2296,14 +2304,14 @@
       }
     ],
     "returns": "dict[str, dict[T1, T2]]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_page": {
     "name": "get_page",
     "docstring": null,
     "parameters": [],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/client.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/client.py"
   },
   "get_map_modules": {
     "name": "get_map_modules",
@@ -2323,7 +2331,7 @@
       }
     ],
     "returns": "dict[str, ModuleInfoWithOptionalBalance]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/misc.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/misc.py"
   },
   "to_snake_case": {
     "name": "to_snake_case",
@@ -2335,7 +2343,7 @@
       }
     ],
     "returns": "dict[str, T]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/misc.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/misc.py"
   },
   "get_map_subnets_params": {
     "name": "get_map_subnets_params",
@@ -2351,7 +2359,7 @@
       }
     ],
     "returns": "dict[int, SubnetParamsWithEmission]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/misc.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/misc.py"
   },
   "get_global_params": {
     "name": "get_global_params",
@@ -2363,7 +2371,7 @@
       }
     ],
     "returns": "NetworkParams",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/misc.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/misc.py"
   },
   "concat_to_local_keys": {
     "name": "concat_to_local_keys",
@@ -2379,7 +2387,7 @@
       }
     ],
     "returns": "dict[str, int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/misc.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/misc.py"
   },
   "local_keys_to_freebalance": {
     "name": "local_keys_to_freebalance",
@@ -2395,19 +2403,23 @@
       }
     ],
     "returns": "dict[str, int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/misc.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/misc.py"
   },
   "local_keys_to_stakedbalance": {
     "name": "local_keys_to_stakedbalance",
     "docstring": null,
     "parameters": [
       {
-        "name": "netuid",
-        "type": "list[int]"
+        "name": "c_client",
+        "type": "CommuneClient"
+      },
+      {
+        "name": "local_keys",
+        "type": "dict[str, Ss58Address]"
       }
     ],
     "returns": "dict[str, int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_rate_limiters/_stake_limiter.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/misc.py"
   },
   "local_keys_allbalance": {
     "name": "local_keys_allbalance",
@@ -2420,14 +2432,10 @@
       {
         "name": "local_keys",
         "type": "dict[str, Ss58Address]"
-      },
-      {
-        "name": "netuid",
-        "type": "int | None"
       }
     ],
     "returns": "tuple[dict[str, int], dict[str, int]]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/misc.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/misc.py"
   },
   "snakerize": {
     "name": "snakerize",
@@ -2439,31 +2447,7 @@
       }
     ],
     "returns": "str",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/misc.py"
-  },
-  "show": {
-    "name": "show",
-    "docstring": "Show information about a key.",
-    "parameters": [
-      {
-        "name": "ctx",
-        "type": "Context"
-      },
-      {
-        "name": "key",
-        "type": "str"
-      },
-      {
-        "name": "show_private",
-        "type": "bool"
-      },
-      {
-        "name": "password",
-        "type": "Optional[str]"
-      }
-    ],
-    "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/misc.py"
   },
   "free_balance": {
     "name": "free_balance",
@@ -2487,7 +2471,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
   },
   "staked_balance": {
     "name": "staked_balance",
@@ -2502,10 +2486,6 @@
         "type": "str"
       },
       {
-        "name": "netuid",
-        "type": "int"
-      },
-      {
         "name": "unit",
         "type": "BalanceUnit"
       },
@@ -2515,11 +2495,11 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
   },
-  "all_balance": {
-    "name": "all_balance",
-    "docstring": "Gets entire balance of a key (free balance + staked balance).",
+  "show": {
+    "name": "show",
+    "docstring": "Show information about a key.",
     "parameters": [
       {
         "name": "ctx",
@@ -2530,12 +2510,8 @@
         "type": "str"
       },
       {
-        "name": "netuid",
-        "type": "int"
-      },
-      {
-        "name": "unit",
-        "type": "BalanceUnit"
+        "name": "show_private",
+        "type": "bool"
       },
       {
         "name": "password",
@@ -2543,7 +2519,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
   },
   "get_staked": {
     "name": "get_staked",
@@ -2558,10 +2534,6 @@
         "type": "str"
       },
       {
-        "name": "netuid",
-        "type": "int"
-      },
-      {
         "name": "unit",
         "type": "BalanceUnit"
       },
@@ -2571,7 +2543,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
   },
   "run_faucet": {
     "name": "run_faucet",
@@ -2595,7 +2567,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
   },
   "transfer_dao_funds": {
     "name": "transfer_dao_funds",
@@ -2623,7 +2595,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/balance.py"
   },
   "last_block": {
     "name": "last_block",
@@ -2639,7 +2611,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
   },
   "params": {
     "name": "params",
@@ -2651,7 +2623,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
   },
   "list_proposals": {
     "name": "list_proposals",
@@ -2667,7 +2639,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
   },
   "propose_globally": {
     "name": "propose_globally",
@@ -2686,14 +2658,6 @@
         "type": "str"
       },
       {
-        "name": "max_allowed_modules",
-        "type": "int"
-      },
-      {
-        "name": "max_registrations_per_block",
-        "type": "int"
-      },
-      {
         "name": "max_name_length",
         "type": "int"
       },
@@ -2702,7 +2666,19 @@
         "type": "int"
       },
       {
-        "name": "min_burn",
+        "name": "max_allowed_subnets",
+        "type": "int"
+      },
+      {
+        "name": "max_allowed_modules",
+        "type": "int"
+      },
+      {
+        "name": "max_registrations_per_block",
+        "type": "int"
+      },
+      {
+        "name": "max_allowed_weights",
         "type": "int"
       },
       {
@@ -2710,11 +2686,19 @@
         "type": "int"
       },
       {
-        "name": "min_weight_stake",
+        "name": "min_burn",
         "type": "int"
       },
       {
-        "name": "max_allowed_subnets",
+        "name": "floor_delegation_fee",
+        "type": "int"
+      },
+      {
+        "name": "floor_founder_share",
+        "type": "int"
+      },
+      {
+        "name": "min_weight_stake",
         "type": "int"
       },
       {
@@ -2730,28 +2714,24 @@
         "type": "int"
       },
       {
-        "name": "subnet_stake_threshold",
-        "type": "int"
-      },
-      {
         "name": "general_subnet_application_cost",
         "type": "int"
       },
       {
-        "name": "floor_founder_share",
+        "name": "kappa",
         "type": "int"
       },
       {
-        "name": "floor_delegation_fee",
+        "name": "rho",
         "type": "int"
       },
       {
-        "name": "max_allowed_weights",
+        "name": "subnet_immunity_period",
         "type": "int"
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
   },
   "get_valid_voting_keys": {
     "name": "get_valid_voting_keys",
@@ -2766,12 +2746,12 @@
         "type": "CommuneClient"
       },
       {
-        "name": "proposal",
-        "type": "dict[str, Any]"
+        "name": "threshold",
+        "type": "int"
       }
     ],
     "returns": "dict[str, int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
   },
   "vote_proposal": {
     "name": "vote_proposal",
@@ -2795,7 +2775,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
   },
   "unvote_proposal": {
     "name": "unvote_proposal",
@@ -2815,7 +2795,23 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
+  },
+  "set_root_weights": {
+    "name": "set_root_weights",
+    "docstring": "Command for rootnet validators to set the weights on subnets.",
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      },
+      {
+        "name": "key",
+        "type": "str"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
   },
   "registration_burn": {
     "name": "registration_burn",
@@ -2831,7 +2827,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/network.py"
   },
   "list_to_ss58": {
     "name": "list_to_ss58",
@@ -2843,7 +2839,7 @@
       }
     ],
     "returns": "list[Ss58Address] | None",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/module.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/module.py"
   },
   "register": {
     "name": "register",
@@ -2874,10 +2870,6 @@
         "type": "Optional[int]"
       },
       {
-        "name": "stake",
-        "type": "Optional[float]"
-      },
-      {
         "name": "metadata",
         "type": "Optional[str]"
       },
@@ -2887,7 +2879,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/module.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/module.py"
   },
   "update": {
     "name": "update",
@@ -2938,10 +2930,6 @@
         "type": "int"
       },
       {
-        "name": "min_stake",
-        "type": "int"
-      },
-      {
         "name": "name",
         "type": "str"
       },
@@ -2974,16 +2962,28 @@
         "type": "int"
       },
       {
-        "name": "vote_mode",
-        "type": "str"
-      },
-      {
         "name": "adjustment_alpha",
         "type": "int"
+      },
+      {
+        "name": "min_immunity_stake",
+        "type": "int"
+      },
+      {
+        "name": "proposal_cost",
+        "type": "int"
+      },
+      {
+        "name": "proposal_expiration",
+        "type": "int"
+      },
+      {
+        "name": "vote_mode",
+        "type": "VoteMode"
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/subnet.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/subnet.py"
   },
   "serve": {
     "name": "serve",
@@ -3043,7 +3043,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/module.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/module.py"
   },
   "info": {
     "name": "info",
@@ -3059,7 +3059,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
   },
   "inventory": {
     "name": "inventory",
@@ -3075,7 +3075,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
   },
   "main": {
     "name": "main",
@@ -3091,7 +3091,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/std/whitelist_validator.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/std/whitelist_validator.py"
   },
   "list": {
     "name": "list",
@@ -3103,7 +3103,19 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/subnet.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/subnet.py"
+  },
+  "distribution": {
+    "name": "distribution",
+    "docstring": null,
+    "parameters": [
+      {
+        "name": "ctx",
+        "type": "Context"
+      }
+    ],
+    "returns": null,
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/subnet.py"
   },
   "legit_whitelist": {
     "name": "legit_whitelist",
@@ -3115,7 +3127,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/subnet.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/subnet.py"
   },
   "propose_on_subnet": {
     "name": "propose_on_subnet",
@@ -3126,12 +3138,12 @@
         "type": "Context"
       },
       {
-        "name": "netuid",
-        "type": "int"
-      },
-      {
         "name": "key",
         "type": "str"
+      },
+      {
+        "name": "netuid",
+        "type": "int"
       },
       {
         "name": "cid",
@@ -3139,6 +3151,10 @@
       },
       {
         "name": "founder",
+        "type": "str"
+      },
+      {
+        "name": "name",
         "type": "str"
       },
       {
@@ -3170,14 +3186,6 @@
         "type": "int"
       },
       {
-        "name": "min_stake",
-        "type": "int"
-      },
-      {
-        "name": "name",
-        "type": "str"
-      },
-      {
         "name": "tempo",
         "type": "int"
       },
@@ -3194,11 +3202,11 @@
         "type": "int"
       },
       {
-        "name": "target_registrations_per_interval",
+        "name": "target_registrations_interval",
         "type": "int"
       },
       {
-        "name": "target_registrations_interval",
+        "name": "target_registrations_per_interval",
         "type": "int"
       },
       {
@@ -3206,16 +3214,32 @@
         "type": "int"
       },
       {
-        "name": "vote_mode",
-        "type": "str"
+        "name": "adjustment_alpha",
+        "type": "int"
       },
       {
-        "name": "adjustment_alpha",
+        "name": "min_immunity_stake",
+        "type": "int"
+      },
+      {
+        "name": "vote_mode",
+        "type": "VoteMode"
+      },
+      {
+        "name": "proposal_reward_treasury_allocation",
+        "type": "float"
+      },
+      {
+        "name": "max_proposal_reward_treasury_allocation",
+        "type": "int"
+      },
+      {
+        "name": "proposal_reward_interval",
         "type": "int"
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/subnet.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/subnet.py"
   },
   "submit_general_subnet_application": {
     "name": "submit_general_subnet_application",
@@ -3239,11 +3263,11 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/subnet.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/subnet.py"
   },
   "list_curator_applications": {
     "name": "list_curator_applications",
-    "docstring": null,
+    "docstring": "Lists all curator applications.",
     "parameters": [
       {
         "name": "ctx",
@@ -3251,7 +3275,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/subnet.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/subnet.py"
   },
   "make_custom_context": {
     "name": "make_custom_context",
@@ -3263,7 +3287,7 @@
       }
     ],
     "returns": "CustomCtx",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
   },
   "eprint": {
     "name": "eprint",
@@ -3275,7 +3299,7 @@
       }
     ],
     "returns": "None",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
   },
   "print_table_from_plain_dict": {
     "name": "print_table_from_plain_dict",
@@ -3295,7 +3319,7 @@
       }
     ],
     "returns": "None",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
   },
   "print_table_standardize": {
     "name": "print_table_standardize",
@@ -3311,7 +3335,7 @@
       }
     ],
     "returns": "None",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
   },
   "transform_module_into": {
     "name": "transform_module_into",
@@ -3339,7 +3363,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
   },
   "print_module_info": {
     "name": "print_module_info",
@@ -3367,7 +3391,7 @@
       }
     ],
     "returns": "None",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
   },
   "get_universal_password": {
     "name": "get_universal_password",
@@ -3379,7 +3403,7 @@
       }
     ],
     "returns": "str",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
   },
   "com_client": {
     "name": "com_client",
@@ -3391,7 +3415,7 @@
       }
     ],
     "returns": "CommuneClient",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
   },
   "get_use_testnet": {
     "name": "get_use_testnet",
@@ -3403,7 +3427,7 @@
       }
     ],
     "returns": "bool",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
   },
   "output": {
     "name": "output",
@@ -3419,7 +3443,7 @@
       }
     ],
     "returns": "None",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
   },
   "error": {
     "name": "error",
@@ -3435,7 +3459,7 @@
       }
     ],
     "returns": "None",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
   },
   "progress_status": {
     "name": "progress_status",
@@ -3451,7 +3475,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
   },
   "confirm": {
     "name": "confirm",
@@ -3467,7 +3491,7 @@
       }
     ],
     "returns": "bool",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/_common.py"
   },
   "create": {
     "name": "create",
@@ -3487,7 +3511,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
   },
   "regen": {
     "name": "regen",
@@ -3511,7 +3535,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
   },
   "balances": {
     "name": "balances",
@@ -3520,10 +3544,6 @@
       {
         "name": "ctx",
         "type": "Context"
-      },
-      {
-        "name": "netuid",
-        "type": "Optional[int]"
       },
       {
         "name": "unit",
@@ -3539,7 +3559,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
   },
   "stakefrom": {
     "name": "stakefrom",
@@ -3554,10 +3574,6 @@
         "type": "str"
       },
       {
-        "name": "netuid",
-        "type": "int"
-      },
-      {
         "name": "unit",
         "type": "BalanceUnit"
       },
@@ -3567,7 +3583,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
   },
   "staketo": {
     "name": "staketo",
@@ -3582,10 +3598,6 @@
         "type": "str"
       },
       {
-        "name": "netuid",
-        "type": "int"
-      },
-      {
         "name": "unit",
         "type": "BalanceUnit"
       },
@@ -3595,7 +3607,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
   },
   "total_free_balance": {
     "name": "total_free_balance",
@@ -3615,7 +3627,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
   },
   "total_staked_balance": {
     "name": "total_staked_balance",
@@ -3630,16 +3642,12 @@
         "type": "BalanceUnit"
       },
       {
-        "name": "netuid",
-        "type": "int"
-      },
-      {
         "name": "use_universal_password",
         "type": "bool"
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
   },
   "total_balance": {
     "name": "total_balance",
@@ -3654,16 +3662,12 @@
         "type": "BalanceUnit"
       },
       {
-        "name": "netuid",
-        "type": "Optional[int]"
-      },
-      {
         "name": "use_universal_password",
         "type": "bool"
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
   },
   "power_delegation": {
     "name": "power_delegation",
@@ -3687,7 +3691,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/key.py"
   },
   "_version_callback": {
     "name": "_version_callback",
@@ -3699,7 +3703,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/root.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/root.py"
   },
   "flag_option": {
     "name": "flag_option",
@@ -3723,7 +3727,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/root.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/root.py"
   },
   "circulating_tokens": {
     "name": "circulating_tokens",
@@ -3735,7 +3739,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/misc.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/misc.py"
   },
   "circulating_supply": {
     "name": "circulating_supply",
@@ -3751,7 +3755,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/misc.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/misc.py"
   },
   "apr": {
     "name": "apr",
@@ -3767,7 +3771,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/misc.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/misc.py"
   },
   "stats": {
     "name": "stats",
@@ -3787,7 +3791,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/misc.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/misc.py"
   },
   "get_treasury_address": {
     "name": "get_treasury_address",
@@ -3799,7 +3803,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/cli/misc.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/cli/misc.py"
   },
   "_terminate_workers_and_wait_for_exit": {
     "name": "_terminate_workers_and_wait_for_exit",
@@ -3811,7 +3815,7 @@
       }
     ],
     "returns": "None",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
   },
   "unbox_block_info": {
     "name": "unbox_block_info",
@@ -3823,7 +3827,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
   },
   "_hash_block_with_key": {
     "name": "_hash_block_with_key",
@@ -3839,7 +3843,7 @@
       }
     ],
     "returns": "bytes",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
   },
   "_update_curr_block_worker": {
     "name": "_update_curr_block_worker",
@@ -3863,7 +3867,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
   },
   "_update_curr_block": {
     "name": "_update_curr_block",
@@ -3883,7 +3887,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
   },
   "_hex_bytes_to_u8_list": {
     "name": "_hex_bytes_to_u8_list",
@@ -3895,7 +3899,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
   },
   "_create_seal_hash": {
     "name": "_create_seal_hash",
@@ -3911,7 +3915,7 @@
       }
     ],
     "returns": "bytes",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
   },
   "_seal_meets_difficulty": {
     "name": "_seal_meets_difficulty",
@@ -3923,7 +3927,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
   },
   "_solve_for_nonce_block": {
     "name": "_solve_for_nonce_block",
@@ -3951,14 +3955,14 @@
       }
     ],
     "returns": "POWSolution | None",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
   },
   "get_cpu_count": {
     "name": "get_cpu_count",
     "docstring": "Gets the number of allowed CPU cores for the current process.\n\nReturns:\n    The number of allowed CPU cores.",
     "parameters": [],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
   },
   "solve_for_difficulty_fast": {
     "name": "solve_for_difficulty_fast",
@@ -3986,7 +3990,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
   },
   "put": {
     "name": "put",
@@ -4010,7 +4014,7 @@
       }
     ],
     "returns": "None",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
   },
   "get": {
     "name": "get",
@@ -4030,7 +4034,7 @@
       }
     ],
     "returns": "T | None",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
   },
   "__getattr__": {
     "name": "__getattr__",
@@ -4046,7 +4050,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
   },
   "put_nowait": {
     "name": "put_nowait",
@@ -4062,7 +4066,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
   },
   "is_stale": {
     "name": "is_stale",
@@ -4078,7 +4082,7 @@
       }
     ],
     "returns": "bool",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
   },
   "run": {
     "name": "run",
@@ -4090,14 +4094,14 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/faucet/powv2.py"
   },
   "iso_timestamp_now": {
     "name": "iso_timestamp_now",
     "docstring": null,
     "parameters": [],
     "returns": "str",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_protocol.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/_protocol.py"
   },
   "log": {
     "name": "log",
@@ -4109,7 +4113,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
   },
   "log_reffusal": {
     "name": "log_reffusal",
@@ -4125,7 +4129,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
   },
   "json_error": {
     "name": "json_error",
@@ -4141,7 +4145,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
   },
   "try_ss58_decode": {
     "name": "try_ss58_decode",
@@ -4153,7 +4157,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
   },
   "retry": {
     "name": "retry",
@@ -4169,7 +4173,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
   },
   "make_client": {
     "name": "make_client",
@@ -4181,7 +4185,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
   },
   "decorator": {
     "name": "decorator",
@@ -4193,14 +4197,14 @@
       }
     ],
     "returns": "Callable[P, R]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
   },
   "wrapper": {
     "name": "wrapper",
     "docstring": null,
     "parameters": [],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/_util.py"
   },
   "_build_routers": {
     "name": "_build_routers",
@@ -4220,7 +4224,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/server.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/server.py"
   },
   "get_fastapi_app": {
     "name": "get_fastapi_app",
@@ -4232,7 +4236,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/server.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/server.py"
   },
   "register_endpoints": {
     "name": "register_endpoints",
@@ -4248,7 +4252,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/server.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/server.py"
   },
   "add_to_blacklist": {
     "name": "add_to_blacklist",
@@ -4264,7 +4268,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/server.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/server.py"
   },
   "add_to_whitelist": {
     "name": "add_to_whitelist",
@@ -4280,7 +4284,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/server.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/server.py"
   },
   "do_the_thing": {
     "name": "do_the_thing",
@@ -4296,7 +4300,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/server.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/server.py"
   },
   "handler": {
     "name": "handler",
@@ -4312,7 +4316,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/server.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/server.py"
   },
   "sign": {
     "name": "sign",
@@ -4328,7 +4332,7 @@
       }
     ],
     "returns": "bytes",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_signer.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/_signer.py"
   },
   "verify": {
     "name": "verify",
@@ -4352,7 +4356,7 @@
       }
     ],
     "returns": "bool",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_signer.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/_signer.py"
   },
   "sign_with_metadate": {
     "name": "sign_with_metadate",
@@ -4368,7 +4372,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_signer.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/_signer.py"
   },
   "endpoint": {
     "name": "endpoint",
@@ -4380,7 +4384,7 @@
       }
     ],
     "returns": "Callable[P, T]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/module.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/module.py"
   },
   "function_params_to_model": {
     "name": "function_params_to_model",
@@ -4392,7 +4396,7 @@
       }
     ],
     "returns": "type[EndpointParams]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/module.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/module.py"
   },
   "get_endpoints": {
     "name": "get_endpoints",
@@ -4404,7 +4408,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/module.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/module.py"
   },
   "extract_endpoints": {
     "name": "extract_endpoints",
@@ -4416,7 +4420,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/module.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/module.py"
   },
   "serialize": {
     "name": "serialize",
@@ -4428,7 +4432,7 @@
       }
     ],
     "returns": "bytes",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_protocol.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/_protocol.py"
   },
   "create_headers": {
     "name": "create_headers",
@@ -4448,7 +4452,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_protocol.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/_protocol.py"
   },
   "create_request_data": {
     "name": "create_request_data",
@@ -4468,7 +4472,7 @@
       }
     ],
     "returns": "tuple[bytes, dict[str, str]]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_protocol.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/_protocol.py"
   },
   "create_method_endpoint": {
     "name": "create_method_endpoint",
@@ -4488,7 +4492,7 @@
       }
     ],
     "returns": "str",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_protocol.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/_protocol.py"
   },
   "prompt": {
     "name": "prompt",
@@ -4508,14 +4512,21 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/example/gpt.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/example/gpt.py"
   },
   "generate": {
     "name": "generate",
     "docstring": null,
     "parameters": [],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+  },
+  "keys_to_stakedbalance": {
+    "name": "keys_to_stakedbalance",
+    "docstring": null,
+    "parameters": [],
+    "returns": "dict[str, int]",
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/_rate_limiters/_stake_limiter.py"
   },
   "calls_per_epoch": {
     "name": "calls_per_epoch",
@@ -4531,23 +4542,19 @@
       }
     ],
     "returns": "float",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_rate_limiters/_stake_limiter.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/_rate_limiters/_stake_limiter.py"
   },
   "build_keys_refill_rate": {
     "name": "build_keys_refill_rate",
     "docstring": null,
     "parameters": [
       {
-        "name": "netuid",
-        "type": "list[int] | None"
-      },
-      {
         "name": "get_refill_rate",
         "type": "Callable[[int], float]"
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_rate_limiters/_stake_limiter.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/_rate_limiters/_stake_limiter.py"
   },
   "mult_2": {
     "name": "mult_2",
@@ -4559,7 +4566,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_rate_limiters/_stake_limiter.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/_rate_limiters/_stake_limiter.py"
   },
   "limit": {
     "name": "limit",
@@ -4575,7 +4582,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_rate_limiters/_stake_limiter.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/_rate_limiters/_stake_limiter.py"
   },
   "_set_tokens": {
     "name": "_set_tokens",
@@ -4595,7 +4602,7 @@
       }
     ],
     "returns": "None",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/_rate_limiters/_stake_limiter.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/_rate_limiters/_stake_limiter.py"
   },
   "is_hex_string": {
     "name": "is_hex_string",
@@ -4607,7 +4614,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
   },
   "parse_hex": {
     "name": "parse_hex",
@@ -4619,7 +4626,7 @@
       }
     ],
     "returns": "bytes",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
   },
   "build_route_class": {
     "name": "build_route_class",
@@ -4631,7 +4638,7 @@
       }
     ],
     "returns": "type[APIRoute]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/routers/module_routers.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/routers/module_routers.py"
   },
   "_check_inputs": {
     "name": "_check_inputs",
@@ -4655,7 +4662,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/routers/module_routers.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/routers/module_routers.py"
   },
   "_get_headers_dict": {
     "name": "_get_headers_dict",
@@ -4679,7 +4686,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/routers/module_routers.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/routers/module_routers.py"
   },
   "_check_signature": {
     "name": "_check_signature",
@@ -4703,7 +4710,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/routers/module_routers.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/routers/module_routers.py"
   },
   "_check_key_registered": {
     "name": "_check_key_registered",
@@ -4735,7 +4742,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/routers/module_routers.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/routers/module_routers.py"
   },
   "get_route_handler": {
     "name": "get_route_handler",
@@ -4747,7 +4754,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/routers/module_routers.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/routers/module_routers.py"
   },
   "query_keys": {
     "name": "query_keys",
@@ -4759,7 +4766,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/routers/module_routers.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/routers/module_routers.py"
   },
   "keys_to_uids": {
     "name": "keys_to_uids",
@@ -4775,7 +4782,7 @@
       }
     ],
     "returns": "list[int]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/std/whitelist_validator.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/std/whitelist_validator.py"
   },
   "validaiton": {
     "name": "validaiton",
@@ -4791,7 +4798,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/module/std/whitelist_validator.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/module/std/whitelist_validator.py"
   },
   "check_str": {
     "name": "check_str",
@@ -4803,7 +4810,7 @@
       }
     ],
     "returns": "str",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/_util.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/compat/_util.py"
   },
   "ensure_dir_exists": {
     "name": "ensure_dir_exists",
@@ -4815,7 +4822,7 @@
       }
     ],
     "returns": "None",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/_util.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/compat/_util.py"
   },
   "ensure_parent_dir_exists": {
     "name": "ensure_parent_dir_exists",
@@ -4827,7 +4834,7 @@
       }
     ],
     "returns": "None",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/_util.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/compat/_util.py"
   },
   "bytes_to_hex": {
     "name": "bytes_to_hex",
@@ -4839,7 +4846,7 @@
       }
     ],
     "returns": "str",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
   },
   "is_ip_valid": {
     "name": "is_ip_valid",
@@ -4851,7 +4858,7 @@
       }
     ],
     "returns": "bool",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
   },
   "create_state_fn": {
     "name": "create_state_fn",
@@ -4863,7 +4870,7 @@
       }
     ],
     "returns": "SetterGetterFn[T]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
   },
   "get_json_from_cid": {
     "name": "get_json_from_cid",
@@ -4875,7 +4882,7 @@
       }
     ],
     "returns": "dict[Any, Any] | None",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
   },
   "convert_cid_on_proposal": {
     "name": "convert_cid_on_proposal",
@@ -4887,14 +4894,14 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
   },
   "__call__": {
     "name": "__call__",
     "docstring": null,
     "parameters": [],
     "returns": "T",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
   },
   "state_function": {
     "name": "state_function",
@@ -4906,14 +4913,14 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/__init__.py"
   },
   "__test": {
     "name": "__test",
     "docstring": null,
     "parameters": [],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
   },
   "ttl_in_ns": {
     "name": "ttl_in_ns",
@@ -4925,7 +4932,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
   },
   "__repr__": {
     "name": "__repr__",
@@ -4937,7 +4944,7 @@
       }
     ],
     "returns": "str",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
   },
   "__is_expired": {
     "name": "__is_expired",
@@ -4953,7 +4960,7 @@
       }
     ],
     "returns": "bool",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
   },
   "__remove_if_expired": {
     "name": "__remove_if_expired",
@@ -4969,7 +4976,7 @@
       }
     ],
     "returns": "bool",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
   },
   "clean": {
     "name": "clean",
@@ -4981,7 +4988,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
   },
   "__setitem__": {
     "name": "__setitem__",
@@ -5001,7 +5008,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
   },
   "__getitem__": {
     "name": "__getitem__",
@@ -5017,7 +5024,7 @@
       }
     ],
     "returns": "V",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
   },
   "__delitem__": {
     "name": "__delitem__",
@@ -5033,7 +5040,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
   },
   "__iter__": {
     "name": "__iter__",
@@ -5045,7 +5052,7 @@
       }
     ],
     "returns": "Iterator[K]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
   },
   "__len__": {
     "name": "__len__",
@@ -5057,7 +5064,7 @@
       }
     ],
     "returns": "int",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
   },
   "get_or_insert_lazy": {
     "name": "get_or_insert_lazy",
@@ -5077,7 +5084,7 @@
       }
     ],
     "returns": "V",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/memo.py"
   },
   "__enter__": {
     "name": "__enter__",
@@ -5089,7 +5096,7 @@
       }
     ],
     "returns": "T",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/mutex.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/mutex.py"
   },
   "__exit__": {
     "name": "__exit__",
@@ -5113,7 +5120,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/util/mutex.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/util/mutex.py"
   },
   "_derive_key": {
     "name": "_derive_key",
@@ -5125,7 +5132,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/storage.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/compat/storage.py"
   },
   "_encrypt_data": {
     "name": "_encrypt_data",
@@ -5141,7 +5148,7 @@
       }
     ],
     "returns": "str",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/storage.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/compat/storage.py"
   },
   "_decrypt_data": {
     "name": "_decrypt_data",
@@ -5157,7 +5164,7 @@
       }
     ],
     "returns": "Any",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/storage.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/compat/storage.py"
   },
   "classic_load": {
     "name": "classic_load",
@@ -5177,7 +5184,7 @@
       }
     ],
     "returns": "Any",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/storage.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/compat/storage.py"
   },
   "classic_put": {
     "name": "classic_put",
@@ -5201,7 +5208,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/storage.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/compat/storage.py"
   },
   "check_key_dict": {
     "name": "check_key_dict",
@@ -5213,7 +5220,7 @@
       }
     ],
     "returns": "CommuneKeyDict",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
   },
   "classic_key_path": {
     "name": "classic_key_path",
@@ -5225,7 +5232,7 @@
       }
     ],
     "returns": "str",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
   },
   "from_classic_dict": {
     "name": "from_classic_dict",
@@ -5237,7 +5244,7 @@
       }
     ],
     "returns": "Keypair",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
   },
   "to_classic_dict": {
     "name": "to_classic_dict",
@@ -5253,7 +5260,7 @@
       }
     ],
     "returns": "CommuneKeyDict",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
   },
   "classic_load_key": {
     "name": "classic_load_key",
@@ -5269,7 +5276,7 @@
       }
     ],
     "returns": "Keypair",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
   },
   "is_encrypted": {
     "name": "is_encrypted",
@@ -5281,7 +5288,7 @@
       }
     ],
     "returns": "bool",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
   },
   "classic_store_key": {
     "name": "classic_store_key",
@@ -5301,7 +5308,7 @@
       }
     ],
     "returns": "None",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
   },
   "try_classic_load_key": {
     "name": "try_classic_load_key",
@@ -5321,7 +5328,7 @@
       }
     ],
     "returns": "Keypair",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
   },
   "try_load_key": {
     "name": "try_load_key",
@@ -5341,7 +5348,7 @@
       }
     ],
     "returns": null,
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
   },
   "local_key_addresses": {
     "name": "local_key_addresses",
@@ -5357,7 +5364,7 @@
       }
     ],
     "returns": "dict[str, Ss58Address]",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
   },
   "resolve_key_ss58": {
     "name": "resolve_key_ss58",
@@ -5369,7 +5376,7 @@
       }
     ],
     "returns": "Ss58Address",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
   },
   "resolve_key_ss58_encrypted": {
     "name": "resolve_key_ss58_encrypted",
@@ -5389,6 +5396,6 @@
       }
     ],
     "returns": "Ss58Address",
-    "file_path": "/home/bakobi/validator_mkII/validator_executor/validator_executor/registrar/validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
+    "file_path": "/home/bakobi/Module-Validator/.venv/lib/python3.10/site-packages/communex/compat/key.py"
   }
 }

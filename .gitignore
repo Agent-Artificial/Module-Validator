@@ -7,3 +7,8 @@ translation/in
 translation/out
 embedding
 .json
+.*
+key_dict.json
+modules.json
+vote.py
+testing.py

@@ -48,3 +48,4 @@ def use_default_config():
     for key, value in DEFAULT_CONFIG.model_dump().items():
         if key not in environ or value is None:
             environ[key] = str(value)
+            

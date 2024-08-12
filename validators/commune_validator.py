@@ -19,6 +19,7 @@ from data_models import ModuleConfig
 from base.base_validator import ValidatorExecutor, ValidatorSettings, ValidatorRequest
 from validators.config import use_default_config
 from loguru import logger
+from chains.com.get_miner_data import get_miner_uids
 
 load_dotenv()
 
@@ -59,6 +60,11 @@ class Validator(ValidatorExecutor):
     address_skips: set[str] = ("none:none", "", "localhost", "127.0.0.1", "0.0.0.0")
     topics: List[str] = []
     miner_statistics: Dict[str, Any] = {}
+    weights: List[float] = []
+    scores: List[float] = []
+    miner_info: Dict[str, Any] = {}
+    subnets = [3, 4, 6, 7, 8, 9, 10, 11, 13, 14, 15, 17]
+    
 
     def __init__(self):
         super().__init__(settings)
@@ -66,6 +72,13 @@ class Validator(ValidatorExecutor):
         self.init_module(self.module_config)
         self.topics = self.init_topics()
         self.miner_statistics = {}
+        
+    def clear(self):
+        self.uids = []
+        self.keys = []
+        self.weights = []
+        self.scores = []
+        self.addresses = []
 
     def init_topics(self):
         logger.info("Initializing topics")
@@ -88,20 +101,24 @@ class Validator(ValidatorExecutor):
         logger.info("Starting Voteloop")
         self.module = self.module()
         while True:
-            await self.validate(self.module_config)
+            for subnet in self.subnets:
+                self.miner_info = get_miner_uids(key_dict=self.miner_info)
+        
+                await self.validate(self.module_config, subnet=subnet)
             time.sleep(30)
 
     def collect_miner_addresses(self, subnet=10):
         logger.info("Collecting miner addresses")
         address_map = comx.query_map_address(netuid=subnet)
+        uids = []
         for uid, address in address_map.items():
             if address.lower() in self.address_skips:
                 continue
-            self.uids.append(uid)
             self.addresses.append(address)
+            uids.append(uid)
 
-        return self.addresses, self.uids
-
+        return self.addresses, uids
+    
     def init_module(self, module_config: Dict[str, Any]):
         logger.info("Initializing module")
         if module_config.module_name not in os.listdir("modules"):
@@ -134,7 +151,7 @@ class Validator(ValidatorExecutor):
         logger.info("Performing similairty")
         return self.sigmoid(np.dot(x, y) / (np.linalg.norm(x) * np.linalg.norm(y)))
 
-    async def validate(self, module_config: Optional[Dict[str, Any]]):
+    async def validate(self, module_config: Optional[Dict[str, Any]], subnet=10):
         logger.info("Validating")
         
         if module_config is None:
@@ -143,32 +160,36 @@ class Validator(ValidatorExecutor):
             module_config = ModuleConfig(**module_config)
         if module_config.module_name not in os.listdir("modules"):
             self.install_module(module_config)
-        sample_data = self.collect_sample_data(module_config)
-        sample_messages = {"messages": [{"role": "system", "content": sample_data}], "model": "gpt-3.5-turbo"}
-        sample_tokens = self.module.process(string=sample_data)
-        miner_addresses, miner_uids = self.collect_miner_addresses()
-        scores = []
-        uids = []
+        
         responses = await self.async_miner_responses(addresses=miner_addresses, miner_request=sample_messages)
-        for i, response in enumerate(responses):
+        with open("modules.json", "r", encoding="utf-8") as f:
+            data = json.loads(f.read())
+            for miner in data.values():
+                miner_name = miner["name"]
+                miner_key = miner["key"]
+                
+                for key in self.keys:
+                    if key == vali_key:
+                        continue
+        for j, response in enumerate(responses):
             if response is None or response == "None" or response == "":
                 score = 0.1
             else:
                 response = json.loads(response)["choices"][0]["message"]["content"]
                 logger.debug(response)
                 score = self.similairty(response, sample_tokens)
-            if miner_uids[i] == 82:
+            if miner_uids[j] == 82:
                 continue
-            uids.append(miner_uids[i])
-            scores.append(score)
+            if miner_uids[j] in mineruids:
+                score = 0.731
+            self.uids.append(miner_uids[j])
+            self.weights.append(score * 10)
             logger.debug(score)
-        normalized_results = self.normalize(scores)
-        logger.debug(normalized_results)
-        self.miner_statistics = dict(zip(uids, normalized_results))
+        self.miner_statistics = dict(zip(self.uids, self.weights))
         with open("static/miner_statistics.json", "w", encoding="utf-8") as f:
             f.write(json.dumps(self.miner_statistics, indent=4))
-        print(len(uids), len(normalized_results))
-        result = self.vote(uids, normalized_results)
+        print(len(self.uids), len(self.weights))
+        result = self.vote(self.uids, self.weights)
         logger.debug(result)
 
     def normalize(self, scores: List[Any]):
@@ -176,7 +197,7 @@ class Validator(ValidatorExecutor):
         for _ in scores:
             min_score = min(scores)
             max_score = max(scores)
-            return [(score - min_score) / (max_score - min_score) for score in scores if score != 0] or 0.01
+            return [(score - min_score) / (max_score - min_score) for score in scores if score != 0] or 0.1
 
     def vote(self, uids, weights):
         logger.info("Voting")
@@ -188,7 +209,13 @@ class Validator(ValidatorExecutor):
             private_key=data["private_key"],
             public_key=data["public_key"],
         )
-        result = comx.vote(keypair, uids, weights, netuid=10)
+        print(uids)
+        print(weights)
+        logger.debug(uids)
+        logger.debug(weights)
+        print(len(self.uids), len(self.weights))
+        result = comx.vote(keypair, self.uids, self.weights, netuid=10)
+        self.clear()
         if result.is_success:
             print(result.is_success)
             print(result.extrinsic)

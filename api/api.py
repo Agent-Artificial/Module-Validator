@@ -222,4 +222,4 @@ async def execute_function(function_name: str, params: FunctionParams):
         raise HTTPException(status_code=500, detail=str(e)) from e
 
 if __name__ == "__main__":
-    uvicorn.run("api.api:app", host=os.getenv("API_HOST"), port=os.getenv("API_PORT"), reload=True)
+    uvicorn.run("api.api:app", host=os.getenv("VALIDATOR_HOST"), port=int(os.getenv("VALIDATOR_PORT")), reload=True)
