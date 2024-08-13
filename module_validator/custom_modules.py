@@ -9,7 +9,9 @@ from module_validator.config import Config
 
 ENV = os.getenv('MODULE_VALIDATOR_ENV', 'development')
 
-configurator = Config("module_validator/config")
+config = Config("module_validator/config")
+config.load_configs()
+
 
 def parseargs():
     parser = argparse.ArgumentParser()
@@ -21,6 +23,11 @@ def install_registrar_module(module_name: str) -> bool:
     api_url = f"https://registrar-cellium.ngrok.app/modules/{module_name}"
     
     try:
+        subprocess.run(["python", "-m", "venv", f".{module_name}"], check=True)
+        subprocess.run(["source", f".{module_name}/bin/activate"], check=True)
+        requirements = config.get_requirements(module_name)
+        for req in requirements:
+            subprocess.run(['pip', 'install', req], check=True)
         # Make API call to get the module installer
         response = requests.get(api_url)
         response.raise_for_status()
@@ -71,9 +78,11 @@ def install_registrar_module(module_name: str) -> bool:
     
     return False
 
-def main():
-    args = parseargs()
-    module = args.module_type
+def main(module_name=None):
+    if module_name is None:
+        args = parseargs()
+        module_name = args.module_type
+    module = module_name
     
     if install_registrar_module(module):
         print(f"Module {module} installed successfully")
@@ -81,4 +90,5 @@ def main():
         print(f"Failed to install module {module}")
 
 if __name__ == "__main__":
-    main()
+    module_name = "embedding"
+    main(module_name)

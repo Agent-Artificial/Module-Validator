@@ -47,22 +47,19 @@ def main():
     config = Config()
     config.load_configs()
     registry = ModuleRegistry(config)
-    return registry.load_moduels()
+    registry.load_modules()
     
-    
-def example(config):
-    registry = ModuleRegistry(config)
-    # Register a new module
-    registry.register_module('new_module', '1.0', 'path.to.new_module', {'some_config': 'value'})
+    # Test the embedding module
+    embedding_module = registry.get_module('embedding')
+    if embedding_module:
+        test_text = "Hello, this is a test for the embedding module!"
+        result = embedding_module.process(test_text, {})
+        print(f"Embedding result (first 5 dimensions): {result[:5]}")
+    else:
+        print("Embedding module not found. Make sure it's properly registered.")
 
-    # Use a module
-    module = registry.get_module('embedding')
-    if module:
-        result = module("sample text")
-        print(result)
+    return 0
 
 
 if __name__ == "__main__":
-    main()
-if __name__ == "__main__":
-    exit(register("default", default_output))
+    sys.exit(main())

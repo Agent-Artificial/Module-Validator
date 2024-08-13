@@ -1,8 +1,6 @@
-# module_validator/config.py
-
 import os
 import yaml
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 class Config:
     def __init__(self, config_dir: str = None):
@@ -41,12 +39,26 @@ class Config:
             return {**self.global_config, **self.get_module_config(module_name)}
         return self.global_config
 
-# Usage
-config = Config()
-config.load_configs()
+    def get_requirements(self, module_name: str = None) -> List[str]:
+        global_reqs = self.global_config.get('global_requirements', [])
+        if module_name:
+            module_reqs = self.get_module_config(module_name).get(module_name, {}).get('requirements', [])
+            return list(set(global_reqs + module_reqs))
+        return global_reqs
 
-# Get global config
-global_config = config.get_global_config()
+# Usage example
+if __name__ == "__main__":
+    config = Config()
+    config.load_configs()
 
-# Get config for a specific module (combines global and module-specific settings)
-embedding_config = config.get_config('embedding')
+    # Get global config
+    global_config = config.get_global_config()
+    print("Global config:", global_config)
+
+    # Get config for a specific module (combines global and module-specific settings)
+    embedding_config = config.get_config('embedding')
+    print("Embedding config:", embedding_config)
+
+    # Get requirements for the embedding module
+    embedding_reqs = config.get_requirements('embedding')
+    print("Embedding requirements:", embedding_reqs)

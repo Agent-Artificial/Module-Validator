@@ -5,6 +5,7 @@ model:
   name: 'distilbert-base-uncased'
   max_length: 512
   batch_size: 32
+  model_type: "simple_hash"
 
 # Preprocessing configuration
 preprocessing:
