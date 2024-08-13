@@ -227,6 +227,64 @@ The main class for managing inference modules.
 - `get_module(name)`: Get a specific module by name.
 - `list_modules()`: List all available modules.
 
+#### LLM Instructions:
+
+You can use these instructions to have an advanced LLM like Claude 3.5 for ChatGPT 4 create a new module implementation for this library
+
+---
+
+# Instructions for Implementing a New Module
+
+1. Create a new Python file: `module_validator/modules/[MODULE_NAME]/[MODULE_NAME].py`
+
+2. In this file, implement a `process` function with the following signature:
+   ```python
+   def process(data: Union[str, Dict[str, Any]], params: Dict[str, Any]) -> Any:
+       # Implementation here
+       pass
+   ```
+
+3. Add any necessary imports and helper functions in the same file.
+
+4. Update `setup.py` to include the new module as an entry point:
+   ```python
+   setup(
+       # ...
+       entry_points={
+           # ...
+           "module_validator.inference": [
+               # ...
+               "[MODULE_NAME] = module_validator.modules.[MODULE_NAME].[MODULE_NAME]:process"
+           ],
+       },
+       # ...
+   )
+   ```
+
+5. If needed, create a configuration file: `module_validator/config/[ENVIRONMENT]/[MODULE_NAME].yaml`
+
+6. Update `module_validator/main.py` to use the new module:
+   ```python
+   [MODULE_NAME]_process = registry.get_module('[MODULE_NAME]')
+   if [MODULE_NAME]_process:
+       result = [MODULE_NAME]_process(input_data, config.get_config('[MODULE_NAME]').get('[MODULE_NAME]', {}))
+       print(f"[MODULE_NAME] result: {result}")
+   ```
+
+7. Reinstall the package:
+   ```
+   pip install -e .
+   ```
+
+8. Test the new module by running:
+   ```
+   python module_validator/main.py
+   ```
+
+Remember to replace `[MODULE_NAME]` with the actual name of your new module, and `[ENVIRONMENT]` with the appropriate environment (e.g., 'development', 'production').
+
+---
+
 ## Contributing
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for more details.
