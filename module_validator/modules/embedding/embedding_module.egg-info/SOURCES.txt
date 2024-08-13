@@ -1,0 +1,6 @@
+setup.py
+embedding_module.egg-info/PKG-INFO
+embedding_module.egg-info/SOURCES.txt
+embedding_module.egg-info/dependency_links.txt
+embedding_module.egg-info/entry_points.txt
+embedding_module.egg-info/top_level.txt

@@ -1,0 +1,3 @@
+[module_validator.embedding]
+embedding = modules.embedding:embedding
+
