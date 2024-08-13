@@ -11,7 +11,7 @@ setup(
             "register = module_validator.main:register",
         ],
         "module_validator.inference": [            
-            "embedding = module_validator.modules.embedding.embedding:process"
+            "embedding = module_validator.modules.embedding.embedding:process",
             "translation = module_validator.modules.translation.translation:process"
         ],
     },

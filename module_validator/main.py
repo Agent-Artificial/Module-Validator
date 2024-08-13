@@ -61,8 +61,8 @@ def main():
         print("Loaded modules:", registry.list_modules())
         
         # Test the embedding module
-        embedding_process = registry.get_module('translation')
-        if embedding_process:
+        translation_process = registry.get_module('translation')
+        if translation_process:
             input = "Hello, this is a test for the translation module!"
             task_string = "text2text"
             target_language = "English"
@@ -73,10 +73,10 @@ def main():
                 "target_language": target_language,
                 "source_language": source_language
             }
-            result = embedding_process(data)
-            print(f"Embedding result (first 5 dimensions): {result[:5]}")
+            result = translation_process(data)
+            print(f"translation result (first 5 dimensions): {result}")
         else:
-            print("Embedding module not found. Make sure it's properly registered.")
+            print("translation module not found. Make sure it's properly registered.")
     except Exception as e:
         print(f"An error occurred: {e}")
         print("Traceback:")

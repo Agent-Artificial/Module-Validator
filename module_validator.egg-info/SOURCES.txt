@@ -13,3 +13,8 @@ module_validator.egg-info/entry_points.txt
 module_validator.egg-info/top_level.txt
 module_validator/modules/__init__.py
 module_validator/modules/module.py
+module_validator/modules/translation/__init__.py
+module_validator/modules/translation/data_models.py
+module_validator/modules/translation/setup.py
+module_validator/modules/translation/translation.py
+module_validator/modules/translation/translation_module.py

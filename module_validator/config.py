@@ -56,9 +56,9 @@ if __name__ == "__main__":
     print("Global config:", global_config)
 
     # Get config for a specific module (combines global and module-specific settings)
-    embedding_config = config.get_config('embedding')
-    print("Embedding config:", embedding_config)
+    translation_config = config.get_config('translation')
+    print("translation config:", translation_config)
 
-    # Get requirements for the embedding module
-    embedding_reqs = config.get_requirements('embedding')
-    print("Embedding requirements:", embedding_reqs)
+    # Get requirements for the translation module
+    translation_reqs = config.get_requirements('translation')
+    print("translation requirements:", translation_reqs)

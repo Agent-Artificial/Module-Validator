@@ -3,6 +3,7 @@ module_validator = module_validator.main:main
 
 [module_validator.inference]
 embedding = module_validator.modules.embedding.embedding:process
+translation = module_validator.modules.translation.translation:process
 
 [module_validator.module]
 default = module_validator.main:default_output

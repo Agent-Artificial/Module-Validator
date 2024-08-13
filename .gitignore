@@ -3,3 +3,4 @@ __pycache__
 seamless
 .translation
 .embedding
+module_validator/modules/
