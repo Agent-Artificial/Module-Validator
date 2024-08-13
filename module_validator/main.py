@@ -3,6 +3,8 @@ import argparse
 import importlib.metadata
 from typing import Callable
 from module_validator.modules.module import Module
+from module_validator.config import Config
+from module_validator.registry import ModuleRegistry
 
 def default_output(output:str) -> None:
     print("This is the default output", output)
@@ -33,12 +35,34 @@ def register(module_type: str, create_function: Callable[..., Module]):
 def unregister(module_type:str):
     create_module_functions.pop(module_type, None)
 
-def main():
+def parseargs():
     parser = argparse.ArgumentParser()
     parser.add_argument("module_type", type=str, choices=create_module_functions.keys())
     parser.add_argument("output", type=str)
-    args = parser.parse_args()
-    create_module_functions[args.module_type](args.output)
+    return parser.parse_args()
 
+
+
+def main():
+    config = Config()
+    config.load_configs()
+    registry = ModuleRegistry(config)
+    return registry.load_moduels()
+    
+    
+def example(config):
+    registry = ModuleRegistry(config)
+    # Register a new module
+    registry.register_module('new_module', '1.0', 'path.to.new_module', {'some_config': 'value'})
+
+    # Use a module
+    module = registry.get_module('embedding')
+    if module:
+        result = module("sample text")
+        print(result)
+
+
+if __name__ == "__main__":
+    main()
 if __name__ == "__main__":
     exit(register("default", default_output))

@@ -1,0 +1,429 @@
+File: ./setup.py
+
+from setuptools import setup, find_packages
+
+setup(
+    name="module_validator",
+    version="1",
+    packages=find_packages(),
+    entry_points={
+        "console_scripts": ["module_validator = module_validator.main:main"],
+        "module_validator.module": [
+            "default = module_validator.main:default_output",
+            "register = module_validator.main:register",
+        ],
+        "module_validator.inference": [            
+            "embedding = module_validator.modules.embedding.embedding:embedding"
+        ],
+    },
+    summary="Module Validator for Substrate subnet validation",
+    license="MIT",
+    url="https://github.com/bakobiibizo/module_validator",
+    author="bakobiibizo",
+    author_email="richard@agentartificial.com",
+)
+
+File: ./utils/walkdir.py
+
+import os
+
+# Set the directory to start from
+start_dir = "."
+
+# Create or open the output file
+with open("utils/output.txt", "w", encoding="utf-8") as output_file:
+    # Walk through the directory and subdirectories
+    for dirpath, dirnames, filenames in os.walk(start_dir):
+        # Loop over the files in the current directory
+        for filename in filenames:
+            # Check if the file is a Python file
+            if filename.endswith(".py"):
+                # Construct the full file path
+                file_path = os.path.join(dirpath, filename)
+                if file_path.startswith("./.venv"):
+                    continue
+                
+                # Open the Python file and read its contents
+                with open(file_path, "r", encoding="utf-8") as py_file:
+                    contents = py_file.read()
+                
+                # Write the file contents to the output file
+                output_file.write(f"File: {file_path}\n\n")
+                output_file.write(contents)
+                output_file.write("\n\n")
+
+File: ./utils/check_entrypoints.py
+
+import pkg_resources
+
+def check_entry_points(package_name):
+    print(f"Entry points for {package_name}:")
+    groups = ["console_scripts", "module_validator.module", "module_validator.embedding"]
+    for group in groups:
+        print(f"\nGroup: {group}")
+        for entry_point in pkg_resources.iter_entry_points(group):
+            if entry_point.dist.project_name == package_name:
+                print(f"  {entry_point.name} = {entry_point.module_name}:{entry_point.attrs[0]}")
+
+if __name__ == "__main__":
+    package_name = input("Enter the package name to check: ")
+    check_entry_points(package_name)
+
+File: ./module_validator/database.py
+
+# module_validator/database.py
+
+from sqlalchemy import create_engine, Column, Integer, String, DateTime, JSON
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
+from datetime import datetime
+
+Base = declarative_base()
+
+class ModuleEntry(Base):
+    __tablename__ = 'modules'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String, unique=True, nullable=False)
+    version = Column(String)
+    entry_point = Column(String, nullable=False)
+    config = Column(JSON)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    def __repr__(self):
+        return f"<ModuleEntry(name={self.name}, version={self.version})>"
+
+class Database:
+    def __init__(self, config):
+        self.engine = create_engine(config['database_url'])
+        self.Session = sessionmaker(bind=self.engine)
+
+    def create_tables(self):
+        Base.metadata.create_all(self.engine)
+
+    def add_module(self, name, version, entry_point, config=None):
+        session = self.Session()
+        module = ModuleEntry(name=name, version=version, entry_point=entry_point, config=config)
+        session.add(module)
+        session.commit()
+        session.close()
+
+    def get_module(self, name):
+        session = self.Session()
+        module = session.query(ModuleEntry).filter_by(name=name).first()
+        session.close()
+        return module
+
+    def update_module(self, name, version=None, entry_point=None, config=None):
+        session = self.Session()
+        module = session.query(ModuleEntry).filter_by(name=name).first()
+        if module:
+            if version:
+                module.version = version
+            if entry_point:
+                module.entry_point = entry_point
+            if config:
+                module.config = config
+            session.commit()
+        session.close()
+
+    def delete_module(self, name):
+        session = self.Session()
+        module = session.query(ModuleEntry).filter_by(name=name).first()
+        if module:
+            session.delete(module)
+            session.commit()
+        session.close()
+
+    def list_modules(self):
+        session = self.Session()
+        modules = session.query(ModuleEntry).all()
+        session.close()
+        return modules
+
+
+File: ./module_validator/__init__.py
+
+from .main import create_module, register, unregister
+
+
+File: ./module_validator/main.py
+
+import sys
+import argparse
+import importlib.metadata
+from typing import Callable
+from module_validator.modules.module import Module
+from module_validator.config import Config
+from module_validator.registry import ModuleRegistry
+
+def default_output(output:str) -> None:
+    print("This is the default output", output)
+
+
+def create_module(outputer_type: str, outputer: str):
+    eps = importlib.metadata.entry_points().select(group='module-validator.module')
+    outputers = {
+        entrypoint.name: entrypoint
+        for entrypoint in eps
+    }
+    try:
+        outputer = outputers[outputer].load()
+    except KeyError:
+        print(f"outputer {outputer} is not available", file=sys.stderr)
+        outputers_s = ", ".join(sorted(outputers))
+        print(f"available outputers: {outputers_s}", file=sys.stderr)
+        return 1
+    return outputer(outputer_type)
+        
+create_module_functions: dict[str, Callable[..., Module]] = {}
+
+def register(module_type: str, create_function: Callable[..., Module]):
+    outputer = create_module(module_type, create_function)
+    create_module_functions[module_type] = outputer
+    
+    
+def unregister(module_type:str):
+    create_module_functions.pop(module_type, None)
+
+def parseargs():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("module_type", type=str, choices=create_module_functions.keys())
+    parser.add_argument("output", type=str)
+    return parser.parse_args()
+
+
+
+def main():
+    config = Config()
+    config.load_configs()
+    registry = ModuleRegistry(config)
+    return registry.load_moduels()
+    
+    
+def example(config):
+    registry = ModuleRegistry(config)
+    # Register a new module
+    registry.register_module('new_module', '1.0', 'path.to.new_module', {'some_config': 'value'})
+
+    # Use a module
+    module = registry.get_module('embedding')
+    if module:
+        result = module("sample text")
+        print(result)
+
+
+if __name__ == "__main__":
+    main()
+if __name__ == "__main__":
+    exit(register("default", default_output))
+
+File: ./module_validator/config.py
+
+# module_validator/config.py
+
+import os
+import yaml
+from typing import Dict, Any
+
+class Config:
+    def __init__(self, config_dir: str = None):
+        self.config_dir = config_dir or os.path.join(os.path.dirname(__file__), 'config')
+        self.environment = os.getenv('MODULE_VALIDATOR_ENV', 'development')
+        self.global_config = {}
+        self.module_configs = {}
+
+    def load_configs(self):
+        env_dir = os.path.join(self.config_dir, self.environment)
+        
+        if not os.path.exists(env_dir):
+            raise ValueError(f"Configuration for environment '{self.environment}' not found.")
+
+        # Load global config
+        global_config_path = os.path.join(env_dir, 'global.yaml')
+        if os.path.exists(global_config_path):
+            with open(global_config_path, 'r') as f:
+                self.global_config = yaml.safe_load(f)
+
+        # Load module-specific configs
+        for filename in os.listdir(env_dir):
+            if filename.endswith('.yaml') and filename != 'global.yaml':
+                module_name = filename[:-5]  # Remove '.yaml' from the end
+                with open(os.path.join(env_dir, filename), 'r') as f:
+                    self.module_configs[module_name] = yaml.safe_load(f)
+
+    def get_global_config(self) -> Dict[str, Any]:
+        return self.global_config
+
+    def get_module_config(self, module_name: str) -> Dict[str, Any]:
+        return self.module_configs.get(module_name, {})
+
+    def get_config(self, module_name: str = None) -> Dict[str, Any]:
+        if module_name:
+            return {**self.global_config, **self.get_module_config(module_name)}
+        return self.global_config
+
+# Usage
+config = Config()
+config.load_configs()
+
+# Get global config
+global_config = config.get_global_config()
+
+# Get config for a specific module (combines global and module-specific settings)
+embedding_config = config.get_config('embedding')
+
+File: ./module_validator/registry.py
+
+import importlib.metadata
+import os
+import importlib
+from .database import Database
+from .config import Config
+
+
+class ModuleRegistry:
+    def __init__(self, config: Config):
+        self.config = config
+        self.db = Database(config.get_global_config())
+        self.modules = {}
+
+    def load_modules(self):
+        self.db.create_tables()  # Ensure tables exist
+        db_modules = self.db.list_modules()
+        
+        for db_module in db_modules:
+            module = self._load_module(db_module.name, db_module.entry_point)
+            if module:
+                self.modules[db_module.name] = module
+                if hasattr(module, 'configure'):
+                    module.configure(db_module.config or {})
+
+    def _load_module(self, name, entry_point):
+        try:
+            module = importlib.import_module(entry_point)
+            return getattr(module, name)
+        except (ImportError, AttributeError):
+            print(f"Failed to load module: {name}")
+            return None
+
+    def register_module(self, name, version, entry_point, config=None):
+        module = self._load_module(name, entry_point)
+        if module:
+            self.modules[name] = module
+            self.db.add_module(name, version, entry_point, config)
+            if hasattr(module, 'configure'):
+                module.configure(config or {})
+            return True
+        return False
+
+    def unregister_module(self, name):
+        if name in self.modules:
+            del self.modules[name]
+            self.db.delete_module(name)
+            return True
+        return False
+
+    def get_module(self, name):
+        return self.modules.get(name)
+
+    def list_modules(self):
+        return list(self.modules.keys())
+
+    def load_modules(self):
+        # Load modules from entry points
+        for ep in importlib.metadata.entry_points().select(group='module_validator.inference'):
+            self.modules[ep.name] = ep.load()
+
+        # Load modules from a specific directory
+        module_dir = os.path.join(os.path.dirname(__file__), 'custom_modules')
+        if os.path.exists(module_dir):
+            for filename in os.listdir(module_dir):
+                if filename.endswith('.py') and not filename.startswith('__'):
+                    module_name = filename[:-3]
+                    module = importlib.import_module(f'module_validator.custom_modules.{module_name}')
+                    if hasattr(module, 'inference'):
+                        self.modules[module_name] = module.inference
+
+def main():
+    registry = ModuleRegistry()
+    registry.load_modules()
+
+    print("Available modules:", registry.list_modules())
+
+    # Example usage
+    embedding_module = registry.get_module('embedding')
+    if embedding_module:
+        result = embedding_module("sample text")
+        print("Embedding result:", result)
+
+if __name__ == "__main__":
+    main()
+
+File: ./module_validator/custom_modules.py
+
+import argparse
+import os
+import requests
+import json
+import base64
+import yaml
+from dotenv import load_dotenv
+from module_validator.config import Config
+
+ENV = os.getenv('MODULE_VALIDATOR_ENV', 'development')
+
+load_dotenv()
+
+configurator = Config("module_validator/config")
+
+def parseargs():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("module_type", type=str)
+    parser.add_argument("output", type=str)
+    args = parser.parse_args()
+    return args
+
+def main():
+    args = parseargs()
+    module = args.module_type
+    
+    
+def install_registrar_module(module_name: str):
+    
+    
+
+File: ./module_validator/modules/__init__.py
+
+
+
+File: ./module_validator/modules/module.py
+
+class Module:
+    def __init__(self, name: str) -> None:
+        self.name = name
+
+    def __call__(self, output: str) -> None:
+        print(output)
+
+File: ./module_validator/modules/embedding/embedding.py
+
+import json
+
+File: ./module_validator/modules/embedding/__init_.py
+
+
+
+File: ./module_validator/modules/embedding/setup.py
+
+from setuptools import setup
+
+setup(
+    name="embedding_module",
+    version="1",
+    entry_points={
+        "module_validator.embedding": ["embedding=module_validator.modules.embedding.embedding:embedding_function"],
+    }
+)
+

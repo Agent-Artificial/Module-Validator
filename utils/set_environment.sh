@@ -9,9 +9,9 @@ if [ "$environment" == "development" ]; then
         python -m venv .venv
     fi
     source .venv/bin/activate
-    read -p "Setup the virtual environment? (y/n): " setup_venv
+    read -p "First time setup? (y/n): " setup_venv
     if [ "$setup_venv" == "y" ]; then
-        pip install -r "module_validator/config/$environment/requirements.txt"
+        pip install -r "requirements.txt"
     fi
 elif [ "$environment" == "production" ]; then
     source .venv/bin/activate

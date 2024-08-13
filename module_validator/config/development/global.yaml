@@ -1,0 +1,26 @@
+# Global configuration for development environment
+
+# Logging configuration
+logging:
+  level: DEBUG
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  file: 'logs/dev.log'
+
+# Database configuration
+database:
+  database_url: 'sqlite:///module_validator.db' 
+  port: 5432
+  name: 'module_validator_dev'
+  user: 'dev_user'
+  password: 'dev_password'
+
+# API configuration
+api:
+  base_url: 'http://api.example.com/dev'
+  timeout: 30
+
+# Default settings for all modules
+default_module_settings:
+  max_input_length: 1000
+  cache_results: true
+  cache_ttl: 3600  # in seconds

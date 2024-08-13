@@ -1,9 +1,57 @@
 import importlib.metadata
 import os
+import importlib
+from .database import Database
+from .config import Config
+
 
 class ModuleRegistry:
-    def __init__(self):
+    def __init__(self, config: Config):
+        self.config = config
+        self.db = Database(config.get_global_config())
         self.modules = {}
+
+    def load_modules(self):
+        self.db.create_tables()  # Ensure tables exist
+        db_modules = self.db.list_modules()
+        
+        for db_module in db_modules:
+            module = self._load_module(db_module.name, db_module.entry_point)
+            if module:
+                self.modules[db_module.name] = module
+                if hasattr(module, 'configure'):
+                    module.configure(db_module.config or {})
+
+    def _load_module(self, name, entry_point):
+        try:
+            module = importlib.import_module(entry_point)
+            return getattr(module, name)
+        except (ImportError, AttributeError):
+            print(f"Failed to load module: {name}")
+            return None
+
+    def register_module(self, name, version, entry_point, config=None):
+        module = self._load_module(name, entry_point)
+        if module:
+            self.modules[name] = module
+            self.db.add_module(name, version, entry_point, config)
+            if hasattr(module, 'configure'):
+                module.configure(config or {})
+            return True
+        return False
+
+    def unregister_module(self, name):
+        if name in self.modules:
+            del self.modules[name]
+            self.db.delete_module(name)
+            return True
+        return False
+
+    def get_module(self, name):
+        return self.modules.get(name)
+
+    def list_modules(self):
+        return list(self.modules.keys())
 
     def load_modules(self):
         # Load modules from entry points
@@ -19,12 +67,6 @@ class ModuleRegistry:
                     module = importlib.import_module(f'module_validator.custom_modules.{module_name}')
                     if hasattr(module, 'inference'):
                         self.modules[module_name] = module.inference
-
-    def get_module(self, name):
-        return self.modules.get(name)
-
-    def list_modules(self):
-        return list(self.modules.keys())
 
 def main():
     registry = ModuleRegistry()

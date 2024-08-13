@@ -4,7 +4,7 @@ import os
 start_dir = "."
 
 # Create or open the output file
-with open("output.txt", "w", encoding="utf-8") as output_file:
+with open("utils/output.txt", "w", encoding="utf-8") as output_file:
     # Walk through the directory and subdirectories
     for dirpath, dirnames, filenames in os.walk(start_dir):
         # Loop over the files in the current directory

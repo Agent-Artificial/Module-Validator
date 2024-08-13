@@ -145,6 +145,76 @@ You can extend Module Validator by adding your own inference modules. There are 
 
 3. Module Validator will automatically detect and load this module.
 
+
+## Database Integration
+
+Module Validator now uses a database to store module registrar data, providing persistence and improved management of modules.
+
+### Database Configuration
+
+In your global configuration file (`config/{environment}/global.yaml`), add the following:
+
+```yaml
+database_url: 'sqlite:///module_validator.db'
+```
+
+You can replace the SQLite URL with any other database URL supported by SQLAlchemy (e.g., PostgreSQL, MySQL).
+
+### Module Storage
+
+Modules are now stored in the database with the following information:
+- Name
+- Version
+- Entry point
+- Configuration (as JSON)
+- Creation and update timestamps
+
+### Using the Database-Backed Module Registry
+
+The `ModuleRegistry` class now interacts with the database to load, register, and unregister modules.
+
+```python
+from module_validator.config import Config
+from module_validator.registry import ModuleRegistry
+
+config = Config()
+config.load_configs()
+registry = ModuleRegistry(config)
+
+# Load modules from the database
+registry.load_modules()
+
+# Register a new module
+registry.register_module('new_module', '1.0', 'path.to.new_module', {'some_config': 'value'})
+
+# Use a module
+module = registry.get_module('embedding')
+if module:
+    result = module("sample text")
+    print(result)
+
+# Unregister a module
+registry.unregister_module('old_module')
+```
+
+### Benefits of Database Integration
+
+1. Persistence: Module information is stored between application restarts.
+2. Versioning: Keep track of module versions.
+3. Dynamic updates: Register or unregister modules at runtime.
+4. Centralized configuration: Store module-specific configurations in the database.
+
+### Database Operations
+
+The `Database` class provides methods for CRUD operations on modules:
+- `add_module`: Add a new module to the database.
+- `get_module`: Retrieve a module's information.
+- `update_module`: Update an existing module's information.
+- `delete_module`: Remove a module from the database.
+- `list_modules`: Get all registered modules.
+
+These operations are abstracted away by the `ModuleRegistry` class, but you can access them directly if needed for advanced use cases.
+
 ## API Reference
 
 ### ModuleRegistry
