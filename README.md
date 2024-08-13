@@ -11,10 +11,9 @@ pip install module_validator
 ```
 
 ## Usage
-
 ## Configuration
 
-Module Validator uses a flexible configuration system that supports different environments and module-specific settings.
+Module Validator uses a flexible configuration system that supports different environments and module-specific settings, organized in a nested structure.
 
 ### Directory Structure
 
@@ -23,21 +22,27 @@ Create a `config` directory in your project with the following structure:
 ```
 module_validator/
     config/
-        global_development.yaml
-        global_production.yaml
-        embedding_development.yaml
-        embedding_production.yaml
-        custom_module_development.yaml
-        custom_module_production.yaml
+        development/
+            global.yaml
+            embedding.yaml
+            other_module.yaml
+        production/
+            global.yaml
+            embedding.yaml
+            other_module.yaml
+        staging/
+            global.yaml
+            embedding.yaml
+            other_module.yaml
 ```
 
 ### Configuration Files
 
-1. Global configuration: `global_{environment}.yaml`
-   Contains settings that apply to all modules.
+1. Global configuration: `{environment}/global.yaml`
+   Contains settings that apply to all modules in a specific environment.
 
-2. Module-specific configuration: `{module_name}_{environment}.yaml`
-   Contains settings specific to a particular module.
+2. Module-specific configuration: `{environment}/{module_name}.yaml`
+   Contains settings specific to a particular module in a specific environment.
 
 ### Environment Selection
 
@@ -62,8 +67,17 @@ def configure(config):
     module_specific_setting = config.get('module_specific_setting')
 ```
 
-The `configure` method will be called automatically when the module is loaded, providing it with the merged global and module-specific configuration.
+The `configure` method will be called automatically when the module is loaded, providing it with the merged global and module-specific configuration for the current environment.
 
+### Adding New Environments
+
+To add a new environment:
+
+1. Create a new directory under `config/` with the environment name (e.g., `config/staging/`).
+2. Add a `global.yaml` file in this new directory with the global settings for this environment.
+3. Add module-specific YAML files as needed (e.g., `embedding.yaml`).
+
+The configuration system will automatically detect and use the new environment when `MODULE_VALIDATOR_ENV` is set to the new environment name.
 
 ### Basic Usage
 

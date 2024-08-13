@@ -1,0 +1,27 @@
+# Embedding module configuration for development environment
+
+# Model configuration
+model:
+  name: 'distilbert-base-uncased'
+  max_length: 512
+  batch_size: 32
+
+# Preprocessing configuration
+preprocessing:
+  lowercase: true
+  remove_punctuation: true
+  remove_stopwords: false
+
+# Postprocessing configuration
+postprocessing:
+  normalize: true
+  dimensionality_reduction: null
+
+# Performance settings
+performance:
+  use_gpu: false
+  num_workers: 2
+
+# Override default module settings if needed
+max_input_length: 2000
+cache_results: false

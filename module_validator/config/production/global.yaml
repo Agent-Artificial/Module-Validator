@@ -1,0 +1,26 @@
+# Global configuration for production environment
+
+# Logging configuration
+logging:
+  level: INFO
+  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+  file: '/var/log/module_validator/prod.log'
+
+# Database configuration
+database:
+  host: 'db.example.com'
+  port: 5432
+  name: 'module_validator_prod'
+  user: '${DB_USER}'  # Use environment variable
+  password: '${DB_PASSWORD}'  # Use environment variable
+
+# API configuration
+api:
+  base_url: 'https://registrar-cellium.ngrok.app/modules/'
+  timeout: 60
+
+# Default settings for all modules
+default_module_settings:
+  max_input_length: 10000
+  cache_results: true
+  cache_ttl: 86400  # 24 hours in seconds
