@@ -11,7 +11,7 @@ setup(
             "register = module_validator.main:register",
         ],
         "module_validator.inference": [            
-            "embedding = module_validator.modules.embedding.embedding:Embedding"
+            "embedding = module_validator.modules.embedding.embedding:process"
         ],
     },
     summary="Module Validator for Substrate subnet validation",

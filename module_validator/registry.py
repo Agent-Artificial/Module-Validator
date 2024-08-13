@@ -3,6 +3,8 @@ import os
 import importlib
 from .database import Database
 from .config import Config
+import pkg_resources
+import sys
 
 
 class ModuleRegistry:
@@ -12,16 +14,31 @@ class ModuleRegistry:
         self.modules = {}
 
     def load_modules(self):
-        self.db.create_tables()  # Ensure tables exist
-        db_modules = self.db.list_modules()
+        print("Starting to load modules...")
+        entry_points = list(pkg_resources.iter_entry_points(group='module_validator.inference'))
+        print(f"Found {len(entry_points)} entry points")
         
-        for db_module in db_modules:
-            module = self._load_module(db_module.name, db_module.entry_point)
-            if module:
-                self.modules[db_module.name] = module
-                if hasattr(module, 'configure'):
-                    module.configure(db_module.config or {})
+        for entry_point in entry_points:
+            print(f"Attempting to load: {entry_point.name} = {entry_point.module_name}:{entry_point.attrs[0]}")
+            try:
+                module = importlib.import_module(entry_point.module_name)
+                print(f"Successfully imported module: {entry_point.module_name}")
+                
+                module_function = getattr(module, entry_point.attrs[0])
+                print(f"Successfully got attribute: {entry_point.attrs[0]}")
+                
+                self.modules[entry_point.name] = module_function
+                print(f"Successfully registered module: {entry_point.name}")
+            except Exception as e:
+                print(f"Failed to load module {entry_point.name}: {e}")
+                print(f"Exception type: {type(e).__name__}")
+                print(f"Module search path: {sys.path}")
 
+    def get_module(self, name):
+        return self.modules.get(name)
+
+    def list_modules(self):
+        return list(self.modules.keys())
     def _load_module(self, name, entry_point):
         try:
             module = importlib.import_module(entry_point)
@@ -47,26 +64,13 @@ class ModuleRegistry:
             return True
         return False
 
-    def get_module(self, name):
-        return self.modules.get(name)
-
-    def list_modules(self):
-        return list(self.modules.keys())
-
-    def load_modules(self):
-        # Load modules from entry points
-        for ep in importlib.metadata.entry_points().select(group='module_validator.inference'):
-            self.modules[ep.name] = ep.load()
-
-        # Load modules from a specific directory
-        module_dir = os.path.join(os.path.dirname(__file__), 'custom_modules')
-        if os.path.exists(module_dir):
-            for filename in os.listdir(module_dir):
-                if filename.endswith('.py') and not filename.startswith('__'):
-                    module_name = filename[:-3]
-                    module = importlib.import_module(f'module_validator.custom_modules.{module_name}')
-                    if hasattr(module, 'inference'):
-                        self.modules[module_name] = module.inference
+    def _load_module(self, name, entry_point):
+        try:
+            module = importlib.import_module(entry_point)
+            return getattr(module, name.capitalize())  # Return the class, not an instance
+        except (ImportError, AttributeError) as e:
+            print(f"Failed to load module: {name}. Error: {e}")
+            return None
 
 def main():
     registry = ModuleRegistry()

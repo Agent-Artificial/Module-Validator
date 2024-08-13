@@ -7,29 +7,29 @@ class Embedding:
         self.dimension = self.config.get('dimension', 100)
         print(f"Embedding module initialized with dimension: {self.dimension}")
 
-    def process(self, data: Union[str, Dict[str, Any]], params: Optional[Dict[str, Any]] = None) -> List[float]:
-        """
-        A simple embedding function that converts input data to a vector.
-        This is a naive implementation for demonstration purposes.
-        In a real-world scenario, you'd use a more sophisticated embedding technique.
-        """
-        # Convert input data to a string representation
-        if isinstance(data, dict):
-            data_str = str(sorted(data.items()))  # Sort to ensure consistency
-        else:
-            data_str = str(data)
-        
-        # Generate a seed from the string representation
-        seed = sum(ord(c) for c in data_str)
-        np.random.seed(seed)
-        
-        # Generate a random vector
-        embedding = np.random.randn(self.dimension)
-        
-        # Normalize the vector
-        embedding = embedding / np.linalg.norm(embedding)
-        
-        return embedding.tolist()
+def process(data: Union[str, Dict[str, Any]], params: Optional[Dict[str, Any]]=None) -> List[float]:
+    print("Embedding process function called")
+    
+    # Convert input data to a string representation
+    if isinstance(data, dict):
+        data_str = str(sorted(data.items()))
+    else:
+        data_str = str(data)
+    
+    # Generate a seed from the string representation
+    seed = sum(ord(c) for c in data_str)
+    np.random.seed(seed)
+    
+    # Generate a random vector
+    dimension = params.get('dimension', 100)
+    embedding = np.random.randn(dimension)
+    
+    # Normalize the vector
+    embedding = embedding / np.linalg.norm(embedding)
+    
+    return embedding.tolist()
+
+print("Embedding module loaded")
 
 # For testing purposes
 if __name__ == "__main__":
