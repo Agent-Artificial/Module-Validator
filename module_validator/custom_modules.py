@@ -1,3 +1,4 @@
+import shutil
 import argparse
 import os
 import requests
@@ -23,24 +24,18 @@ def install_registrar_module(module_name: str) -> bool:
     api_url = f"https://registrar-cellium.ngrok.app/modules/{module_name}"
     
     try:
-        subprocess.run(["python", "-m", "venv", f".{module_name}"], check=True)
-        subprocess.run(["source", f".{module_name}/bin/activate"], check=True)
-        requirements = config.get_requirements(module_name)
-        for req in requirements:
-            subprocess.run(['pip', 'install', req], check=True)
-        # Make API call to get the module installer
+        # Send a GET request to the API
         response = requests.get(api_url)
         response.raise_for_status()
         
-        installer_data = response.json()
-        
-        if 'file' not in installer_data:
-            raise ValueError("Invalid response from API: 'file' key not found")
-        
+        installer_data = json.loads(response.json())
+        print(installer_data)
         # Save the installer file
-        installer_path = f"{module_name}_installer.py"
+        installer_path = f"module_validator/modules/{module_name}/setup_{module_name}.py"
+        if not os.path.exists(os.path.dirname(installer_path)):
+            os.makedirs(os.path.dirname(installer_path), exist_ok=True)
         with open(installer_path, 'w') as f:
-            f.write(installer_data['file'])
+            f.write(installer_data)
         
         # Run the installer
         subprocess.run(['python', installer_path], check=True)
@@ -49,12 +44,12 @@ def install_registrar_module(module_name: str) -> bool:
         os.remove(installer_path)
         
         # Verify the module structure
-        module_path = f"modules/{module_name}/{module_name}.py"
+        module_path = f"module_validator/modules/{module_name}/{module_name}.py"
         if not os.path.exists(module_path):
             raise FileNotFoundError(f"Module file not found at {module_path}")
         
         # Import and validate the module
-        module = importlib.import_module(f"modules.{module_name}.{module_name}")
+        module = importlib.import_module(f"module_validator.modules.{module_name}.{module_name}")
         module_class = getattr(module, f"{module_name.capitalize()}")
         
         if not hasattr(module_class, 'process'):
@@ -90,5 +85,5 @@ def main(module_name=None):
         print(f"Failed to install module {module}")
 
 if __name__ == "__main__":
-    module_name = "embedding"
+    module_name = "translation"
     main(module_name)

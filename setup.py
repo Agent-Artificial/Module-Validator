@@ -12,6 +12,7 @@ setup(
         ],
         "module_validator.inference": [            
             "embedding = module_validator.modules.embedding.embedding:process"
+            "translation = module_validator.modules.translation.translation:process"
         ],
     },
     summary="Module Validator for Substrate subnet validation",

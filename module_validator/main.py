@@ -1,6 +1,7 @@
 import sys
 import argparse
 import importlib
+import traceback
 from typing import Callable
 import pkg_resources
 from module_validator.modules.module import Module
@@ -60,11 +61,19 @@ def main():
         print("Loaded modules:", registry.list_modules())
         
         # Test the embedding module
-        embedding_process = registry.get_module('embedding')
+        embedding_process = registry.get_module('translation')
         if embedding_process:
-            test_text = "Hello, this is a test for the embedding module!"
-            embedding_config = config.get_config('embedding').get('embedding', {})
-            result = embedding_process(test_text, embedding_config)
+            input = "Hello, this is a test for the translation module!"
+            task_string = "text2text"
+            target_language = "English"
+            source_language = "French"
+            data = {
+                "input": input,
+                "task_string": task_string,
+                "target_language": target_language,
+                "source_language": source_language
+            }
+            result = embedding_process(data)
             print(f"Embedding result (first 5 dimensions): {result[:5]}")
         else:
             print("Embedding module not found. Make sure it's properly registered.")
