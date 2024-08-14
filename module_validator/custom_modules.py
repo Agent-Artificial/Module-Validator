@@ -85,5 +85,14 @@ def main(module_name=None):
         print(f"Failed to install module {module}")
 
 if __name__ == "__main__":
-    module_name = "translation"
+    modules = {
+        "1": "translation",
+        "2": "financial_news",
+        "3": "embedding"
+    }
+    for key, value in modules.items():
+        print(f"{key}: {value}")
+    selection = input("Enter the number of the module you want to install: ")
+    if selection in modules:
+        module_name = modules[selection]    
     main(module_name)

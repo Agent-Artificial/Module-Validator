@@ -4,6 +4,7 @@ from sqlalchemy import create_engine, Column, Integer, String, DateTime, JSON
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime
+from loguru import logger
 
 Base = declarative_base()
 
@@ -38,7 +39,8 @@ class CommandEntry(Base):
     
 class Database:
     def __init__(self, config):
-        self.engine = create_engine(config['database_url'])
+        logger.debug(f"Connecting to database: {config.global_config}")
+        self.engine = create_engine(config.global_config["database_url"])
         self.Session = sessionmaker(bind=self.engine)
 
     def create_tables(self):

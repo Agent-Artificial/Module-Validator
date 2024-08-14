@@ -1,17 +1,21 @@
 import os
 import yaml
 from typing import Dict, Any, List
+from loguru import logger
 
 class Config:
     def __init__(self, config_dir: str = None):
-        self.config_dir = config_dir or os.path.join(os.path.dirname(__file__), 'config')
+        logger.info("Loading configuration...")
+        self.config_dir = config_dir or "module_validator/config/"
         self.environment = os.getenv('MODULE_VALIDATOR_ENV', 'development')
         self.global_config = {}
         self.module_configs = {}
 
     def load_configs(self):
-        env_dir = os.path.join(self.config_dir, self.environment)
+        logger.info(f"Loading configuration for environment '{self.environment}'...")
         
+        env_dir = os.path.join(self.config_dir, self.environment)
+        logger.debug(f"Environment directory: {env_dir}")
         if not os.path.exists(env_dir):
             raise ValueError(f"Configuration for environment '{self.environment}' not found.")
 

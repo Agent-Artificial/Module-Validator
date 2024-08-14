@@ -24,7 +24,14 @@ def execute_command(registry, db, command_name, data, params):
         print(f"Module '{command.module_name}' not found.")
         return
 
-    result = module.process(data, params)
+    data = {
+        "data": {
+            "input": data,
+            **params
+            }
+        }
+    
+    result = module(data)
     print(f"Command '{command_name}' executed. Result: {result}")
     
     
