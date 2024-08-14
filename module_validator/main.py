@@ -7,13 +7,30 @@ import pkg_resources
 from module_validator.modules.module import Module
 from module_validator.config import Config
 from module_validator.registry import ModuleRegistry
+from module_validator.database import Database
 
 def default_output(output:str) -> None:
     print("This is the default output", output)
     
+    
+def execute_command(registry, db, command_name, data, params):
+    command = db.get_command(command_name)
+    if not command:
+        print(f"Command '{command_name}' not found.")
+        return
+
+    module = registry.get_module(command.module_name)
+    if not module:
+        print(f"Module '{command.module_name}' not found.")
+        return
+
+    result = module.process(data, params)
+    print(f"Command '{command_name}' executed. Result: {result}")
+    
+    
 def debug_entry_points():
     print("Debugging entry points:")
-    for group in ['console_scripts', 'module_validator.module', 'module_validator.inference']:
+    for group in ['console_scripts', 'module_validator.module', 'module_validator.inference', 'module_validator.command']:
         print(f"\nGroup: {group}")
         for ep in pkg_resources.iter_entry_points(group=group):
             print(f"  {ep.name} = {ep.module_name}:{ep.attrs[0]}")
@@ -55,28 +72,19 @@ def main():
     try:
         config = Config()
         config.load_configs()
-        registry = ModuleRegistry(config)
+        db = Database(config.get_global_config())
+        registry = ModuleRegistry(config, db)
         registry.load_modules()
-        
-        print("Loaded modules:", registry.list_modules())
-        
-        # Test the embedding module
-        translation_process = registry.get_module('translation')
-        if translation_process:
-            input = "Hello, this is a test for the translation module!"
-            task_string = "text2text"
-            target_language = "English"
-            source_language = "French"
-            data = {
-                "input": input,
-                "task_string": task_string,
-                "target_language": target_language,
-                "source_language": source_language
-            }
-            result = translation_process(data)
-            print(f"translation result (first 5 dimensions): {result}")
+        if len(sys.argv) < 2:
+            print("Usage: python -m module_validator.main <command> [data] [params]")
+            return
         else:
-            print("translation module not found. Make sure it's properly registered.")
+            command = sys.argv[1]
+            data = sys.argv[2] if len(sys.argv) > 2 else ""
+            params = eval(sys.argv[3]) if len(sys.argv) > 3 else {}
+
+            execute_command(registry, db, command, data, params)
+            
     except Exception as e:
         print(f"An error occurred: {e}")
         print("Traceback:")

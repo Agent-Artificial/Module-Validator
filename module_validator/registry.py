@@ -8,9 +8,9 @@ import sys
 
 
 class ModuleRegistry:
-    def __init__(self, config: Config):
+    def __init__(self, config: Config, db: Database=None):
         self.config = config
-        self.db = Database(config.get_global_config())
+        self.db = db or Database(config.get_global_config())
         self.modules = {}
 
     def load_modules(self):

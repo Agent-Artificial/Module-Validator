@@ -10,7 +10,8 @@ setup(
             "default = module_validator.main:default_output",
             "register = module_validator.main:register",
         ],
-        "module_validator.inference": [            
+        "module_validator.inference": [
+            "financial_news = module_validator.modules.financial_news.financial_news:process",                
             "embedding = module_validator.modules.embedding.embedding:process",
             "translation = module_validator.modules.translation.translation:process"
         ],

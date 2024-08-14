@@ -76,7 +76,7 @@ def install_registrar_module(module_name: str) -> bool:
 def main(module_name=None):
     if module_name is None:
         args = parseargs()
-        module_name = args.module_type
+        module_name = module_name or args.module_type
     module = module_name
     
     if install_registrar_module(module):

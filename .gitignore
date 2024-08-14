@@ -2,5 +2,8 @@
 __pycache__
 seamless
 .translation
+module_validator/.translation
 .embedding
+.financial_news
+
 module_validator/modules/

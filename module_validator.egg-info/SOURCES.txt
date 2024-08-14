@@ -1,6 +1,7 @@
 README.md
 setup.py
 module_validator/__init__.py
+module_validator/cli.py
 module_validator/config.py
 module_validator/custom_modules.py
 module_validator/database.py
@@ -13,6 +14,13 @@ module_validator.egg-info/entry_points.txt
 module_validator.egg-info/top_level.txt
 module_validator/modules/__init__.py
 module_validator/modules/module.py
+module_validator/modules/financial_news/__init__.py
+module_validator/modules/financial_news/data_models.py
+module_validator/modules/financial_news/financial_news.py
+module_validator/modules/financial_news/financial_news_module.py
+module_validator/modules/financial_news/setup.py
+module_validator/modules/financial_news/scraper_and_summarizer/__init__.py
+module_validator/modules/financial_news/scraper_and_summarizer/summarizer.py
 module_validator/modules/translation/__init__.py
 module_validator/modules/translation/data_models.py
 module_validator/modules/translation/setup.py
