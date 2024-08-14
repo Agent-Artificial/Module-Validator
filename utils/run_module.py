@@ -6,7 +6,8 @@ from module_validator.config import Config
 from module_validator.database import Database
 from dotenv import load_dotenv
 from loguru import logger
-from module_validator.modules.translation.data_models import MinerRequest, TranslationRequest
+import subprocess
+from module_validator.modules.translation.data_models import MinerRequest
 
 load_dotenv()
 
@@ -14,6 +15,8 @@ ENV = os.getenv('MODULE_VALIDATOR_ENV', 'development')
 
 
 def main(config_dir: str="module_validator/config", module_name: str="translation", input_data: Dict[str,Any]=None):
+    environment = ["bash", "utils/set_environment.sh", module_name]
+    subprocess.run(environment, check=True)
     config = Config(config_dir)
 
     config.load_configs()
@@ -27,7 +30,7 @@ def main(config_dir: str="module_validator/config", module_name: str="translatio
 
     module = registry.get_module(module_name)
 
-    translation_request = TranslationRequest(input_data)
+    translation_request = MinerRequest(input_data)
 
     result = module(translation_request)
     result_string = base64.b64decode(result).decode("utf-8")

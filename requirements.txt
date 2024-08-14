@@ -3,3 +3,7 @@ python-dotenv
 sqlalchemy
 astor
 numpy
+loguru
+requests
+uvicorn
+fastapi

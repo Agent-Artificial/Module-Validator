@@ -87,12 +87,12 @@ def main(module_name=None):
 if __name__ == "__main__":
     modules = {
         "1": "translation",
-        "2": "financial_news",
+        "2": "financialnews",
         "3": "embedding"
     }
     for key, value in modules.items():
         print(f"{key}: {value}")
     selection = input("Enter the number of the module you want to install: ")
-    if selection in modules:
-        module_name = modules[selection]    
+    if str(selection) in modules:
+        module_name = modules[str(selection)]    
     main(module_name)

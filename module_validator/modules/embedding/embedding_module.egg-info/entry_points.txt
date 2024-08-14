@@ -1,3 +1,0 @@
-[module_validator.embedding]
-embedding = module_validator.modules.embedding.embedding.Embedding:process
-
