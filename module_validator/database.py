@@ -38,9 +38,13 @@ class CommandEntry(Base):
     
     
 class Database:
+    engine = None
     def __init__(self, config):
-        logger.debug(f"Connecting to database: {config.global_config}")
-        self.engine = create_engine(config.global_config["database_url"])
+        logger.debug(f"Connecting to database: {config}")
+        if isinstance(config, dict):
+            self.engine = create_engine(config["database_url"])
+        else:
+            self.engine = create_engine(config.global_config["database_url"])
         self.Session = sessionmaker(bind=self.engine)
 
     def create_tables(self):

@@ -1,3 +1,4 @@
+import asyncio
 import sys
 import argparse
 import importlib
@@ -13,7 +14,7 @@ def default_output(output:str) -> None:
     print("This is the default output", output)
     
     
-def execute_command(registry, db, command_name, data, params):
+async def execute_command(registry, db, command_name, data, params):
     command = db.get_command(command_name)
     if not command:
         print(f"Command '{command_name}' not found.")
@@ -31,7 +32,7 @@ def execute_command(registry, db, command_name, data, params):
             }
         }
     
-    result = module(data)
+    result = await module(data)
     print(f"Command '{command_name}' executed. Result: {result}")
     
     
@@ -72,7 +73,7 @@ def parseargs():
     parser.add_argument("output", type=str)
     return parser.parse_args()
 
-def main():
+async def main():
     print("Starting main function")
     debug_entry_points()
 
@@ -90,7 +91,7 @@ def main():
             data = sys.argv[2] if len(sys.argv) > 2 else ""
             params = eval(sys.argv[3]) if len(sys.argv) > 3 else {}
 
-            execute_command(registry, db, command, data, params)
+            await execute_command(registry, db, command, data, params)
             
     except Exception as e:
         print(f"An error occurred: {e}")
@@ -100,4 +101,4 @@ def main():
     return 0
 
 if __name__ == "__main__":
-    sys.exit(main())
+    sys.exit(asyncio.run(main()))

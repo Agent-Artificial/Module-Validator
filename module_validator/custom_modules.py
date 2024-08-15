@@ -28,7 +28,7 @@ def install_registrar_module(module_name: str) -> bool:
         response = requests.get(api_url)
         response.raise_for_status()
         
-        installer_data = json.loads(response.json())
+        installer_data = response.json()
         print(installer_data)
         # Save the installer file
         installer_path = f"module_validator/modules/{module_name}/setup_{module_name}.py"

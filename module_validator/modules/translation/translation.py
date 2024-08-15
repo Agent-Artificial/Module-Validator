@@ -3,7 +3,7 @@ import scipy
 import torch
 import base64
 import torchaudio
-from pydantic import ConfigDict
+
 from loguru import logger
 from typing import Optional
 from functools import lru_cache
@@ -16,9 +16,6 @@ from .data_models import TARGET_LANGUAGES, TASK_STRINGS, TranslationRequest, Tra
 translation_config = TranslationConfig()
 
 class Translation:
-    module_config: ConfigDict = ConfigDict(
-        {"protected_namespaces": ()}
-    )
     def __init__(self):
         """
         Initializes a new instance of the Translation class.
@@ -361,9 +358,11 @@ def speech2speech(translation: Translation, miner_request: Optional[TranslationR
     )
     return translation.process(translation_request)
 
-process = Translation().process
 
-__all__ = ["Translation", "TranslationRequest", "process"]
+def process(translation_request: TranslationRequest):
+    translation = Translation()
+    translation.process(miner_request=translation_request)
+    
 
 if __name__ == "__main__":
     translation = Translation()
