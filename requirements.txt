@@ -7,3 +7,4 @@ loguru
 requests
 uvicorn
 fastapi
+git+https://github.com/huggingface/transformers

@@ -1,9 +1,11 @@
-.venv
 __pycache__
 seamless
-.embedding
-.financialnews
-.translation
+.bittensor
 .development
+.financialnews
+.log
+.translation
+.venv
 
 module_validator/modules/
+

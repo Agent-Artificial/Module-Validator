@@ -50,6 +50,7 @@ class Config:
             return list(set(global_reqs + module_reqs))
         return global_reqs
 
+
 # Usage example
 if __name__ == "__main__":
     config = Config()

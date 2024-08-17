@@ -1,0 +1,3 @@
+[submodule "module_validator/chain/bittensor-subnet-template"]
+	path = module_validator/chain/bittensor-subnet-template
+	url = https://github.com/opentensor/bittensor-subnet-template
