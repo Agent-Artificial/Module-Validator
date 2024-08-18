@@ -1,4 +1,5 @@
 README.md
+setup.cfg
 setup.py
 module_validator/__init__.py
 module_validator/cli.py
@@ -34,7 +35,10 @@ module_validator/modules/translation/setup.py
 module_validator/modules/translation/translation.py
 module_validator/modules/translation/translation_module.py
 utils/__init__.py
+utils/add_environment_variables.py
 utils/check_entrypoints.py
+utils/configuration.py
 utils/run_module.py
+utils/set_cwd.py
 utils/update_setup.py
 utils/walkdir.py

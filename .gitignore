@@ -1,6 +1,8 @@
 __pycache__
 seamless
 .bittensor
+.syliba
+.custom_modules
 .development
 .financialnews
 .log
