@@ -1,3 +1,4 @@
+import argparse
 import re
 import os
 
@@ -27,7 +28,8 @@ def parse_and_add_arguments(document1, document2):
     new_env_vars = []
     for arg, default in args_matches:
         var_name = arg.strip('--').upper().replace('.', '_')
-        default_value = default.strip('"\'') if default != 'None' else None
+        default_value = default.strip('"\'').strip('f"{').strip("'").strip("f\'\'\'").strip('f\"\"\"') + "\')" if default != 'None' else None
+        print(default_value)
         new_var_key = f"{var_name}="
         new_var_value = input(f'Enter value for {var_name}[{default_value}]: ') or default_value
         new_env_vars.append(f'\"{new_var_key}{new_var_value}\"')
@@ -62,15 +64,35 @@ def parse_and_add_arguments(document1, document2):
     return updated_document2
 
 
-if __name__ == "__main__":
-    target_config = os.getenv("target_config") or input("Enter the name of the target config file['module_validator/chain/bittensor_subnet_template/template/utils/config.py']: ") or "module_validator/chain/bittensor_subnet_template/template/utils/config.py"
-    modify_configuration_file  = os.getenv("modify_configuration_file") or input("Enter the path to the modify configuration file['utils/configuration.py']: ") or "utils/configuration.py"
-    with open(target_config, "r", encoding="utf-8") as f:
+def add_arguments(parser):
+    parser.add_argument(
+        "--target_file", 
+        type=str,
+        default=os.getenv("source_file") or input("Enter the name of the target config file['module_validator/chain/bittensor_subnet_template/template/utils/config.py']: ") or "module_validator/chain/bittensor_subnet_template/template/utils/config.py"
+    )
+    parser.add_argument(
+        "--source_file",
+        type=str,
+        default=os.getenv("target_file") or input("Enter the path to the modify configuration file['utils/configuration.py']: ") or "utils/configuration.py"
+    )
+    return parser.parse_args()
+    
+    
+def main():
+    parser = argparse.ArgumentParser()
+    args = add_arguments(parser)
+    source_file = args.source_file
+    target_file = args.target_file
+    with open(source_file, "r", encoding="utf-8") as f:
         document1 = f.read()
-    with open(modify_configuration_file, "r", encoding="utf-8") as f:
+    with open(target_file, "r", encoding="utf-8") as f:
         document2 = f.read()
     new_document = parse_and_add_arguments(document1, document2)
-    final_doc = parse_and_add_parser_arguments(document1, new_document)
-    with open(modify_configuration_file, "w", encoding="utf-8") as f:
-        f.write(final_doc)
-    
+    final_document = update_parser(new_document)
+    print(final_document)
+    # with open(target_file, "w", encoding="utf-8") as f:
+        # f.write(final_doc)
+
+
+if __name__ == "__main__":
+    main()

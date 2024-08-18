@@ -28,10 +28,10 @@ def set_working_directory_to_submodule(submodule_path):
 
 set_working_directory_to_submodule("module_validator/chain/bittensor_subnet_template")
 
-from module_validator.chain.bittensor_subnet_template.neurons.miner import Miner as ExampleMiner
+from module_validator.chain.bittensor_subnet_template.neurons.validator import Validator as ExampleValidator
 
 
-class Miner(ExampleMiner):
+class Validator(ExampleValidator):
     config = None
     subtensor = None
     wallet = None
@@ -50,15 +50,11 @@ class Miner(ExampleMiner):
         """Resyncs the metagraph and updates the hotkeys and moving averages based on the new metagraph."""
         self.metagraph.sync(subtensor=self.subtensor)
 
-    def save_state(self):
-        """Saves the state of the miner."""
-        with open("state.json", "w", encoding="utf-8") as f:
-            f.write(json.dumps(self.__repr__(), indent=4))
     
     
 config = config_main()
 print(config)       
-
+config.neuron.full_path = config.miner.full_path
 subtensor = bt.Subtensor(config.subtensor.network, config=config)
 wallet = bt.wallet(name=config.wallet.name, hotkey=config.wallet.hotkey, path=config.wallet.path, config=config)
 axon = bt.axon(
@@ -70,14 +66,15 @@ axon = bt.axon(
     external_port=config.axon.external_port,
     max_workers=config.axon.max_workers,
 )
+
 metagraph = bt.metagraph(netuid=config.netuid, network=config.subtensor.network, lite=True, sync=True)
 
-print(metagraph.last_update)
-miner = Miner(config=config, subtensor=subtensor, wallet=wallet, axon=axon, metagraph=subtensor.metagraph)
-miner.wallet = wallet
-miner.axon = axon
-miner.subtensor = subtensor
-miner.metagraph = metagraph
-miner.config = config
+validator = Validator(config=config, subtensor=subtensor, wallet=wallet, axon=axon, metagraph=subtensor.metagraph)
+validator.save_state()
+validator.wallet = wallet
+validator.axon = axon
+validator.subtensor = subtensor
+validator.metagraph = metagraph
+validator.config = config
 
-miner.run()
+validator.run()

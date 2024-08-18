@@ -2,12 +2,17 @@ from typing import Any, Dict, Optional, Union, List
 from substrateinterface import Keypair
 from pydantic import BaseModel, Field, PrivateAttr, ConfigDict
 from pathlib import Path
+from dotenv import load_dotenv
+import bittensor as bt
 import argparse
 import json
 import os
 import yaml
 import copy
 import sys
+
+load_dotenv()
+
 
 from munch import DefaultMunch
 
@@ -105,34 +110,67 @@ class LoggingConfig(Config):
     logging_dir: str
 
 
+class WanDBConfig(Config):
+    notes: str = ""
+    entity: str = ""
+    offline: bool = True
+    off: bool = False
+    project_name: str = ""
+    
+
+class BlackListConfig(Config):
+    allow_non_registered: bool = False
+    force_validator_permit: bool = False
+    
+
+class NeuronConfig(Config):
+    moving_average_alpha: float
+    epoch_length: int
+    num_concurrent_forwards: int
+    axon_off: bool
+    disable_set_weights: bool
+    name: str
+    device: str
+    events_retention_size: int
+    timeout: int
+    sample_size: int
+    dont_save_events: bool
+    vpermit_tao_limit: int
+    full_path: Optional[str] = None
+
+
 class Configuration(Config):
     axon: Optional[AxonConfig] = None
     wallet: Optional[WalletConfig] = None
     subtensor: Optional[SubtensorConfig] = None
     miner: Optional[MinerConfig] = None
     logging: Optional[LoggingConfig] = None
+    wandb: Optional[WanDBConfig] = None
+    blacklist: Optional[BlackListConfig] = None
+    neuron: Optional[NeuronConfig] = None
     netuid: Optional[int] = None
     no_prompt: Optional[bool] = None
     strict: Optional[bool] = None
+    mock: Optional[bool] = False
     no_version_checking: Optional[bool] = None
     model_config: ConfigDict = ConfigDict({
         "arbitrary_types_allowed": True
     })
-
-
+    
+    
 class bittensor_config(DefaultMunch):
     config: Configuration = Field(default_factory=Configuration)
     lines: List[Any] = []
 
     def __init__(self, parser=None, args=None, strict=False, default=None):
-        super().__init__(default)
+        super().__init__()
 
         if parser is None:
             parser = argparse.ArgumentParser(description="Bittensor Configuration")
         self.config = self.cli()
-        print(self.config)
         self.write_environment()
         self._add_args(parser)
+        config =bt.config(parser)
         # Parse arguments
         args = sys.argv[1:] if args is None else args
         if args:
@@ -226,6 +264,7 @@ class bittensor_config(DefaultMunch):
         return "\n" + yaml.dump(visible, sort_keys=False)
 
     def _add_args(self, parser: argparse.ArgumentParser):
+        load_dotenv()
         parser.add_argument("--subtensor.network", default=f"{os.getenv('subtensor_network')}")
         parser.add_argument("--subtensor.chain_endpoint", default=f"{os.getenv('subtensor_chain_endpoint')}")
         parser.add_argument("--netuid", default=f"{os.getenv('netuid')}")
@@ -291,7 +330,7 @@ class bittensor_config(DefaultMunch):
             "MOCK=False",
             f"BT_WALLET_NAME={self.config.wallet.name}",
             f"BT_AXON_MAX_WORERS={self.config.axon.max_workers}",
-            "NEURON_EVENTS_RETENTION_SIZE=2 * 1024 * 1024 * 1024",
+            "NEURON_EVENTS_RETENTION_SIZE=21474836848",  # 2 * 1024 * 1024 * 1024
             "NEURON_DEVICE=cuda(0)",
             "WANDB_OFFLINE=False",
             f"BT_AXON_EXTERNAL_IP={self.config.axon.external_ip}",
@@ -310,8 +349,49 @@ class bittensor_config(DefaultMunch):
         return self.lines
 
     def cli(self):
+        load_dotenv()
         configure = input("Do you want to setup Bittensor configuration? (y/n) ")
+        wandb_notes = os.getenv("WANDB_NOTES")
+        wandb_entity = os.getenv("WANDB_ENTITY")
+        wandb_offline = bool(os.getenv("WAND_OFFLINE"))
+        wandb_off = bool(os.getenv("WANDB_OFF"))
+        wandb_project_name = os.getenv("WANDB_PROJECT_NAME")
+        blacklist_allow_non_registered = bool(os.getenv("BLACKLIST_ALLOW_NON_REGISTERED"))
+        blacklist_force_validator_permit = bool(os.getenv("BLACKLIST_FORCE_VALIDATOR_PERMIT"))
+        neuron_moving_average_alpha = float(os.getenv("NEURON_MOVING_AVERAGE_ALPHA"))
+        neuron_epoch_length = int(os.getenv("NEURON_EPOCH_LENGTH"))
+        neuron_num_concurrent_forwards = int(os.getenv("NEURON_NUM_CONCURRENT_FORWARDS"))
+        neuron_axon_off = bool(os.getenv("NEURON_AXON_OFF"))
+        neuron_disable_set_weights = bool(os.getenv("NEURON_DISABLE_SET_WEIGHTS"))
+        neuron_device = os.getenv("NEURON_DEVICE")
+        neuron_name = os.getenv("NEURON_NAME")
+        neuron_events_retention_size = int(os.getenv("NEURON_EVENTS_RETENTION_SIZE"))
+        neuron_timeout = int(os.getenv("NEURON_TIMEOUT"))
+        neuron_sample_size = int(os.getenv("NEURON_SAMPLE_SIZE"))
+        neuron_dont_save_events = bool(os.getenv("NEURON_DONT_SAVE_EVENTS"))
+        neuron_vpermit_tao_limit = int(os.getenv("NEURON_VPERMIT_TAO_LIMIT"))
         
+        listthing = [
+            wandb_notes,
+            wandb_entity,
+            wandb_offline,
+            wandb_off,
+            wandb_project_name,
+            blacklist_allow_non_registered,
+            blacklist_force_validator_permit,
+            neuron_moving_average_alpha,
+            neuron_epoch_length,
+            neuron_num_concurrent_forwards,
+            neuron_axon_off,
+            neuron_disable_set_weights,
+            neuron_device,
+            neuron_events_retention_size,
+            neuron_timeout,
+            neuron_sample_size,
+            neuron_dont_save_events,
+            neuron_vpermit_tao_limit
+        ]
+        print(listthing)
         if configure.lower() == 'y':
             port = int(input("Enter axon port[8080]: ") or 8080)
             ip = input("Enter axon ip[0.0.0.0]: ") or "0.0.0.0"
@@ -320,20 +400,20 @@ class bittensor_config(DefaultMunch):
             max_workers = int(input("Enter max workers[10]: ") or 10)
             network = input("Enter subtensor network(finney/[testnet]/local): ") or "test"
             chain_endpoint = input("Enter chain endpoint[wss://test.opentensor.ai:443]: ") or "wss://test.finney.opentensor.ai:443"
-            root = input("Enter miner root[/home/user/.bittensor/miners/razor_test/]: ") or "/home/user/.bittensor/miners/razor_test/"
+            root = input(f"Enter miner root[{Path('~/.bittensor/miners/razor_test/').expanduser()}]: ") or f"{Path('~/.bittensor/miners/razor_test/').expanduser()}"
             name = input("Enter miner name[razor_hot]: ") or "razor_hot"
             blocks_per_epoch = int(input("Enter blocks per epoch[100]: ") or 100)
             no_serve = bool(input("Enter no_serve[False]: ") or False)
             no_start_axon = bool(input("Enter no_start_axon[False]: ") or False)
             mock_subtensor = bool(input("Enter mock_subtensor[False]: ") or False)
-            full_path = input("Enter full_path[/home/user/.bittensor/miners/razor_test/razor_hot/netuid197/razor_test]: ") or "/home/user/.bittensor/miners/razor_test/razor_hot/netuid197/razor_test"
+            full_path = input(f"Enter full_path[{Path('~/.bittensor/miners/razor_test/razor_hot/netuid197/razor_test').expanduser()}]: ") or f"{Path('~/.bittensor/miners/razor_test/razor_hot/netuid197/razor_test').expanduser()}"
             debug = bool(input("Enter debug[True]: ") or True)
             trace = bool(input("Enter trace[True]: ") or True)
             record_log = bool(input("Enter record_log[True]: ") or True)
-            logging_dir = input("Enter logging_dir[/home/user/vscode/module_validator/.log]: ") or "/home/user/vscode/module_validator/.log"
+            logging_dir = input(f"Enter logging_dir[{Path('~/vscode/module_validator/.log').expanduser()}]: ") or f"{Path('~/vscode/module_validator/.log').expanduser()}"
             name = input("Enter wallet name[razor_test]: ") or "razor_test"
             hotkey = input("Enter wallet hotkey[razor_hot]: ") or "razor_hot"
-            path = input("Enter wallet path[/home/user/.bittensor/wallets]: ") or "/home/user/.bittensor/wallets"
+            path = input(f"Enter wallet path[{Path('~/.bittensor/wallets').expanduser()}]: ") or f"{Path('~/.bittensor/wallets').expanduser()}"
             netuid = int(input("Enter netuid[197]: ") or 197)
             no_prompt = bool(input("Enter no_prompt[False]: ") or False)
             strict = bool(input("Enter strict[False]: ") or False)
@@ -345,26 +425,25 @@ class bittensor_config(DefaultMunch):
             external_port = int(os.getenv("axon_external_port") or 8080)
             max_workers = int(os.getenv("axon_max_workers") or 8)
             network = os.getenv("subtensor_network") or "test"
-            chain_endpoint = os.getenv("subtensor_chain_endpoint") or "wss://entrypoint-finney.opentensor.ai:443"
-            root = os.getenv("miner_root") or "/home/user/.bittensor/miners/razor_test/"
+            chain_endpoint = os.getenv("subtensor_chain_endpoint") or "wss://test.finney.opentensor.ai:443"
+            root = os.getenv("miner_root") or f"{Path('~/.bittensor/miners/razor_test/').expanduser()}"
             name = os.getenv("miner_name") or "razor_hot"
             blocks_per_epoch = os.getenv("miner_blocks_per_epoch") or 100
             no_serve = os.getenv("miner_no_serve") or False
             no_start_axon = os.getenv("miner_no_start_axon") or False
             mock_subtensor = os.getenv("miner_mock_subtensor") or False
-            full_path = os.getenv("full_path") or "/home/bakobi/.bittensor/miners/razor_test/razor_hot/netuid197/razor_test"
+            full_path = os.getenv("full_path") or f"{Path('~/.bittensor/miners/razor_test/razor_hot/netuid197/razor_test').expanduser()}"
             debug = os.getenv("logging_debug") or True
             trace = os.getenv("logging_trace") or True
             record_log = os.getenv("logging_record_log") or True
-            logging_dir = os.getenv("logging_logging_dir") or "/home/bakobi/vscode/module_validator/.log"
+            logging_dir = os.getenv("logging_logging_dir") or f"{Path('~/vscode/module_validator/.log').expanduser()}"
             name = os.getenv("wallet_name") or "razor_test"
             hotkey = os.getenv("wallet_hotkey") or "razor_hot"
-            path = os.getenv("wallet_path") or "/home/bakobi/.bittensor/wallets"
+            path = os.getenv("wallet_path") or f"{Path('~/.bittensor/wallets').expanduser()}"
             netuid = int(os.getenv("netuid") or 197)
             no_prompt = bool(os.getenv("no_prompt") or False)
             strict = bool(os.getenv("strict") or False)
             no_version_checking = os.getenv("no_version_checking") or False
-            
         return Configuration(
             axon=AxonConfig(
                 port=port,
@@ -396,6 +475,31 @@ class bittensor_config(DefaultMunch):
                 name=name,
                 hotkey=hotkey,
                 path=path,
+            ),
+            wandb=WanDBConfig(
+                notes=wandb_notes,
+                entity=wandb_entity,
+                offline=wandb_offline,
+                off=wandb_off,
+                project_name=wandb_project_name
+            ),
+            blacklist=BlackListConfig(
+                allow_non_registered=blacklist_allow_non_registered,
+                force_validator_permit=blacklist_force_validator_permit
+            ),
+            neuron=NeuronConfig(
+                moving_average_alpha=neuron_moving_average_alpha,
+                epoch_length=neuron_epoch_length,
+                num_concurrent_forwards=neuron_num_concurrent_forwards,
+                axon_off=neuron_axon_off,
+                disable_set_weights=neuron_disable_set_weights,
+                device=neuron_device,
+                name=neuron_name,
+                events_retention_size=neuron_events_retention_size,
+                timeout=neuron_timeout,
+                sample_size=neuron_sample_size,
+                dont_save_events=neuron_dont_save_events,
+                vpermit_tao_limit=neuron_vpermit_tao_limit
             ),
             netuid=netuid,
             no_prompt=no_prompt,
