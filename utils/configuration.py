@@ -151,7 +151,6 @@ class bittensor_config(DefaultMunch):
             # Track which parameters are set
             self._track_set_parameters(parser, args, params)
 
-
     def __getitem__(self, key):
         return self.config.get(key)
 
@@ -250,6 +249,30 @@ class bittensor_config(DefaultMunch):
         parser.add_argument("--axon.max_workers", default=f"{os.getenv('axon_max_workers')}")
         parser.add_argument("--miner.full_path", default=f"{os.getenv('miner_full_path')}")
         parser.add_argument("--strict", default=f"{os.getenv('strict')}")
+        parser.add_argument('--netuid', default=f'{os.getenv("NETUID")}')
+        parser.add_argument('--neuron.device', default=f'{os.getenv("NEURON_DEVICE")}')
+        parser.add_argument('--neuron.epoch_length', default=f'{os.getenv("NEURON_EPOCH_LENGTH")}')
+        parser.add_argument('--mock', default=f'{os.getenv("MOCK")}')
+        parser.add_argument('--neuron.events_retention_size', default=f'{os.getenv("NEURON_EVENTS_RETENTION_SIZE")}')
+        parser.add_argument('--neuron.dont_save_events', default=f'{os.getenv("NEURON_DONT_SAVE_EVENTS")}')
+        parser.add_argument('--wandb.off', default=f'{os.getenv("WANDB_OFF")}')
+        parser.add_argument('--wandb.offline', default=f'{os.getenv("WANDB_OFFLINE")}')
+        parser.add_argument('--wandb.notes', default=f'{os.getenv("WANDB_NOTES")}')
+        parser.add_argument('--neuron.name', default=f'{os.getenv("NEURON_NAME")}')
+        parser.add_argument('--blacklist.force_validator_permit', default=f'{os.getenv("BLACKLIST_FORCE_VALIDATOR_PERMIT")}')
+        parser.add_argument('--blacklist.allow_non_registered', default=f'{os.getenv("BLACKLIST_ALLOW_NON_REGISTERED")}')
+        parser.add_argument('--wandb.project_name', default=f'{os.getenv("WANDB_PROJECT_NAME")}')
+        parser.add_argument('--wandb.entity', default=f'{os.getenv("WANDB_ENTITY")}')
+        parser.add_argument('--neuron.name', default=f'{os.getenv("NEURON_NAME")}')
+        parser.add_argument('--neuron.timeout', default=f'{os.getenv("NEURON_TIMEOUT")}')
+        parser.add_argument('--neuron.num_concurrent_forwards', default=f'{os.getenv("NEURON_NUM_CONCURRENT_FORWARDS")}')
+        parser.add_argument('--neuron.sample_size', default=f'{os.getenv("NEURON_SAMPLE_SIZE")}')
+        parser.add_argument('--neuron.disable_set_weights', default=f'{os.getenv("NEURON_DISABLE_SET_WEIGHTS")}')
+        parser.add_argument('--neuron.moving_average_alpha', default=f'{os.getenv("NEURON_MOVING_AVERAGE_ALPHA")}')
+        parser.add_argument('--neuron.axon_off', default=f'{os.getenv("NEURON_AXON_OFF")}')
+        parser.add_argument('--neuron.vpermit_tao_limit', default=f'{os.getenv("NEURON_VPERMIT_TAO_LIMIT")}')
+        parser.add_argument('--wandb.project_name', default=f'{os.getenv("WANDB_PROJECT_NAME")}')
+        parser.add_argument('--wandb.entity', default=f'{os.getenv("WANDB_ENTITY")}')
         return parser
 
     def _add_env_variables(self):
@@ -263,7 +286,31 @@ class bittensor_config(DefaultMunch):
             "BT_PRIORITY_MAXSIZE=5000",
             f"BT_WALLET_NAME={self.config.wallet.name}",
             f"BT_WALLET_HOTKEY={self.config.wallet.hotkey}",
-            f"BT_WALLET_PATH={self.config.wallet.path}"
+            f"BT_WALLET_PATH={self.config.wallet.path}",
+            "NETUID=197",
+            "NEURON_DEVICE=cuda(0)",
+            "NEURON_EPOCH_LENGTH=100",
+            "MOCK=False",
+            "NEURON_EVENTS_RETENTION_SIZE=2 * 1024 * 1024 * 1024",
+            "NEURON_DONT_SAVE_EVENTS=False",
+            "WANDB_OFF=True",
+            "WANDB_OFFLINE=False",
+            "WANDB_NOTES=",
+            "NEURON_NAME=miner",
+            "BLACKLIST_FORCE_VALIDATOR_PERMIT=False",
+            "BLACKLIST_ALLOW_NON_REGISTERED=False",
+            "WANDB_PROJECT_NAME=template-miners",
+            "WANDB_ENTITY=opentensor-dev",
+            "NEURON_NAME=razor_test",
+            "NEURON_TIMEOUT=10",
+            "NEURON_NUM_CONCURRENT_FORWARDS=1",
+            "NEURON_SAMPLE_SIZE=50",
+            "NEURON_DISABLE_SET_WEIGHTS=False",
+            "NEURON_MOVING_AVERAGE_ALPHA=0.1",
+            "NEURON_AXON_OFF=False",
+            "NEURON_VPERMIT_TAO_LIMIT=4096",
+            "WANDB_PROJECT_NAME=template-validators",
+            "WANDB_ENTITY=opentensor-dev"
         ]
         return self.lines
 
@@ -277,7 +324,7 @@ class bittensor_config(DefaultMunch):
             external_port = int(input("Enter axon external port[8080]: ") or 8080)
             max_workers = int(input("Enter max workers[10]: ") or 10)
             network = input("Enter subtensor network(finney/[testnet]/local): ") or "test"
-            chain_endpoint = input("Enter chain endpoint[wss://entrypoint-finney.opentensor.ai:443]: ") or "wss://entrypoint-finney.opentensor.ai:443"
+            chain_endpoint = input("Enter chain endpoint[wss://test.opentensor.ai:443]: ") or "wss://test.finney.opentensor.ai:443"
             root = input("Enter miner root[/home/user/.bittensor/miners/razor_test/]: ") or "/home/user/.bittensor/miners/razor_test/"
             name = input("Enter miner name[razor_hot]: ") or "razor_hot"
             blocks_per_epoch = int(input("Enter blocks per epoch[100]: ") or 100)
