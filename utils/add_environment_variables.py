@@ -15,7 +15,7 @@ def parse_and_add_parser_arguments(document1, document2):
         default_value = f'f\'{{os.getenv(\"{args.strip("--").upper().replace(".", "_")}\")}}\''
         parser_line = f"parser.add_argument('{args}', default={default_value})"
         parser_lines.append(parser_line)
-
+    parser_lines = list(set(parser_lines))
     parser_pattern = re.compile(r'(def\s+\w+add\w*args\w*\(.*?\):.*?)(return.*?parser)', re.DOTALL)
     new_content = "\n        ".join(parser_lines)
     return parser_pattern.sub(fr'\1\n        {new_content}\n        \2', document2)
@@ -48,6 +48,7 @@ def parse_and_add_arguments(document1, document2):
 
     # Combine new and existing environment variables, avoiding duplicates
     combined_lines = existing_lines + [line for line in new_env_vars if line not in existing_lines]
+    combined_lines = list(set(combined_lines))
     print(combined_lines)
     # Create the updated function content
     updated_lines = ',\n            '.join(combined_lines)
@@ -69,9 +70,7 @@ if __name__ == "__main__":
     with open(modify_configuration_file, "r", encoding="utf-8") as f:
         document2 = f.read()
     new_document = parse_and_add_arguments(document1, document2)
-    print(new_document)
     final_doc = parse_and_add_parser_arguments(document1, new_document)
     with open(modify_configuration_file, "w", encoding="utf-8") as f:
         f.write(final_doc)
-    print(final_doc)        
     
