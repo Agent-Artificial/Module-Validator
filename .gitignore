@@ -1,13 +1,17 @@
 __pycache__
 seamless
 .bittensor
+.bittensor_subnet_template
 .syliba
+.sylliba
 .custom_modules
 .development
 .financialnews
+.vision
 .log
 .translation
 .venv
 
-module_validator/modules/
+module_validator/chain
+module_validator/modules
 

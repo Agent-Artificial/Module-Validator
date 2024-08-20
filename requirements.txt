@@ -6,5 +6,6 @@ numpy
 loguru
 requests
 uvicorn
+httpx
 fastapi
 git+https://github.com/huggingface/transformers

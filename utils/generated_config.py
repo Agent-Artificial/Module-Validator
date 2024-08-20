@@ -115,6 +115,7 @@ class SubtensorConfig(Config):
             self._mock = value
         return self._mock
 
+
 class MinerConfig(Config):
     config: Optional[Any] = None
     root: str
@@ -147,6 +148,7 @@ class BlackListConfig(Config):
     config: Optional[Any] = None
     allow_non_registered: bool = False
     force_validator_permit: bool = False
+    
 
 class NeuronConfig(Config):
     config: Optional[Any] = None
@@ -163,27 +165,7 @@ class NeuronConfig(Config):
     dont_save_events: bool
     vpermit_tao_limit: int
     full_path: Optional[str] = None
-    
-class DefaultConfig(Config):
-    config: Optional[Any] = None
-    axon: Optional[Any] = None
-    wallet: Optional[WalletConfig]
-    subtensor: Optional[SubtensorConfig] = None
-    miner: Optional[MinerConfig] = None
-    logging: Optional[LoggingConfig] = None
-    wandb: Optional[WanDBConfig] = None
-    blacklist: Optional[BlackListConfig] = None
-    neuron: Optional[NeuronConfig] = None
-    netuid: Optional[int] = None
-    no_prompt: Optional[bool] = None
-    strict: Optional[bool] = None
-    mock: Optional[bool] = False
-    no_version_checking: Optional[bool] = None
-    model_config: ConfigDict = ConfigDict({
-        "arbitrary_types_allowed": True
-    })
-    EXTERNAL_SERVER_ADDRESS: Optional[str] = None
-    
+
 
 class Configuration(Config):
     config: Optional[Any] = None
@@ -203,59 +185,11 @@ class Configuration(Config):
     model_config: ConfigDict = ConfigDict({
         "arbitrary_types_allowed": True
     })
-    default: Optional[Any] = None
+    default_EXTERNAL_SERVER_ADDRESS: Optional[str] = None
     
     def __init__(self, **data):
         super().__init__(**data)
-
-
-default_config = DefaultConfig(
-    axon=AxonConfig(
-        name=os.getenv("name"),
-        hotkey=os.getenv("hotkey"),
-        path=os.getenv("path"),
-        model_config=os.getenv("model_config"),
-        port=os.getenv("port"),
-        ip=os.getenv("ip"),
-        external_ip=os.getenv("external_ip"),
-        external_port=os.getenv("external_port"),
-        max_workers=os.getenv("max_workers"),
-    ),
-    subtensor=SubtensorConfig(
-        fast_server=os.getenv("fast_server"),
-        network=os.getenv("network"),
-        chain_endpoint=os.getenv("chain_endpoint"),
-        _mock=os.getenv("_mock"),
-    ),
-    miner=MinerConfig(
-        root=os.getenv("miner_root"),
-        name=os.getenv("miner_name"),
-        blocks_per_epoch=os.getenv("miner_blocks_per_epoch"),
-        no_serve=os.getenv("miner_no_serve"),
-        no_start_axon=os.getenv("miner_no_start_axon"),
-        mock_subtensor=os.getenv("miner_mock_subtensor"),
-        full_path=os.getenv("miner_full_path"),
-    ),
-    logging=LoggingConfig(
-        debug=os.getenv("logger_debug"),
-        trace=os.getenv("logger_trace"),
-        record_log=os.getenv("logger_record_log"),
-        logging_dir=os.getenv("logger_logging_dir"),
-    ),
-    wandb=WanDBConfig(
-        notes=os.getenv("wandb_notes"),
-        entity=os.getenv("wandb_entity"),
-        offline=os.getenv("wandb_offline"),
-        off=os.getenv("wandb_off"),
-        project_name=os.getenv("wandb_project_name"),
-    ),
-    blacklist=BlackListConfig(
-        allow_non_registered=os.getenv("allow_non_registered"),
-        force_validator_permit=os.getenv("force_validator_permit"),
-    ),
-    EXTERNAL_SERVER_ADDRESS=os.getenv("default_EXTERNAL_SERVER_ADDRESS")
-)
-
+    
     
 class bittensor_config(DefaultMunch):
     config: Configuration = Field(default_factory=Configuration)
@@ -263,7 +197,7 @@ class bittensor_config(DefaultMunch):
 
     def __init__(self, parser=None, args=None, strict=False, default=None):
         super().__init__()
-        self.default = default_config
+
         if parser is None:
             parser = argparse.ArgumentParser(description="Bittensor Configuration")
         config = self.cli()
@@ -451,7 +385,14 @@ class bittensor_config(DefaultMunch):
             "axon_external_ip=0.0.0.0",
             "axon_port=8080",
             "netuid=197",
-            
+            "axon_port=8080",
+            "netuid=197",
+            "DEBUG_MINER=None",
+            "subtensor_network=test",
+            "axon_external_ip=0.0.0.0",
+            "subtensor_chain_endpoint=wss://test.finney.opentensor.ai:443",
+            "wallet_name=razor_test",
+            "wallet_hotkey=razor_hot",
         ]
         return self.lines
 

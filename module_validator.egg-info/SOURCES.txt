@@ -38,6 +38,8 @@ utils/__init__.py
 utils/add_environment_variables.py
 utils/check_entrypoints.py
 utils/configuration.py
+utils/configuration_template.py
+utils/generated_config.py
 utils/run_module.py
 utils/set_cwd.py
 utils/update_setup.py
