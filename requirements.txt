@@ -6,6 +6,7 @@ numpy
 loguru
 requests
 uvicorn
+substrate-interface
 httpx
 fastapi
 git+https://github.com/huggingface/transformers

@@ -1,17 +1,41 @@
-import uvicorn.config
-from utils.generated_config import main as config_main
-from pathlib import Path
+import json
+import argparse
+import bittensor as bt
+from getpass import getpass
 from substrateinterface import Keypair
-from bittensor.axon import FastAPIThreadedServer
+import os
+import sys
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import argparse
-import bittensor as bt
-import subprocess
-import json
-import os
-import sys
+from config_model import Config
+from bittensor.axon import FastAPIThreadedServer
+from pathlib import Path
+
+
+def set_working_directory_to_submodule(submodule_path):
+    # Get the full path of the current script (which should be in the project root)
+    project_root = os.path.dirname(os.path.abspath(__file__))
+    
+    # Construct the full path to the submodule
+    submodule_full_path = os.path.join(project_root, submodule_path)
+    
+    # Verify that the submodule path exists
+    if not os.path.exists(submodule_full_path):
+        raise FileNotFoundError(f"Submodule path not found: {submodule_full_path}")
+    
+    # Change the current working directory
+    os.chdir(submodule_full_path)
+    
+    # Add the submodule directory to sys.path to allow imports
+    if submodule_full_path not in sys.path:
+        sys.path.insert(0, submodule_full_path)
+    
+    print(f"Working directory set to: {os.getcwd()}")
+
+set_working_directory_to_submodule("module_validator/chain/bittensor_subnet_template")
+
+from neurons.validator import Validator as ExampleValidator
 
 
 app = FastAPI()
@@ -23,109 +47,48 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+    
+
+class Validator(ExampleValidator):
+    config = None
+    subtensor = None
+    wallet = None
+    axon = None
+    metagraph = None
+    server_config = None
+    fast_server = None
+    
+    def __init__(self, config):
+        super().__init__(config)
+        self.server_config = uvicorn.Config(app=app, host=os.getenv("axon_ip"), port=os.getenv("axon_port"))
+        self.fast_server = FastAPIThreadedServer(config=self.server_config)
+        self.config.fast_server = self.fast_server
+        self.config = config
+        self.subtensor = bt.subtensor(netowrk=self.config.subtensor.network, config=self.config, _mock=False, log_verbose=True)
+        self.config.subtensor.config = self.config
+        self.wallet = bt.wallet(name=self.config.wallet.name, hotkey=self.config.wallet.hotkey, path=self.config.wallet.path, config=self.config)
+        self.config.wallet.config = self.config
+        self.axon=bt.axon(wallet=self.wallet, config=self.config, port=self.config.axon.port, ip=self.config.axon.ip, external_ip=self.config.axon.external_ip, external_port=self.config.axon.external_port, max_workers=self.config.axon.max_workers)
+        self.config.axon.config = self.config
+        self.metagraph = bt.metagraph(netuid=self.config.netuid, network=self.config.subtensor.network, lite=True, sync=True)
+        self.config.metagraph.config = self.config
+        self.config = self.config
+        
+
+    
+    def resync_metagraph(self):
+        """Resyncs the metagraph and updates the hotkeys and moving averages based on the new metagraph."""
+        self.metagraph.sync(subtensor=self.subtensor)
+
+validator = Validator(Config())
+print(validator.config)
 
 
-def get_hotkey(config):
-    wallet_hotkey = os.getenv("BT_WALLET_HOTKEY")
-    wallet_name = os.getenv("BT_WALLET_NAME")
-    path = Path(config.wallet.path)
-    key_path = path / wallet_name / "hotkeys" / wallet_hotkey
-    key_data = json.loads(key_path.read_text())
-    public_key = key_data["publicKey"]
-    private_key = key_data["privateKey"]
-    ss58_address = key_data["ss58Address"]
-    return Keypair(ss58_address=ss58_address, private_key=private_key, public_key=public_key)
 
 
-bittensor_configuration = config_main()
-
-bt_config = bittensor_configuration.config  #  bt.config(parser=bittensor_configuration._add_args(parser=argparse.ArgumentParser()))
-
-print(bt_config)
-
-bt_config.axon.config = bt_config.config
-bt_config.wallet.config = bt_config.config
-bt_config.wallet.hotkey = bt_config.wallet.hotkey
-bt_config.subtensor.config = bt_config.config
-bt_config.blacklist.config = bt_config.config
-bt_config.wallet.config = bt_config.config
-bt_config.wandb.config = bt_config.config
-
-
-# bt_config.axon.fast_server = FastAPIThreadedServer(uvicorn.Config(app=app, host=bt_config.axon.ip, port=bt_config.axon.port))
-wallet = bt.wallet(name=bt_config.wallet.name, hotkey=get_hotkey(bt_config), path=bt_config.wallet.path, config=bt_config)
-subtensor = bt.subtensor(network=bt_config.subtensor.network, config=bt_config, _mock=False, log_verbose=True)
-axon = bt.axon(wallet=wallet, config=bt_config, port=bt_config.axon.port, ip=bt_config.axon.ip, external_ip=bt_config.axon.external_ip, external_port=bt_config.axon.external_port, max_workers=bt_config.axon.max_workers)
-metagraph = bt.metagraph(netuid=bt_config.netuid, network=bt_config.subtensor.network, lite=True, sync=True)
-
-config = bt_config.config
-print(config)
-parser = argparse.ArgumentParser()
-
-os.chdir("module_validator/chain/vision/")
-
-from validation.core_validator import CoreValidator
-
-
-parser.add_argument("--env_file", default=".env", type=str)
-
-
-validator = CoreValidator(config=config, parser=parser)
-
-validator.run()
-
-# print("Current working directory:", os.getcwd())
-# command = [
-#     "python",
-#     "-m",
-#     # "uvicorn",
-#     "validation.proxy.api_server.asgi",
-#     # "--host",
-#     # f"{config.axon.ip}",
-#     # "--port",
-#     # f"{config.axon.port}",
-#     "--env_file",
-#     ".env",
-#     "--config",
-#     f"{config}"
-#     "--subtensor.network",
-#     f"{config.subtensor.network}",
-#     "--subtensor.chain_endpoint",
-#     f"{config.subtensor.chain_endpoint}",
-#     "--netuid",
-#     f"{config.netuid}",
-#     "--miner.name",
-#     f"{config.miner.name}",
-#     "--miner.blocks_per_epoch",
-#     f"{config.miner.blocks_per_epoch}",
-#     "--logging.debug",
-#     "--logging.trace",
-#     "--logging.record_log",
-#     "--logging.logging_dir",
-#     f"{os.getenv('logging_dir')}",
-#     "--wallet.name",
-#     f"{config.wallet.name}",
-#     "--wallet.hotkey",
-#     f"{config.wallet.hotkey}",
-#     "--wallet.path",
-#     f"{config.wallet.path}",
-#     "--axon.port",
-#     f"{config.axon.port}",
-#     "--axon.ip",
-#     f"{config.axon.ip}",
-#     "--axon.external_port",
-#     f"{config.axon.external_port}",
-#     "--axon.external_ip",
-#     f"{config.axon.external_ip}",
-#     "--axon.max_workers",
-#     f"{config.axon.max_workers}",
-#     "--miner.full_path",
-#     f"{config.miner.full_path}"
-#     "--default.external_server_address",
-#     f"{config.default.EXTERNAL_SERVER_ADDRESS}",
-# ]
-
-# result = subprocess.run(command)
-
-
+# 
+# validator.metagraph = metagraph
+# 
+# 
+# validator.run()
 

@@ -1,34 +1,28 @@
-# Global configuration for development environment
+# Embedding module configuration for development environment
 
-# Logging configuration
-logging:
-  level: DEBUG
-  format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-  file: 'logs/dev.log'
+# Model configuration
+model:
+  name: 'distilbert-base-uncased'
+  max_length: 512
+  batch_size: 32
+  model_type: "simple_hash"
 
-# Database configuration
-database_url: 'sqlite:///dev_module_validator.db' 
-database:
-  port: 5432
-  name: 'module_validator_dev'
-  user: 'dev_artificial_validator'
-  password: 'dev_artificial_validator'
+# Preprocessing configuration
+preprocessing:
+  lowercase: true
+  remove_punctuation: true
+  remove_stopwords: false
 
-# API configuration
-api:
-  base_url: 'http://registrar-cellium.ngrok.app/modules/'
-  timeout: 30
+# Postprocessing configuration
+postprocessing:
+  normalize: true
+  dimensionality_reduction: null
 
-# Default settings for all modules
-default_module_settings:
-  max_input_length: 1000
-  cache_results: true
-  cache_ttl: 3600  # in seconds
+# Performance settings
+performance:
+  use_gpu: false
+  num_workers: 2
 
-
-global_requirements:
-  - config-yaml==0.0.2
-  - numpy==2.0.1
-  - requests==2.32.3
-  - SQLAlchemy==2.0.32
-  - python-dotenv==1.0.1
+# Override default module settings if needed
+max_input_length: 2000
+cache_results: false

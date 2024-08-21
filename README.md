@@ -2,7 +2,16 @@
 
 Module Validator is a flexible Python package for dynamically loading and using inference modules, starting with an embedding function. It provides a simple interface for managing and utilizing various inference modules in your projects.
 
-## Installation
+The validator is composed of three primary components.
+
+1. **Subnet Module**: Defines the validator and miner configuration and objects for interacting with the chain. 
+2. **Inference Module**: Contains the code required to run specific kinds of inference for use in the Subnet Modulle. 
+3. **Module Validator**: Handles instillation, configuration, as well as running the Subnet code in a properly configured environment.
+
+
+## Inference Modules
+
+### Installation
 
 You can install Module Validator using pip:
 
@@ -10,12 +19,12 @@ You can install Module Validator using pip:
 pip install module_validator
 ```
 
-## Usage
-## Configuration
+### Usage
+#### Configuration
 
 Module Validator uses a flexible configuration system that supports different environments and module-specific settings, organized in a nested structure.
 
-### Directory Structure
+#### Directory Structure
 
 Create a `config` directory in your project with the following structure:
 
@@ -36,7 +45,7 @@ module_validator/
             other_module.yaml
 ```
 
-### Configuration Files
+#### Configuration Files
 
 1. Global configuration: `{environment}/global.yaml`
    Contains settings that apply to all modules in a specific environment.
@@ -44,7 +53,7 @@ module_validator/
 2. Module-specific configuration: `{environment}/{module_name}.yaml`
    Contains settings specific to a particular module in a specific environment.
 
-### Environment Selection
+#### Environment Selection
 
 Set the `MODULE_VALIDATOR_ENV` environment variable to choose the configuration environment. If not set, it defaults to 'development'.
 
@@ -52,7 +61,7 @@ Set the `MODULE_VALIDATOR_ENV` environment variable to choose the configuration 
 export MODULE_VALIDATOR_ENV=production
 ```
 
-### Using Configurations in Modules
+##### Using Configurations in Modules
 
 When creating a custom module, you can access its configuration by implementing a `configure` method:
 
@@ -69,7 +78,7 @@ def configure(config):
 
 The `configure` method will be called automatically when the module is loaded, providing it with the merged global and module-specific configuration for the current environment.
 
-### Adding New Environments
+#### Adding New Environments
 
 To add a new environment:
 
@@ -79,7 +88,7 @@ To add a new environment:
 
 The configuration system will automatically detect and use the new environment when `MODULE_VALIDATOR_ENV` is set to the new environment name.
 
-### Basic Usage
+#### Basic Usage
 
 Here's a simple example of how to use Module Validator:
 
@@ -100,7 +109,7 @@ if embedding_module:
     print("Embedding result:", result)
 ```
 
-### Command Line Interface
+#### Command Line Interface
 
 Module Validator also provides a command-line interface:
 
@@ -109,11 +118,11 @@ module_validator list  # List all available modules
 module_validator run embedding "sample text"  # Run the embedding module with input
 ```
 
-## Extending Module Validator
+### Extending Inference Modules
 
 You can extend Module Validator by adding your own inference modules. There are two ways to do this:
 
-### 1. Creating a PyPI Package
+#### 1. Creating a PyPI Package
 
 1. Create a new Python package for your module.
 2. In your package's `setup.py`, add an entry point under the `module_validator.inference` group:
@@ -131,7 +140,7 @@ You can extend Module Validator by adding your own inference modules. There are 
 
 3. Install your package using pip.
 
-### 2. Adding a Custom Module File
+#### 2. Adding a Custom Module File
 
 1. Create a Python file in the `custom_modules` directory of your project.
 2. In this file, define a function named `inference`:
@@ -146,11 +155,11 @@ You can extend Module Validator by adding your own inference modules. There are 
 3. Module Validator will automatically detect and load this module.
 
 
-## Database Integration
+### Database Integration
 
 Module Validator now uses a database to store module registrar data, providing persistence and improved management of modules.
 
-### Database Configuration
+#### Database Configuration
 
 In your global configuration file (`config/{environment}/global.yaml`), add the following:
 
@@ -160,7 +169,7 @@ database_url: 'sqlite:///module_validator.db'
 
 You can replace the SQLite URL with any other database URL supported by SQLAlchemy (e.g., PostgreSQL, MySQL).
 
-### Module Storage
+#### Module Storage
 
 Modules are now stored in the database with the following information:
 - Name
@@ -169,7 +178,7 @@ Modules are now stored in the database with the following information:
 - Configuration (as JSON)
 - Creation and update timestamps
 
-### Using the Database-Backed Module Registry
+#### Using the Database-Backed Module Registry
 
 The `ModuleRegistry` class now interacts with the database to load, register, and unregister modules.
 
@@ -197,14 +206,14 @@ if module:
 registry.unregister_module('old_module')
 ```
 
-### Benefits of Database Integration
+#### Benefits of Database Integration
 
 1. Persistence: Module information is stored between application restarts.
 2. Versioning: Keep track of module versions.
 3. Dynamic updates: Register or unregister modules at runtime.
 4. Centralized configuration: Store module-specific configurations in the database.
 
-### Database Operations
+#### Database Operations
 
 The `Database` class provides methods for CRUD operations on modules:
 - `add_module`: Add a new module to the database.
@@ -215,13 +224,13 @@ The `Database` class provides methods for CRUD operations on modules:
 
 These operations are abstracted away by the `ModuleRegistry` class, but you can access them directly if needed for advanced use cases.
 
-## API Reference
+### API Reference
 
-### ModuleRegistry
+#### ModuleRegistry
 
 The main class for managing inference modules.
 
-#### Methods:
+##### Methods:
 
 - `load_modules()`: Load all available modules from entry points and custom modules directory.
 - `get_module(name)`: Get a specific module by name.
@@ -233,7 +242,7 @@ You can use these instructions to have an advanced LLM like Claude 3.5 for ChatG
 
 ---
 
-# Instructions for Implementing a New Module
+## Instructions for Implementing a New Module
 
 1. Create a new Python file: `module_validator/modules/[MODULE_NAME]/[MODULE_NAME].py`
 

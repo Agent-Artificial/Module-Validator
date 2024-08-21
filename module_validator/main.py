@@ -6,7 +6,7 @@ import traceback
 from typing import Callable
 import pkg_resources
 from module_validator.config import Config
-from module_validator.modules.module import Module
+from module_validator.module import Module
 from module_validator.registry import ModuleRegistry
 from module_validator.database import Database
 

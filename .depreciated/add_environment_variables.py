@@ -1,6 +1,9 @@
 import argparse
 import re
 import os
+import ast
+import argparse
+from typing import List, Dict, Any
 
 
 def find_arguments(document):
@@ -9,6 +12,60 @@ def find_arguments(document):
     return args_pattern.findall(document)
 
 
+def parse_add_argument(node: ast.Call) -> Dict[str, Any]:
+    arg_info = {}
+    for arg in node.args:
+        if isinstance(arg, ast.Str) and arg.s.startswith('--'):
+            arg_info['name'] = arg.s.lstrip('-')
+
+    for keyword in node.keywords:
+        if keyword.arg == 'type':
+            if isinstance(keyword.value, ast.Name):
+                arg_info['type'] = keyword.value.id
+            elif isinstance(keyword.value, ast.Attribute):
+                arg_info['type'] = f"""{keyword.value.value.id}.{keyword.value.attr}"""
+        elif keyword.arg == 'default':
+            arg_info['default'] = parse_default_value(keyword.value)
+        elif keyword.arg == 'help':
+            if isinstance(keyword.value, ast.Str):
+                arg_info['help'] = keyword.value.s
+        elif keyword.arg == 'action':
+            if isinstance(keyword.value, ast.Str):
+                arg_info['action'] = keyword.value.s
+
+    return arg_info
+
+def extract_argparse_arguments(file_path: str) -> List[Dict[str, Any]]:
+    with open(file_path, 'r') as file:
+        content = file.read()
+
+    tree = ast.parse(content)
+    arguments = []
+
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Call) and isinstance(node.func, ast.Attribute) and node.func.attr == 'add_argument':
+            arg_info = parse_add_argument(node)
+            if arg_info:
+                arguments.append(arg_info)
+
+    return arguments
+
+def parse_default_value(node):
+    if isinstance(node, (ast.Constant, ast.Constant, ast.Constant)):
+        return ast.literal_eval(node)
+    return str(ast.unparse(node))
+
+
+def get_field_type(type_str: str):
+    type_map = {
+        'str': str,
+        'int': int,
+        'float': float,
+        'bool': bool
+    }
+    return type_map.get(type_str, str)
+    
+    
 def parse_and_add_parser_arguments(document1, document2):
     args_matches = find_arguments(document1)
     parser_lines = []
@@ -68,7 +125,7 @@ def parse_and_add_arguments(document1, document2):
     updated_function = function_content.replace(
         lines_match.group(0),
         f'{lines_match.group(1)}\n            {combined_lines}\n        ]'
-    )
+    ).replace(",,", ",")
     # Replace the old function with the updated one in document2
     updated_document2 = document2.replace(function_content, updated_function)
     return updated_document2

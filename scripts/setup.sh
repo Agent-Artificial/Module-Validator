@@ -1,12 +1,8 @@
 #!/bin/bash
 
+set -e
 
-echo "1. testnet 197"
-echo "2. subtensor template testnet"
-echo "3. sylliba subnet"
-echo "4. subnet 19"
-echo "5. choose submodule"
-
+cd ..
 
 install_module() {
     module_name=$1
@@ -28,11 +24,21 @@ install_module() {
 
 install_submodule() {
     submodule_name=$1
-    submodule_install_path=$2
-    python -m module_validator.custom_modules --module_type $submodule_name --output $submodule_install_path
+    python -m module_validator.custom_modules --module_type $submodule_name
 }
 
-read -p "Select subnet or module to run[1]: " module
+
+echo "1. testnet 197"
+echo "2. subtensor template testnet"
+echo "3. sylliba subnet"
+echo "4. subnet 19"
+echo "5. choose submodule"
+
+if [ -z $1 ]; then
+    read -p "Select subnet or module to run[1]: " module
+else 
+    module=$1
+fi
 
 if [ $module == 1 ]; then
     module_name=sylliba
@@ -58,12 +64,12 @@ elif [ $module == 3 ]; then
     touch module_validator/chain/$module_name/__init__.py
     sed -i 's/template\/__init__.py/sylliba\/__init__.py/g' "module_validator/chain/sylliba/setup.py"
     submodule_name=translation
-    submodule_install_path=$module_path/modules/$submodule_name
-    install_submodule $submodule_name $submodule_install_path
+    install_submodule $submodule_name
     cd module_validator/chain/$module_name
-    rm -r modules/translation
-    ln -s /home/bakobi/vscode/module_validator/module_validator/modules/translation modules
-    cd "../../.."
+    git switch sylliba
+    cd ../../../
+    rm -r ${PWD}/module_validator/chain/sylliba/modules/translation
+    ln -s ${PWD}/module_validator/modules/translation ${PWD}/module_validator/chain/sylliba/modules/translation
 
 elif [ $module == 4 ]; then
     module_name=vision

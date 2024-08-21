@@ -7,6 +7,7 @@ import subprocess
 import importlib
 from typing import Any, Dict
 from module_validator.config import Config
+from module_validator.module import Module
 
 ENV = os.getenv('MODULE_VALIDATOR_ENV', 'development')
 
@@ -16,8 +17,7 @@ config.load_configs()
 
 def parseargs():
     parser = argparse.ArgumentParser()
-    parser.add_argument("module_type", type=str)
-    parser.add_argument("output", type=str)
+    parser.add_argument("--module_type", type=str)
     return parser.parse_args()
 
 def install_registrar_module(module_name: str) -> bool:
@@ -90,9 +90,10 @@ if __name__ == "__main__":
         "2": "financialnews",
         "3": "embedding"
     }
-    for key, value in modules.items():
-        print(f"{key}: {value}")
-    selection = input("Enter the number of the module you want to install: ")
-    if str(selection) in modules:
-        module_name = modules[str(selection)]    
+    args = parseargs()
+    module_name = args.module_type
+    if not module_name:
+        selection = input("Enter the number of the module you want to install: ")
+        if str(selection) in modules:
+            module_name = modules[str(selection)]    
     main(module_name)

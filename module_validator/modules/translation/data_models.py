@@ -590,7 +590,6 @@ TARGET_LANGUAGES = {
     "Zulu": "zul",
 }
 
-
 class TranslationConfig(BaseModel):
     model_name_or_card: Union[str, Any] = "facebook/seamless-M4T-V2-large"
     vocoder_name: str = (

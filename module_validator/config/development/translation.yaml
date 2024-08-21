@@ -2,21 +2,38 @@
 
 # Model configuration
 model:
-  name: 'facebook/seamless-M4T-V2-large'
+  # "facebook/seamless-M4T-V2-large" | "vocoder_v2"
+  model_name_or_card: facebook/seamless-M4T-V2-large
+  text_tokenizer: facebook/seamless-M4T-V2-large
+
+  # "facebook/seamless-M4T-V2-large" | "vocoder_36langs"
+  vocoder_name: facebook/seamless-M4T-V2-large
+  #  "cpu" | "cuda:0" | "cuda" | "mps"
+  device: cuda:0
+  apply_mintox: True
+
+  # "float16" | "bfloat16" | "float32"
+  dtype: float16
+
+  # text | speech | [text, speech]
+  input_modality: 
+    - text
+    - speech
+  output_modality: 
+    - text
+    - speech
   max_length: 6400
   batch_size: 32
-  model_type: 'vocoder_v2'
 
 # Preprocessing configuration
 preprocessing:
-  lowercase: true
-  remove_punctuation: true
-  remove_stopwords: false
+  base64_decode: true
+  convert_torch_audio: true
 
 # Postprocessing configuration
 postprocessing:
-  normalize: true
-  dimensionality_reduction: null
+  convert_torch_audio: true
+  base64_encode: true
 
 # Performance settings
 performance:
@@ -24,14 +41,68 @@ performance:
   num_workers: 2
 
 # Override default module settings if needed
-max_input_length: 10000
-cache_results: false
+module_config:
+  module_path: modules/translation
+  module_name: translation
+  module_endpoint: /modules/translation
+  module_url: https://registrar-cellium.ngrok.app/modules/translation
+  install_folder_path: module_validator/modules/translation
+  install_entry_point: translation:process
+  translation_request: '{"data": {"input": "some_input", "task_string": "some_task", "target_language": "some_target_language", "source_language": "some_source_language"}'
 
+# Miner configuration
+miner_config:
+  name: miner
+  hotkey: default
+  keypath: "${PWD}/.bittensor/wallets/{${miner_name}/hotkeys/${miner_hotkey}}"
+  ip: "0.0.0.0"
+  external_ip: "83.97.18.106"
+  port: 8080
+  external_port: 8080
+  netuid: 87
+  module_name: translation
+
+validator_configuration:
+  name: validator
+  hotkey: default
+  keypath: "${PWD}/.bittensor/wallets/{${miner_name}/hotkeys/${miner_hotkey}}"
+  ip: "0.0.0.0"
+  external_ip: "83.97.18.106"
+  port: 8080
+  external_port: 8080
+  netuid: 87
+  module_name: translation
+  concurrent_processes: 10
+  sample_size: 50
+  sample_data_url: https://translation-cellium.ngrok.app/translate
+  llm_sample_data_url: https://text-celium.ngrok.dev/v1
+  llm_module_name: meta-llama3-8b-instruct
+  
 requirements:
+  - setuptools
+  - wheel
+  - gnureadline==8.2.10
   - numpy==2.0.1
   - requests==2.32.3
   - SQLAlchemy==2.0.32
   - python-dotenv==1.0.1
   - config-yaml==0.0.2
   - scipy==1.14.0
-  - torch
+  - sndfile==0.2.0
+  - ggml-python==0.0.37
+  - substrate-interface
+  - bittensor==7.3.1
+  - loguru==0.7.2
+  - fastapi==0.110.3
+  - uvicorn0.30.0
+  - loguru==0.7.2
+  - requests==2.32.3
+  - substrate-interface====1.7.10
+  - sentencepiece==0.2.0
+  - protobuf==5.27.3
+  - git+https://github.com/huggingface/transformers
+  - torch==2.2.2
+  - torchaudio==2.2.2
+  - torchvision==0.17.2
+  - fairseq2==0.2.1
+  - fairseq2n==0.2.1
