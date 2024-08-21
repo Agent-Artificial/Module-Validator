@@ -9,4 +9,3 @@ translation = module_validator.modules.translation.translation:process
 [module_validator.module]
 default = module_validator.main:default_output
 register = module_validator.main:register
-
