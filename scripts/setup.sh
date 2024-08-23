@@ -17,7 +17,7 @@ install_module() {
     pip install -r requirements.txt
     
     if [ ! -d $module_path ]; then
-        git clone $module_url module_validator/chain/$module_name
+        git clone $module_url module_validator/subnet_modules/$module_name
         pip install -e $module_path
     fi
 }
@@ -43,42 +43,42 @@ fi
 if [ $module == 1 ]; then
     module_name=sylliba
     module_url=https://github.com/agent-artificial/sylliba-subnet
-    module_path=module_validator/chain/$module_name
+    module_path=module_validator/subnet_modules/$module_name
     install_module $module_name $module_url $module_path
 
 elif [ $module == 2 ]; then
     module_name=bittensor_subnet_template
     module_url=https://github.com/opentensor/bittensor-subnet-template
-    module_path=module_validator/chain/$module_name
+    module_path=module_validator/subnet_modules/$module_name
     install_module $module_name $module_url $module_path
 
 elif [ $module == 3 ]; then
     module_name=sylliba
     module_url=https://github.com/agent-artificial/sylliba-subnet
-    module_path=module_validator/chain/$module_name
+    module_path=module_validator/subnet_modules/$module_name
     if [ ! -d .sylliba ]; then
         python -m venv .$module_name
     fi
     install_module $module_name $module_url $module_path
     pip install bittensor
-    touch module_validator/chain/$module_name/__init__.py
-    sed -i 's/template\/__init__.py/sylliba\/__init__.py/g' "module_validator/chain/sylliba/setup.py"
+    touch module_validator/subnet_modules/$module_name/__init__.py
+    sed -i 's/template\/__init__.py/sylliba\/__init__.py/g' "module_validator/subnet_modules/sylliba/setup.py"
     submodule_name=translation
     install_submodule $submodule_name
-    cd module_validator/chain/$module_name
+    cd module_validator/subnet_modules/$module_name
     git switch sylliba
     cd ../../../
-    rm -r ${PWD}/module_validator/chain/sylliba/modules/translation
-    ln -s ${PWD}/module_validator/modules/translation ${PWD}/module_validator/chain/sylliba/modules/translation
+    rm -r ${PWD}/module_validator/subnet_modules/sylliba/modules/translation
+    ln -s ${PWD}/module_validator/modules/translation ${PWD}/module_validator/subnet_modules/sylliba/modules/translation
 
 elif [ $module == 4 ]; then
     module_name=vision
     module_url=https://github.com/namoray/vision
-    module_path=module_validator/chain/$module_name
+    module_path=module_validator/subnet_modules/$module_name
     install_module $module_name $module_url $module_path
     python -m utils.add_environment_variables $module_path/config/config.py
     python -m utils.configuration.py 
-    cp .env module_validator/chain/$module_name/.env
+    cp .env module_validator/subnet_modules/$module_name/.env
 
 
 elif [ $module == 5 ]; then

@@ -26,7 +26,7 @@ def set_working_directory_to_submodule(submodule_path):
     
     
 def add_args(parser):
-    parser.add_argument("--path", type=str, default="module_validator/chain/bittensor_subnet_template")
+    parser.add_argument("--path", type=str, default="module_validator/subnet_modules/bittensor_subnet_template")
 
     return parser.parse_args()
 

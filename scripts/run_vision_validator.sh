@@ -32,31 +32,31 @@ while IFS='=' read -r key value; do
     cmd_args+="--${key} ${value} "
   fi
 done < "$env_file"
-cp $env_file module_validator/chain/sylliba/.env
+cp $env_file module_validator/subnet_modules/sylliba/.env
 
 # Output the constructed command line arguments
 echo "Constructed command line arguments: $cmd_args"
 
-if not [ -d module_validator/chain/sylliba/modules/translation ]; then
-    if not [ -d module_validator/chain/modules ]; then
-        mkdir module_validator/chain/modules
+if not [ -d module_validator/subnet_modules/sylliba/modules/translation ]; then
+    if not [ -d module_validator/subnet_modules/modules ]; then
+        mkdir module_validator/subnet_modules/modules
         bash setup.sh translation
     fi
 
-    if not [ -d module_validator/chain/sylliba/modules ]; then
-        mkdir module_validator/chain/sylliba/modules
-        ln -s ${PWD}/module_validator/modules/translation ${PWD}/module_validator/chain/sylliba/modules/translation
+    if not [ -d module_validator/subnet_modules/sylliba/modules ]; then
+        mkdir module_validator/subnet_modules/sylliba/modules
+        ln -s ${PWD}/module_validator/modules/translation ${PWD}/module_validator/subnet_modules/sylliba/modules/translation
     fi
-    if not [ -d module_validator/chain/sylliba/modules/translation ]; then
-        ln -s ${PWD}/module_validator/modules/translation ${PWD}/module_validator/chain/sylliba/modules/translation
+    if not [ -d module_validator/subnet_modules/sylliba/modules/translation ]; then
+        ln -s ${PWD}/module_validator/modules/translation ${PWD}/module_validator/subnet_modules/sylliba/modules/translation
     else
-        rm -r module_validator/chain/sylliba/modules/translation
-        ln -s ${PWD}/module_validator/modules/translation ${PWD}/module_validator/chain/sylliba/modules/translation
+        rm -r module_validator/subnet_modules/sylliba/modules/translation
+        ln -s ${PWD}/module_validator/modules/translation ${PWD}/module_validator/subnet_modules/sylliba/modules/translation
     fi
 fi
 
 # Change directory to the sylliba module
-cd module_validator/chain/sylliba
+cd module_validator/subnet_modules/sylliba
 
 # Run the command
 
