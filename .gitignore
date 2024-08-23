@@ -15,14 +15,14 @@ __pycache__
 .env
 *.db
 .*
-bittensor
+bittensor/
 module_validator.egg-info/*
 module_validator/modules/translation
 module_validator/modules/embedding
-module_valdiator/modules/finanicalnews
+module_validator/modules/finanicalnews
 module_validator/chain/sylliba
 module_validator/chain/vision
-module_validator/chain/bittensor_subnet_template
+module_validator/bittensor_subnet_template
 generated_config.json
 generated_config.yaml
 miner.py
