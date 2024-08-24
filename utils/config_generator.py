@@ -380,24 +380,26 @@ def create_environment_string(arguments):
 
     lines = []
     all_arguments = {}
-    
+
     for argument, value in arguments.items():
-        name=None
-        default=None
-        field_type=None
-        help_text=None
+        name = None
+        default = None
+        field_type = None
+        help_text = None
         print(argument, value)
-        try:            
+        try:
             if isinstance(value, dict):
                 if "name" in value:
-                    name = value["name"].strip(" ").lower().replace(".", "_").strip("__")
+                    name = (
+                        value["name"].strip(" ").lower().replace(".", "_").strip("__")
+                    )
                 else:
                     name = argument
                 if "default" in value:
                     default = value["default"]
-                    lines.append(f'f"{name}={default}"')                        
+                    lines.append(f'f"{name}={default}"')
                     if isinstance(default, str):
-                        default = default.strip("\n").strip("  ").replace("\"", "\"")
+                        default = default.strip("\n").strip("  ").replace('"', '"')
                 if "type" in value:
                     field_type = value["type"].strip("\n").strip("  ")
                 if "help" in value:
@@ -419,17 +421,15 @@ def create_environment_string(arguments):
                 "name": name,
                 "default": default,
                 "type": field_type,
-                "help": help_text
+                "help": help_text,
             }
-            
-            
+
             logger.debug(f"\nEnvironment string: {lines}")
         except Exception as e:
             logger.warning(f"Failed to create environment string: {e}")
             raise Exception(f"Failed to create environment string: {e}") from e
 
     return all_arguments, lines
-
 
 
 def parse_subnet_folder(file_dir: Union[str, Path]) -> Tuple[Dict[str, Any], List[str]]:
@@ -442,7 +442,7 @@ def parse_subnet_folder(file_dir: Union[str, Path]) -> Tuple[Dict[str, Any], Lis
                 continue
         try:
             for file in files:
-            
+
                 if file.startswith("__") or file.endswith(".pyc"):
                     continue
                 if file.endswith(".py"):
@@ -466,21 +466,23 @@ def parse_subnet_folder(file_dir: Union[str, Path]) -> Tuple[Dict[str, Any], Lis
                         elif isinstance(argument, list):
                             for argument in all_arguments:
                                 if "name" in argument:
-                                    subnet_arguments[argument["name"]] = argument  
+                                    subnet_arguments[argument["name"]] = argument
                                     continue
                         if "name" in argument:
                             if argument["name"].startswith("__"):
-                                name = argument["name"].strip(" ").lower().replace("__", "")
+                                name = (
+                                    argument["name"]
+                                    .strip(" ")
+                                    .lower()
+                                    .replace("__", "")
+                                )
                                 subnet_arguments[name] = argument
                                 continue
-                            
-                            
-                
-                              
+
         except Exception as e:
             logger.warning(f"Failed to parse subnet folder: {e}")
             raise Exception(f"Failed to parse subnet folder: {e}") from e
-    logger.debug( f"\nSubnet arguments: {subnet_arguments}" ) 
+    logger.debug(f"\nSubnet arguments: {subnet_arguments}")
     all_argmuents, lines = create_environment_string(subnet_arguments)
     lines = list(set(lines))
     logger.debug(f"\nlines:\n{lines}")
