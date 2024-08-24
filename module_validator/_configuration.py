@@ -7,6 +7,7 @@ import os
 
 load_dotenv()
 
+
 class NeuronConfig(BaseModel):
     device: str = '"is_cuda_available()"'
     epoch_length: int = 100
@@ -77,7 +78,7 @@ class Config(BaseModel):
     miner: MinerConfig = Field(default_factory=MinerConfig())
 
     def get(self, key: str, default: Any = None) -> Any:
-        parts = key.split('.')
+        parts = key.split(".")
         value = self
         for part in parts:
             if isinstance(value, BaseModel):

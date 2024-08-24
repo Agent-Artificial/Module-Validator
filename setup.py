@@ -11,9 +11,9 @@ setup(
             "register = module_validator.main:register",
         ],
         "module_validator.inference": [
-            "financialnews = module_validator.modules.financialnews.financialnews:process",                
+            "financialnews = module_validator.modules.financialnews.financialnews:process",
             "embedding = module_validator.modules.embedding.embedding:process",
-            "translation = module_validator.modules.translation.translation:process"
+            "translation = module_validator.modules.translation.translation:process",
         ],
     },
     summary="Module Validator for Substrate subnet validation",

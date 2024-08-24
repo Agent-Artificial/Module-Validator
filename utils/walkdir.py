@@ -15,11 +15,11 @@ with open("utils/output.txt", "w", encoding="utf-8") as output_file:
                 file_path = os.path.join(dirpath, filename)
                 if file_path.startswith("./.venv"):
                     continue
-                
+
                 # Open the Python file and read its contents
                 with open(file_path, "r", encoding="utf-8") as py_file:
                     contents = py_file.read()
-                
+
                 # Write the file contents to the output file
                 output_file.write(f"File: {file_path}\n\n")
                 output_file.write(contents)

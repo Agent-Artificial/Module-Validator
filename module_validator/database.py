@@ -8,8 +8,9 @@ from loguru import logger
 
 Base = declarative_base()
 
+
 class ModuleEntry(Base):
-    __tablename__ = 'modules'
+    __tablename__ = "modules"
 
     id = Column(Integer, primary_key=True)
     name = Column(String, unique=True, nullable=False)
@@ -24,7 +25,7 @@ class ModuleEntry(Base):
 
 
 class CommandEntry(Base):
-    __tablename__ = 'commands'
+    __tablename__ = "commands"
 
     id = Column(Integer, primary_key=True)
     name = Column(String, unique=True, nullable=False)
@@ -35,10 +36,11 @@ class CommandEntry(Base):
 
     def __repr__(self):
         return f"<CommandEntry(name={self.name}, module_name={self.module_name})>"
-    
-    
+
+
 class Database:
     engine = None
+
     def __init__(self, config):
         logger.debug(f"Connecting to database: {config}")
         if isinstance(config, dict):
@@ -52,7 +54,9 @@ class Database:
 
     def add_module(self, name, version, entry_point, config=None):
         session = self.Session()
-        module = ModuleEntry(name=name, version=version, entry_point=entry_point, config=config)
+        module = ModuleEntry(
+            name=name, version=version, entry_point=entry_point, config=config
+        )
         session.add(module)
         session.commit()
         session.close()
@@ -92,10 +96,12 @@ class Database:
 
     def create_tables(self):
         Base.metadata.create_all(self.engine)
-        
+
     def add_command(self, name, module_name, description=None):
         session = self.Session()
-        command = CommandEntry(name=name, module_name=module_name, description=description)
+        command = CommandEntry(
+            name=name, module_name=module_name, description=description
+        )
         session.add(command)
         session.commit()
         session.close()

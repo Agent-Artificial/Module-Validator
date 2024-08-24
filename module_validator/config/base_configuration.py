@@ -5,6 +5,7 @@ from typing import Dict, Any, Union, TypeVar, List
 
 T = TypeVar("T")
 
+
 class GenericConfig(BaseModel):
     config: Dict[str, T] = {}
 
@@ -26,7 +27,7 @@ class GenericConfig(BaseModel):
             if value is None:
                 return default
         return value
-    
+
     @classmethod
     def _set(cls, key: str, value: Any):
         keys = key.split(".")
@@ -38,29 +39,36 @@ class GenericConfig(BaseModel):
         d[keys[-1]] = value
 
     @classmethod
-    def _merge(cls, new_config: Dict[str, Any], old_config: Dict[str, Any]) -> Dict[str, Any]:
+    def _merge(
+        cls, new_config: Dict[str, Any], old_config: Dict[str, Any]
+    ) -> Dict[str, Any]:
         merged_config = old_config.copy()
         for key, value in new_config.items():
-            if isinstance(value, dict) and key in merged_config and isinstance(merged_config[key], dict):
+            if (
+                isinstance(value, dict)
+                and key in merged_config
+                and isinstance(merged_config[key], dict)
+            ):
                 merged_config[key] = cls._merge(value, merged_config[key])
             else:
                 merged_config[key] = value
         return merged_config
-    
+
     @classmethod
-    def _load_config(cls, parser: argparse.ArgumentParser, args: argparse.Namespace) -> 'GenericConfig':
+    def _load_config(
+        cls, parser: argparse.ArgumentParser, args: argparse.Namespace
+    ) -> "GenericConfig":
         config = cls(config={})
         config._parse_args(args)
         return config
-    
+
     @classmethod
     def _parse_args(cls, args: argparse.Namespace):
         for arg, value in vars(args).items():
             if value is not None:
                 cls._set(arg, value)
-            
+
 
 if __name__ == "__main__":
-    
+
     config = GenericConfig(config={})
-    
