@@ -41,7 +41,7 @@ def parse_add_argument(node: ast.Call) -> Dict[str, Any]:
     for arg in node.args:
         try:
             if isinstance(arg, ast.Constant) and arg.s.startswith("--"):
-                arg_info["name"] = arg.s.replace(".", "_").replace("-", "_").lower()
+                arg_info["name"] = arg.s.replace("-", "_").lower()
         except Exception as e:
             logger.warning(f"Failed to format 'name' argument: {e}")
             raise Exception(f"Failed to format 'name' argument: {e}") from e
@@ -279,7 +279,7 @@ def create_subclass_string(models: str):
                     )
                     if field_type == str:
                         default = f'"{default}"'.strip("'").strip("\n")
-                        defaults[name.lower().replace(".", "_")] = default
+                        defaults[name.lower()] = default
                     description = (
                         field.field_info.description
                         if hasattr(field, "field_info")
@@ -291,11 +291,11 @@ def create_subclass_string(models: str):
                     )
                     if description:
                         template_lines.append(
-                            f"    {name.lower().strip(' ').replace('.', '_')}: {field_type} = Field(default={default!r}, description={description!r})\n"
+                            f"    {name.lower().strip(' ')}: {field_type} = Field(default={default!r}, description={description!r})\n"
                         )
                     else:
                         template_lines.append(
-                            f"    {name.lower().strip(' ').replace('.', '_')}: {field_type} = {default!r}\n"
+                            f"    {name.lower().strip(' ')}: {field_type} = {default!r}\n"
                         )
     except Exception as e:
         logger.warning(f"Failed to create subclass string: {e}")
@@ -314,22 +314,7 @@ def create_subclass_string(models: str):
 def generate_pydantic_model_script(models, output_file: str):
     logger.info(f"\nGenerating pydantic model script: {output_file}")
 
-    pydantic_template = """from pydantic import BaseModel, Field\nfrom typing import Any
-from dotenv import load_dotenv
-import os
 
-load_dotenv()
-
-
-{{{sub_class_generation}}}
-
-class Config(GenericConfig):
-    def __init__(self, data: Union[BaseModel, Dict[str, Any]]):
-        if isinstance(data, BaseModel):
-            data = data.model_dump()
-        super().__init__(**data)
-{{{attribute_generation}}}\n
-"""
     # Generate class definitions for nested structures
 
     subclass_template, defaults, classnames = create_subclass_string(models)
@@ -391,7 +376,7 @@ def create_environment_string(arguments):
             if isinstance(value, dict):
                 if "name" in value:
                     name = (
-                        value["name"].strip(" ").lower().replace(".", "_").strip("__")
+                        value["name"].strip(" ").lower().strip("__")
                     )
                 else:
                     name = argument
@@ -405,14 +390,14 @@ def create_environment_string(arguments):
                 if "help" in value:
                     help_text = value["help"].strip("\n").strip("  ")
             elif isinstance(value, str):
-                name = argument.strip(" ").lower().replace(".", "_").strip("__")
+                name = argument.strip(" ").lower().strip("__")
                 default = value
                 field_type = "str"
                 help_text = None
                 lines.append(f'"{name}={default}"')
             elif isinstance(value, list):
                 logger.debug(f"\nvalue: {value}")
-                name = argument.strip(" ").lower().replace(".", "_").strip("__")
+                name = argument.strip(" ").lower().strip("__")
                 default = value
                 field_type = "list"
                 help_text = None
@@ -605,7 +590,157 @@ Correction is recommended but no required.
 """
     )
 
+def save_environment_file(file_path="module_validator/subnet_modules/bittensor_subnet_template"):
+    all_args = parse_subnet_folder(file_path)
+    all_arguments = all_args[0]
+    env_variables = all_args[1]
+    env_keys = []
+    for value in env_variables:
+        key = value.split('"')[1].split("=")[0]
+        value = value.split('"')[1].split("=")[1].split('"')[0]
+        if key not in all_arguments.keys():
+            all_arguments[key] = value
+            env_keys.append(f"f'{key}={value}'")
+        env_keys.append(f"f'{key}={value}'")
+        
+    with open(".env", "w", encoding='utf-8') as f:
+        f.write("\n".join(env_keys))
+    return all_arguments, env_keys
+
+CONFIG_CLASS_TEMPLATE = """from pydantic import BaseModel, Field
+from typing import Any
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+<<sub_class_generation>>
+
+class Config(GenericConfig):
+<<attribute_generation>>
+    def __init__(self, data: Union[BaseModel, Dict[str, Any]]):
+        if isinstance(data, BaseModel):
+            data = data.model_dump()
+        super().__init__(**data)
+
+    def get(self, key: str, default: T = None) -> T:
+        return self._get(key, default)
+    
+    def set(self, key: str, value: T) -> None:
+        self._set(key, value)
+        
+    def merge(self, new_config: Dict[str, T]) -> Dict[str, Any]:
+        self.config = self._merge(new_config, self.config)
+        return self.config
+
+    def load_config(self, parser: argparse.ArgumentParser, args: argparse.Namespace) -> 'Config':
+        return self._load_config(parser, args)
+    
+    def parse_args(self, args: argparse.Namespace):
+        self._parse_args(args)
+    
+    def add_args(self, parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
+        return self._add_args(parser)
+    
+    def get_env(self) -> List[str]:
+        lines = [
+<<environment_generation>>
+        ]
+        return self._add_env(self.config)
+
+    def add_args(self, parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
+<<argument_generation>>
+        parser.add_argument('--config', type=str, default=None, help='path to config file', required=False)
+        return parser
+
+
+"""
+SUB_CLASS_TEMPLATE = """
+class {sub_class_name}(GenericConfig):
+<<sub_class_attribute_generation>>
+    def __init__(self, data: Union[BaseModel, Dict[str, Any]]):
+        if isinstance(data, BaseModel):
+            data = data.model_dump()
+        super().__init__(**data)
+        
+"""
+ATTRIBUTE_TEMPLATE = """    {name}: {type} = Field({model_fields})\n"""
+SUBCLASS_ATTRIBUTE_TEMPLATE = "    {sub_class_name}: {type} = Field(default_factory={sub_class_name}, {model_fields})\n"
+COMMAND_LINE_ARG_TEMPLATE = "        parser.add_argument(\"--{name}\", default=\"{default}\", type={type}, help=\"{help}\", action=\"{action}\")\n"
+
+
+
 
 if __name__ == "__main__":
+    SUB_CLASS_LINES = []
+    CLASS_LINES = []
+    ENVIRONMENT_LINES = []
+    ARGUMENT_LINES = []
+    ATTRIBUTE_LINES = []
+    TEMPLATES = {
+    }
+    all_arugments, env_keys = save_environment_file()
+    
+    for env_key in env_keys:
+        ENVIRONMENT_LINES.append(f"            {env_key},\n")
+    TEMPLATES["environment"] = ENVIRONMENT_LINES
+    class_dict = {}
+    classnames = []
+    attribute_names = []
+    attribute_lines = []
+    subclass_lines = []
+    fields = ["name", "default", "type", "help", "action"]
+    for key, value in all_arugments.items():
+        subattributes = []
+        if not key:
+            continue
+        for field in fields:
+            if field not in value.keys():
+                value[field] = None
+        ARGUMENT_LINES.append(COMMAND_LINE_ARG_TEMPLATE.format(name=key, type=value["type"] or "str", default=value["default"] or None, help=value["help"] or None, action=value["action"] or None))
+        
+        if "." in key:
+            classname = key.split(".")[0]
+            attributename = key.split(".")[1]
+            full_classname = key.split(".")[0].title() + "Config"
+            if full_classname not in class_dict.keys():
+                class_dict[full_classname] = {}
+                classnames.append(full_classname)
+                for subkey, subvalue in value.items():
+                    if subkey and attributename not in subattributes:
+                        subclass_lines.append(ATTRIBUTE_TEMPLATE.format(name=attributename, type=value.get("type", "str"), model_fields=subvalue))
+                        subattributes.append(attributename)
+                subclass_template = ''.join(subclass_lines)
+                subclass_template = SUB_CLASS_TEMPLATE.format(sub_class_name=full_classname).replace("<<sub_class_attribute_generation>>", subclass_template)
+                CLASS_LINES.append(subclass_template)
+            attributename = key
+            if attributename not in class_dict.keys():
+                class_dict[attributename] = value
+                attribute_names.append(attributename)
+    
+    subclass_attribute_lines = []
+    for key, value in class_dict.items():
+        if key in attribute_names:
+            ATTRIBUTE_LINES.append(ATTRIBUTE_TEMPLATE.format(name=key.replace(".", "_"), type=value['type'], model_fields=value))
+        if key in classnames:
+            ATTRIBUTE_LINES.append(SUBCLASS_ATTRIBUTE_TEMPLATE.format(sub_class_name=key, type=full_classname, model_fields=value))
 
-    main()
+    
+    print(''.join(SUB_CLASS_TEMPLATE))
+    TEMPLATES["attributes"] = ''.join(ATTRIBUTE_LINES)
+    TEMPLATES["arguments"] = ''.join(ARGUMENT_LINES)
+    TEMPLATES["subclass"] = ''.join(CLASS_LINES)
+    final_template = CONFIG_CLASS_TEMPLATE.replace("<<attribute_generation>>", ''.join(ATTRIBUTE_LINES))
+    final_template = final_template.replace("<<argument_generation>>", ''.join(ARGUMENT_LINES))
+    final_template = final_template.replace("<<sub_class_generation>>", ''.join(CLASS_LINES))
+    final_template = final_template.replace("<<environment_generation>>", ''.join(ENVIRONMENT_LINES))
+    TEMPLATES["class"] = final_template
+    path = Path("config.py")
+    print(final_template)
+    path.write_text(final_template)
+    #print(json.dumps(class_dict, indent=4))
+
+            
+
+            
+            

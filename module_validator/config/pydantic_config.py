@@ -8,13 +8,11 @@ load_dotenv()
 
 
 
-
 class Config(GenericConfig):
     def __init__(self, data: Union[BaseModel, Dict[str, Any]]):
         if isinstance(data, BaseModel):
             data = data.model_dump()
         super().__init__(**data)
-
 
 
 

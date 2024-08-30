@@ -4,6 +4,7 @@ __pycache__
 *bittensor_subnet_template*
 .syliba*
 *sylliba*
+*vision*
 .custom_modules*
 .development*
 *financialnews*
@@ -16,7 +17,6 @@ __pycache__
 *.db
 .*
 module_validator.egg-info/*
-
 generated_config.json
 generated_config.yaml
 miner.py
