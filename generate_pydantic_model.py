@@ -65,38 +65,50 @@ def generate_pydantic_model(model_name: str, config: Dict[str, Any]) -> Type[Bas
     print(config)
     # Iterate through the configuration to build the model fields
     for key, value in config.items():
-        if '.' in key:
+        if "." in key:
             # Nested key
-            outer_key, inner_key = key.split('.', 1)
+            outer_key, inner_key = key.split(".", 1)
             if outer_key not in model_fields:
-                nested_model = generate_pydantic_model(outer_key.capitalize() + 'Config', {inner_key: value})
+                nested_model = generate_pydantic_model(
+                    outer_key.capitalize() + "Config", {inner_key: value}
+                )
                 model_fields[outer_key] = (nested_model, None)
-            elif inner_key not in model_fields and isinstance(value, dict) and any(field in value for field in fields):
+            elif (
+                inner_key not in model_fields
+                and isinstance(value, dict)
+                and any(field in value for field in fields)
+            ):
                 model_fields[outer_key][inner_key] = value
                 model_fields[outer_key] = (nested_model, None)
-                
+
                 nested_model = model_fields[outer_key][0]
                 nested_model.__annotations__[inner_key] = str
                 if hasattr(value, "help"):
-                    nested_model.__fields__[inner_key] = Field(default=None, description=value["help"])
+                    nested_model.__fields__[inner_key] = Field(
+                        default=None, description=value["help"]
+                    )
         else:
             # Regular key
             model_fields = get_field_value(key, value, model_fields)
 
     # Create the new model dynamically
-    return type(model_name, (ConfigBaseModel,), {'__annotations__': {k: v[0] for k, v in model_fields.items()}})
-
+    return type(
+        model_name,
+        (ConfigBaseModel,),
+        {"__annotations__": {k: v[0] for k, v in model_fields.items()}},
+    )
 
 
 # Constants for template strings
-ARGUMENT_LINE_TEMPLATE = "    parser.add_argument(\"--{name}\", default=\"{default}\", type={type}, help=\"{help}\", action=\"{action}\")\n"
-ATTRIBUTE_LINE_TEMPLATE = "        {name}: {type} = Field(default=\"{default}\", description=\"{help}\", action=\"{action}\")\n"
+ARGUMENT_LINE_TEMPLATE = '    parser.add_argument("--{name}", default="{default}", type={type}, help="{help}", action="{action}")\n'
+ATTRIBUTE_LINE_TEMPLATE = '        {name}: {type} = Field(default="{default}", description="{help}", action="{action}")\n'
 ENVIRONMENT_LINE_TEMPLATE = "{name}={default}\n"
 CLASS_LINE_TEMPLATE = "{name}: {type} = Field(description='{help}')\n"
 CLASS_TEMPLATE = """
 class {model_name}(BaseModel):
 {attribute_generation}
 """
+
 
 def get_field_value(name: str, value: dict, model_fields: dict) -> dict:
     model_fields["name"] = name
@@ -105,6 +117,8 @@ def get_field_value(name: str, value: dict, model_fields: dict) -> dict:
     model_fields["help"] = value.get("help", "")
     model_fields["action"] = value.get("action", "")
     return model_fields
+
+
 from typing import Dict, Any, Optional, Union
 from pydantic import BaseModel, Field
 
@@ -117,7 +131,7 @@ def generate_pydantic_model_code(model_name: str, config: Dict[str, Any]) -> str
     attribute_lines = []
     environment_lines = []
     class_lines = []
-    
+
     class_definitions = {}
     print(config)
     # Add fields to the model
@@ -138,14 +152,14 @@ def generate_pydantic_model_code(model_name: str, config: Dict[str, Any]) -> str
                 name = key.split(".")[0].title()
                 classname = name + "Config"
                 attribute = key.split(".")[1]
-                
+
                 if classname not in class_definitions:
                     class_definitions[classname] = {
                         "template": "class {classname}(BaseModel):\n",
                         "config_dict": value,
-                        "lines": []
+                        "lines": [],
                     }
-                
+
                 model_fields = get_field_value(attribute, value, model_fields)
                 subclass_lines.append(ATTRIBUTE_LINE_TEMPLATE.format(**model_fields))
             else:
@@ -155,7 +169,7 @@ def generate_pydantic_model_code(model_name: str, config: Dict[str, Any]) -> str
             # Skip list handling (adjust this based on your specific needs)
             print(f"Skipping list: {key}")
             continue
-        
+
         # Append lines for the main class
         attribute_lines.append(ATTRIBUTE_LINE_TEMPLATE.format(**model_fields))
         argument_lines.append(ARGUMENT_LINE_TEMPLATE.format(**model_fields))
@@ -170,20 +184,32 @@ def generate_pydantic_model_code(model_name: str, config: Dict[str, Any]) -> str
 
     # Combine everything into the final class code
     class_code = CLASS_TEMPLATE.format(
-        model_name=model_name,
-        attribute_generation="".join(subclass_lines)
+        model_name=model_name, attribute_generation="".join(subclass_lines)
     )
     print(attribute_lines, argument_lines, environment_lines, class_lines)
     return class_code, argument_lines, argument_lines, environment_lines, class_lines
 
+
 def generate_script(config_dict: Dict[str, Dict[str, Any]], output_file: str) -> None:
-    class_code, attribute_template, argument_template, environment_template, class_template = generate_pydantic_model_code("GenericConfig", config_dict)
+    (
+        class_code,
+        attribute_template,
+        argument_template,
+        environment_template,
+        class_template,
+    ) = generate_pydantic_model_code("GenericConfig", config_dict)
     with open(output_file, "w") as file:
-        file.write(class_code)        
-    
+        file.write(class_code)
+
     print(f"Script generated and saved to {output_file}")
-    
-    return class_code, attribute_template, argument_template, environment_template, class_template
+
+    return (
+        class_code,
+        attribute_template,
+        argument_template,
+        environment_template,
+        class_template,
+    )
 
 
 if __name__ == "__main__":
@@ -196,4 +222,3 @@ if __name__ == "__main__":
         },
     }
     generate_script(config_dict, "module_validator/config/sylliba")
-

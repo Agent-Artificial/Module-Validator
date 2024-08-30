@@ -1,7 +1,9 @@
 from pydantic import BaseModel, Field
-from typing import Any, Union, Dict, List, Optional
+from typing import Any, Union, Dict, List, Optional, ClassVar
+from pydantic import ConfigDict
 from dotenv import load_dotenv
 from module_validator.config.base_configuration import GenericConfig, T
+import bittensor as bt
 import argparse
 import os
 
@@ -86,17 +88,40 @@ class BlacklistConfig(GenericConfig):
 
 
 class Config(GenericConfig):
-    axonconfig: AxonConfig = Field(default_factory=AxonConfig, )
-    subtensorconfig: SubtensorConfig = Field(default_factory=SubtensorConfig, )
-    minerconfig: MinerConfig = Field(default_factory=MinerConfig, )
-    neuronconfig: NeuronConfig = Field(default_factory=NeuronConfig, )
-    wandbconfig: WandbConfig = Field(default_factory=WandbConfig, )
-    blacklistconfig: BlacklistConfig = Field(default_factory=BlacklistConfig, )
+    model_config: ClassVar[ConfigDict] = ConfigDict({
+            "aribtrary_types_allowed": True
+    })
+    config: Optional[bt.config] = Field(default_factory=bt.config, type=None)
+    axon: Optional[bt.axon] = Field(default_factory=bt.axon, type=None)
+    wallet: Optional[bt.wallet] = Field(default_factory=bt.wallet, type=None)
+    metagraph: Optional[T] = Field(default_factory=bt.metagraph, type=None)
+    subtensor: Optional[bt.subtensor] = Field(default_factory=bt.subtensor, type=None)
+    dendrite: Optional[bt.dendrite] = Field(default_factory=bt.dendrite, type=None)
+    hotkeypair: Optional[bt.Keypair] = Field(default_factory=bt.Keypair, type=None)
+    netuid: int = Field({'name': 'netuid', 'default': 1, 'type': 'int', 'help': 'Subnet netuid', 'action': None})
+    my_uid: int = Field({'name': 'my_uid', 'default': None, 'type': 'int', 'help': 'Your unique miner ID on the chain', 'action': None})
+    wallet_name: str = Field({'name': 'wallet_name', 'default': 'default', 'type': 'str', 'help': 'Name of the wallet', 'action': None})
+    hotkey: str = Field({'name': 'hotkey', 'default': 'default', 'type': 'str', 'help': 'Hotkey for the wallet', 'action': None})
+    network: str = Field({'name': 'network', 'default': 'test', 'type': 'str', 'help': 'Network type, e.g., "test" or "mainnet"', 'action': None})
+    mock: None = Field({'name': 'mock', 'default': False, 'type': None, 'help': 'Mock neuron and all network components.', 'action': None})
+    message: str = Field({'name': 'message', 'default': None, 'type': 'str', 'help': 'The message to sign', 'action': None})
+    name: str = Field({'name': 'name', 'default': None, 'type': 'str', 'help': 'The wallet name', 'action': None})
+    file: None = Field({'name': 'file', 'default': None, 'type': None, 'help': 'The file containing the message and signature', 'action': None})
+    ax: AxonConfig = Field(default_factory=AxonConfig, )
+    subtensor: SubtensorConfig = Field(default_factory=SubtensorConfig, )
+    miner: MinerConfig = Field(default_factory=MinerConfig, )
+    neur: NeuronConfig = Field(default_factory=NeuronConfig, )
+    wandb: WandbConfig = Field(default_factory=WandbConfig, )
+    blacklist: BlacklistConfig = Field(default_factory=BlacklistConfig, )
 
+    
     def __init__(self, data: Union[BaseModel, Dict[str, Any]]):
         if isinstance(data, BaseModel):
             data = data.model_dump()
         super().__init__(**data)
+        model_config: ConfigDict = ConfigDict({
+            "aribtrary_types_allowed": True
+        })
 
     def get(self, key: str, default: T = None) -> T:
         return self._get(key, default)
@@ -119,44 +144,45 @@ class Config(GenericConfig):
     
     def get_env(self) -> List[str]:
         lines = [
-            f'wallet_name=default',
-            f'subtensor.chain_endpoint=wss://entrypoint-finney.opentensor.ai:443',
+            f'neuron.events_retention_size=2 * 1024 * 1024 * 1024',
             f'neuron.dont_save_events=False',
-            f'miner.blocks_per_epoch=100',
-            f'miner.no_start_axon=False',
+            f'blacklist.force_validator_permit=False',
+            f'neuron.axon_off=False',
+            f'neuron.device=is_cuda_available()',
             f'miner.root=~/.bittensor/miners/',
-            f'miner.no_serve=False',
+            f'neuron.num_concurrent_forwards=1',
+            f'subtensor.chain_endpoint=wss://entrypoint-finney.opentensor.ai:443',
+            f'miner.no_start_axon=False',
+            f'wandb.offline=False',
+            f'neuron.moving_average_alpha=0.1',
+            f'wandb.project_name=template-validators',
+            f'blacklist.allow_non_registered=False',
+            f'netuid=1',
+            f'neuron.timeout=10',
             f'wandb.notes=',
+            f'hotkey=default',
+            f'neuron.epoch_length=100',
+            f'miner.name=Bittensor Miner',
+            f'wandb.entity=opentensor-dev',
+            f'neuron.disable_set_weights=False',
+            f'miner.no_serve=False',
+            f'wallet_name=default',
+            f'miner.blocks_per_epoch=100',
+            f'axon.port=8098',
+            f'miner.mock_subtensor=False',
+            f'network=test',
             f'neuron.name=validator',
             f'neuron.sample_size=50',
-            f'miner.name=Bittensor Miner',
-            f'neuron.moving_average_alpha=0.1',
-            f'axon.port=8098',
-            f'neuron.events_retention_size=2 * 1024 * 1024 * 1024',
-            f'netuid=1',
-            f'neuron.num_concurrent_forwards=1',
-            f'wandb.offline=False',
-            f'hotkey=default',
-            f'miner.mock_subtensor=False',
-            f'blacklist.force_validator_permit=False',
-            f'blacklist.allow_non_registered=False',
-            f'wandb.project_name=template-validators',
-            f'neuron.axon_off=False',
-            f'neuron.vpermit_tao_limit=4096',
-            f'subtensor.network=finney',
-            f'neuron.disable_set_weights=False',
-            f'neuron.timeout=10',
             f'wandb.off=False',
             f'mock=False',
-            f'wandb.entity=opentensor-dev',
-            f'neuron.device=is_cuda_available()',
-            f'neuron.epoch_length=100',
-            f'network=test',
+            f'neuron.vpermit_tao_limit=4096',
+            f'subtensor.network=finney',
 
         ]
         return self._add_env(self.config)
 
     def add_args(self, parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
+        parser.add_argument('--config', type=str, default=None, help='path to config file', required=False)
         parser.add_argument("--axon.port", default="8098", type=int, help="Port to run the axon on.", action="None")
         parser.add_argument("--subtensor.network", default="finney", type=str, help="Bittensor network to connect to.", action="None")
         parser.add_argument("--subtensor.chain_endpoint", default="wss://entrypoint-finney.opentensor.ai:443", type=str, help="Chain endpoint to connect to.", action="None")
@@ -194,7 +220,7 @@ class Config(GenericConfig):
         parser.add_argument("--message", default="None", type=str, help="The message to sign", action="None")
         parser.add_argument("--name", default="None", type=str, help="The wallet name", action="None")
         parser.add_argument("--file", default="None", type=str, help="The file containing the message and signature", action="None")
-        parser.add_argument('--config', type=str, default=None, help='path to config file', required=False)
+
         return parser
 
 

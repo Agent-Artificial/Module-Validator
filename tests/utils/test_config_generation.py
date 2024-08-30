@@ -16,8 +16,9 @@ from utils.config_generator import (
     save_template_file,
     create_paths,
     parse_subnet_folder,
-    nested_dict
+    nested_dict,
 )
+
 
 class TestYourModuleName(unittest.TestCase):
 
@@ -35,28 +36,34 @@ parser.add_argument('--arg2', type=int, default=2, help='Argument 2')
         with patch("builtins.open", self.mock_open):
             arguments = extract_argparse_arguments(self.file_path)
             self.assertEqual(len(arguments), 2)
-            self.assertEqual(arguments[0]['name'], 'arg1')
-            self.assertEqual(arguments[0]['type'], 'str')
-            self.assertEqual(arguments[0]['default'], 'default1')
-            self.assertEqual(arguments[0]['help'], 'Argument 1')
+            self.assertEqual(arguments[0]["name"], "arg1")
+            self.assertEqual(arguments[0]["type"], "str")
+            self.assertEqual(arguments[0]["default"], "default1")
+            self.assertEqual(arguments[0]["help"], "Argument 1")
 
     def test_parse_add_argument(self):
-        node = ast.parse("parser.add_argument('--arg1', type=str, default='default1', help='Argument 1')").body[0].value
+        node = (
+            ast.parse(
+                "parser.add_argument('--arg1', type=str, default='default1', help='Argument 1')"
+            )
+            .body[0]
+            .value
+        )
         arg_info = parse_add_argument(node)
-        self.assertEqual(arg_info['name'], 'arg1')
-        self.assertEqual(arg_info['type'], 'str')
-        self.assertEqual(arg_info['default'], 'default1')
-        self.assertEqual(arg_info['help'], 'Argument 1')
+        self.assertEqual(arg_info["name"], "arg1")
+        self.assertEqual(arg_info["type"], "str")
+        self.assertEqual(arg_info["default"], "default1")
+        self.assertEqual(arg_info["help"], "Argument 1")
 
     def test_find_arguments(self):
         arguments = find_arguments(self.file_content)
         self.assertEqual(len(arguments), 2)
-        self.assertEqual(arguments[0], ('--arg1', "'default1'"))
+        self.assertEqual(arguments[0], ("--arg1", "'default1'"))
 
     def test_parse_default_value(self):
         node = ast.parse("'default1'").body[0].value
         default_value = parse_default_value(node)
-        self.assertEqual(default_value, 'default1')
+        self.assertEqual(default_value, "default1")
 
     def test_get_field_type(self):
         field_type = get_field_type("str")
@@ -65,17 +72,19 @@ parser.add_argument('--arg2', type=int, default=2, help='Argument 2')
         self.assertEqual(field_type, int)
 
     def test_parse_items_to_nested_dict(self):
-        items = [{'name': 'arg1', 'type': 'str', 'default': 'default1', 'help': 'Argument 1'}]
+        items = [
+            {"name": "arg1", "type": "str", "default": "default1", "help": "Argument 1"}
+        ]
         nested_dict = parse_items_to_nested_dict(items)
-        self.assertIn('arg1', nested_dict)
-        self.assertEqual(nested_dict['arg1']['default'], 'default1')
+        self.assertIn("arg1", nested_dict)
+        self.assertEqual(nested_dict["arg1"]["default"], "default1")
 
     def test_convert_defaultdict_to_dict(self):
         d = defaultdict(nested_dict)
-        d['arg1']['type'] = 'str'
+        d["arg1"]["type"] = "str"
         normal_dict = convert_defaultdict_to_dict(d)
         self.assertIsInstance(normal_dict, dict)
-        self.assertEqual(normal_dict['arg1']['type'], 'str')
+        self.assertEqual(normal_dict["arg1"]["type"], "str")
 
     def test_save_file(self):
         with patch("builtins.open", self.mock_open):
@@ -89,12 +98,12 @@ parser.add_argument('--arg2', type=int, default=2, help='Argument 2')
             "class": "class content",
             "argument": "argument content",
             "attribute": "attribute content",
-            "environment": "environment content"
+            "environment": "environment content",
         }
         paths_dict = {
             "template_path": Path("tests/test_module/template.py"),
             "environment_path": Path("tests/test_module/test.env"),
-            "generated_path": Path("tests/test_module/generated.py")
+            "generated_path": Path("tests/test_module/generated.py"),
         }
         with patch("pathlib.Path.read_text", return_value="class_template"):
             save_template_file(templates, paths_dict)
@@ -112,6 +121,7 @@ parser.add_argument('--arg2', type=int, default=2, help='Argument 2')
             with patch("builtins.open", self.mock_open):
                 arguments = parse_subnet_folder("test_dir")
                 self.assertEqual(len(arguments), 2)
+
 
 if __name__ == "__main__":
     unittest.main()

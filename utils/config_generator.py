@@ -1,13 +1,96 @@
 import os
 import re
 import ast
-import sys
 import yaml
-import json
 from typing import Dict, Any, List, ClassVar, Union, Tuple
 from pathlib import Path
-from pydantic import Field, create_model, BaseModel
+from pydantic import Field, create_model
 from loguru import logger
+
+
+CONFIG_CLASS_TEMPLATE = """from pydantic import BaseModel, Field
+from typing import Any, Union, Dict, List, Optional, ClassVar
+from pydantic import ConfigDict
+from dotenv import load_dotenv
+from module_validator.config.base_configuration import GenericConfig, T
+import bittensor as bt
+import argparse
+import os
+
+load_dotenv()
+
+<<sub_class_generation>>
+
+class Config(GenericConfig):
+    model_config: ClassVar[ConfigDict] = ConfigDict({
+            "aribtrary_types_allowed": True
+    })
+    config: Optional[bt.config] = Field(default_factory=bt.config, type=None)
+    axon: Optional[bt.axon] = Field(default_factory=bt.axon, type=None)
+    wallet: Optional[bt.wallet] = Field(default_factory=bt.wallet, type=None)
+    metagraph: Optional[T] = Field(default_factory=bt.metagraph, type=None)
+    subtensor: Optional[bt.subtensor] = Field(default_factory=bt.subtensor, type=None)
+    dendrite: Optional[bt.dendrite] = Field(default_factory=bt.dendrite, type=None)
+    hotkeypair: Optional[bt.Keypair] = Field(default_factory=bt.Keypair, type=None)
+<<attribute_generation>>
+    
+    def __init__(self, data: Union[BaseModel, Dict[str, Any]]):
+        if isinstance(data, BaseModel):
+            data = data.model_dump()
+        super().__init__(**data)
+        model_config: ConfigDict = ConfigDict({
+            "aribtrary_types_allowed": True
+        })
+
+    def get(self, key: str, default: T = None) -> T:
+        return self._get(key, default)
+    
+    def set(self, key: str, value: T) -> None:
+        self._set(key, value)
+        
+    def merge(self, new_config: Dict[str, T]) -> Dict[str, Any]:
+        self.config = self._merge(new_config, self.config)
+        return self.config
+
+    def load_config(self, parser: argparse.ArgumentParser, args: argparse.Namespace) -> 'Config':
+        return self._load_config(parser, args)
+    
+    def parse_args(self, args: argparse.Namespace):
+        self._parse_args(args)
+    
+    def add_args(self, parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
+        return self._add_args(parser)
+    
+    def get_env(self) -> List[str]:
+        lines = [
+<<environment_generation>>
+        ]
+        return self._add_env(self.config)
+
+    def add_args(self, parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
+        parser.add_argument('--config', type=str, default=None, help='path to config file', required=False)
+<<argument_generation>>
+        return parser
+
+
+"""
+SUB_CLASS_TEMPLATE = """
+class {sub_classname}(GenericConfig):
+<<sub_class_attribute_generation>>
+    def __init__(self, data: Union[BaseModel, Dict[str, Any]]):
+        if isinstance(data, BaseModel):
+            data = data.model_dump()
+        super().__init__(**data)
+        
+"""
+ATTRIBUTE_TEMPLATE = """    {name}: {type} = Field({model_fields})\n"""
+SUBCLASS_ATTRIBUTE_TEMPLATE = "    {sub_classname}: {full_classname} = Field(default_factory={full_classname}, {model_fields})\n"
+COMMAND_LINE_ARG_TEMPLATE = '        parser.add_argument("--{name}", default="{default}", type={type}, help="{help}", action="{action}")\n'
+SUB_CLASS_LINES = []
+CLASS_LINES = []
+ENVIRONMENT_LINES = []
+ARGUMENT_LINES = []
+ATTRIBUTE_LINES = []
 
 
 def extract_argparse_arguments(file_path: str) -> List[Dict[str, Any]]:
@@ -69,7 +152,7 @@ def parse_add_argument(node: ast.Call) -> Dict[str, Any]:
         return arg_info
 
 
-def find_arguments(document):
+def find_arguments(document: str) -> List[Dict[str, Any]]:
     logger.info(f"\nExtracting arguments from {document}")
     try:
         # Extract arguments from document1
@@ -84,7 +167,7 @@ def find_arguments(document):
         raise Exception(f"Failed to extract arguments: {e}") from e
 
 
-def parse_default_value(node):
+def parse_default_value(node: ast.Constant) -> Any:
     logger.info(f"\nExtracting default value from {node}")
     try:
         if isinstance(node, ast.Constant):
@@ -95,9 +178,25 @@ def parse_default_value(node):
         raise Exception(f"Failed to parse default value: {e}") from e
 
 
+def get_field_type(field: str) -> str:
+    logger.info(f"\nGetting field type from {field}")
+    try:
+        if field == "str":
+            return "str"
+        elif field == "int":
+            return "int"
+        elif field == "float":
+            return "float"
+        elif field == "bool":
+            return "bool"
+        else:
+            return "str"
+    except Exception as e:
+        logger.warning(f"Failed to get field type: {e}")
+        raise Exception(f"Failed to get field type: {e}") from e
 
 
-def create_nested_models(arguments: Dict[str, Any]):
+def create_nested_models(arguments: Dict[str, Any]) -> Tuple[List[str], Dict[str, Any]]:
     logger.info(f"\nCreating nested models")
     nested_structure = {}
     logger.debug(f"\narguments:\n{arguments}")
@@ -151,8 +250,9 @@ def create_nested_models(arguments: Dict[str, Any]):
     return models, nested_structure
 
 
-
-def create_environment_string(arguments):
+def create_environment_string(
+    arguments: Dict[str, Any]
+) -> Tuple[List[str], List[Dict[str, Any]]]:
     logger.info(f"\nCreating environment string")
 
     lines = []
@@ -167,16 +267,14 @@ def create_environment_string(arguments):
         try:
             if isinstance(value, dict):
                 if "name" in value:
-                    name = (
-                        value["name"].strip(" ").lower().strip("__")
-                    )
+                    name = value["name"].strip(" ").lower().strip("__")
                 else:
                     name = argument
                 if "default" in value:
                     default = value["default"]
                     lines.append(f'f"{name}={default}"')
                     if isinstance(default, str):
-                        default = default.strip("\n").strip("  ").replace('"', '"')
+                        default = default.strip("\n").strip("  ").replace('"', "'")
                 if "type" in value:
                     field_type = value["type"].strip("\n").strip("  ")
                 if "help" in value:
@@ -267,7 +365,7 @@ def parse_subnet_folder(file_dir: Union[str, Path]) -> Tuple[Dict[str, Any], Lis
     return all_argmuents, lines
 
 
-def save_file(file_path: Path, content: str):
+def save_file(file_path: Path, content: str) -> None:
     logger.info(f"\nSaving file: {file_path}")
 
     try:
@@ -278,7 +376,10 @@ def save_file(file_path: Path, content: str):
         raise Exception(f"Failed to save file: {e}") from e
 
 
-def save_environment_file(file_path="module_validator/subnet_modules/bittensor_subnet_template"):
+def write_environment_file(
+    file_path="module_validator/subnet_modules/bittensor_subnet_template",
+    env_file_path=".config.env",
+) -> Tuple[List[Dict[str, Any], List[str]]]:
     all_args = parse_subnet_folder(file_path)
     all_arguments = all_args[0]
     env_variables = all_args[1]
@@ -290,137 +391,112 @@ def save_environment_file(file_path="module_validator/subnet_modules/bittensor_s
             all_arguments[key] = value
             env_keys.append(f"f'{key}={value}'")
         env_keys.append(f"f'{key}={value}'")
-        
-    with open(".env", "w", encoding='utf-8') as f:
-        f.write("\n".join(env_keys))
+    save_file(env_file_path, "\n".join(env_keys))
     return all_arguments, env_keys
 
-CONFIG_CLASS_TEMPLATE = """from pydantic import BaseModel, Field
-from typing import Any, Union, Dict, List, Optional
-from dotenv import load_dotenv
-from module_validator.config.base_configuration import GenericConfig, T
-import argparse
-import os
 
-load_dotenv()
-
-<<sub_class_generation>>
-
-class Config(GenericConfig):
-<<attribute_generation>>
-    def __init__(self, data: Union[BaseModel, Dict[str, Any]]):
-        if isinstance(data, BaseModel):
-            data = data.model_dump()
-        super().__init__(**data)
-
-    def get(self, key: str, default: T = None) -> T:
-        return self._get(key, default)
-    
-    def set(self, key: str, value: T) -> None:
-        self._set(key, value)
-        
-    def merge(self, new_config: Dict[str, T]) -> Dict[str, Any]:
-        self.config = self._merge(new_config, self.config)
-        return self.config
-
-    def load_config(self, parser: argparse.ArgumentParser, args: argparse.Namespace) -> 'Config':
-        return self._load_config(parser, args)
-    
-    def parse_args(self, args: argparse.Namespace):
-        self._parse_args(args)
-    
-    def add_args(self, parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
-        return self._add_args(parser)
-    
-    def get_env(self) -> List[str]:
-        lines = [
-<<environment_generation>>
-        ]
-        return self._add_env(self.config)
-
-    def add_args(self, parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
-<<argument_generation>>
-        parser.add_argument('--config', type=str, default=None, help='path to config file', required=False)
-        return parser
+def write_config_file() -> str:
+    final_template = CONFIG_CLASS_TEMPLATE.replace(
+        "<<attribute_generation>>", "".join(ATTRIBUTE_LINES)
+    )
+    final_template = final_template.replace(
+        "<<argument_generation>>", "".join(ARGUMENT_LINES)
+    )
+    final_template = final_template.replace(
+        "<<sub_class_generation>>", "".join(CLASS_LINES)
+    )
+    final_template = final_template.replace(
+        "<<environment_generation>>", "".join(ENVIRONMENT_LINES)
+    )
+    path = Path("config.py")
+    path.write_text(final_template)
+    return final_template
 
 
-"""
-SUB_CLASS_TEMPLATE = """
-class {sub_classname}(GenericConfig):
-<<sub_class_attribute_generation>>
-    def __init__(self, data: Union[BaseModel, Dict[str, Any]]):
-        if isinstance(data, BaseModel):
-            data = data.model_dump()
-        super().__init__(**data)
-        
-"""
-ATTRIBUTE_TEMPLATE = """    {name}: {type} = Field({model_fields})\n"""
-SUBCLASS_ATTRIBUTE_TEMPLATE = "    {sub_classname}: {full_classname} = Field(default_factory={full_classname}, {model_fields})\n"
-COMMAND_LINE_ARG_TEMPLATE = "        parser.add_argument(\"--{name}\", default=\"{default}\", type={type}, help=\"{help}\", action=\"{action}\")\n"
-
-
-
-
-if __name__ == "__main__":
-    SUB_CLASS_LINES = []
-    CLASS_LINES = []
-    ENVIRONMENT_LINES = []
-    ARGUMENT_LINES = []
-    ATTRIBUTE_LINES = []
-    TEMPLATES = {
-    }
-    all_arugments, env_keys = save_environment_file()
-    
-    for env_key in env_keys:
-        ENVIRONMENT_LINES.append(f"            {env_key},\n")
-    TEMPLATES["environment"] = ENVIRONMENT_LINES
+def parse_attribute_values(
+    all_arguments: List[Dict[str, Any]]
+) -> Tuple[List[str], List[str], List[str]]:
     classnames = []
     attribute_names = []
     attribute_lines = []
     subclass_lines = {}
-    attribute_name = ""
+    attributename = ""
     fields = ["name", "default", "type", "help", "action"]
-    for key, value in all_arugments.items():
-        subattributes = []
+    for key, value in all_arguments.items():
         if not key:
             continue
         for field in fields:
             if field not in value.keys():
                 value[field] = None
-        ARGUMENT_LINES.append(COMMAND_LINE_ARG_TEMPLATE.format(name=key, type=value["type"] or "str", default=value["default"] or None, help=value["help"] or None, action=value["action"] or None))
-        
+        ARGUMENT_LINES.append(
+            COMMAND_LINE_ARG_TEMPLATE.format(
+                name=key,
+                type=value["type"] or "str",
+                default=value["default"] or None,
+                help=value["help"] or None,
+                action=value["action"] or None,
+            )
+        )
+
         if "." in key:
             classname = key.split(".")[0]
-            attributename = key.split(".")[1]
-            full_classname = key.split(".")[0].title() + "Config"
+            attributename = key.split(".")[1].replace(".", "_")
+            full_classname = classname.title() + "Config"
             if full_classname not in classnames:
                 classnames.append(full_classname)
                 subclass_lines[full_classname] = []
-            subclass_lines[full_classname].append(ATTRIBUTE_TEMPLATE.format(name=attributename, type=value.get("type", "str"), model_fields=value))
+            subclass_lines[full_classname].append(
+                ATTRIBUTE_TEMPLATE.format(
+                    name=attributename,
+                    type=value.get("type", "str"),
+                    model_fields=value,
+                )
+            )
             attribute_names.append(attributename)
             continue
         if attributename not in attribute_names:
             attribute_names.append(key)
-            attribute_lines.append(ATTRIBUTE_TEMPLATE.format(name=attributename, type=value['type'], model_fields=value))
+            attribute_lines.append(
+                ATTRIBUTE_TEMPLATE.format(
+                    name=attributename, type=value["type"], model_fields=value
+                )
+            )
+        ATTRIBUTE_LINES.append(
+            ATTRIBUTE_TEMPLATE.format(name=key, type=value["type"], model_fields=value)
+        )
+    return attribute_lines, classnames, subclass_lines
+
+
+def create_subclass_templates(
+    attribute_lines: List[str], classnames: List[str], subclass_lines: List[str]
+) -> None:
     ATTRIBUTE_LINES.extend(attribute_lines)
     for classname in classnames:
         sub_class_template = SUB_CLASS_TEMPLATE.format(sub_classname=classname)
-        sub_class_template = sub_class_template.replace("<<sub_class_attribute_generation>>", ''.join(subclass_lines[classname]))
+        sub_class_template = sub_class_template.replace(
+            "<<sub_class_attribute_generation>>", "".join(subclass_lines[classname])
+        )
         CLASS_LINES.append(sub_class_template)
-        ATTRIBUTE_LINES.append(SUBCLASS_ATTRIBUTE_TEMPLATE.format(sub_classname=classname.lower(), full_classname=classname, type=classname, model_fields=""))
-    attribute_template = ''.join(ATTRIBUTE_LINES)
-    argument_template = ''.join(ARGUMENT_LINES)
-    class_template = ''.join(CLASS_LINES)
-    final_template = CONFIG_CLASS_TEMPLATE.replace("<<attribute_generation>>", ''.join(ATTRIBUTE_LINES))
-    final_template = final_template.replace("<<argument_generation>>", ''.join(ARGUMENT_LINES))
-    final_template = final_template.replace("<<sub_class_generation>>", ''.join(CLASS_LINES))
-    final_template = final_template.replace("<<environment_generation>>", ''.join(ENVIRONMENT_LINES))
-    TEMPLATES["class"] = final_template
-    path = Path("config.py")
-    path.write_text(final_template)
-    #print(json.dumps(class_dict, indent=4))
+        ATTRIBUTE_LINES.append(
+            SUBCLASS_ATTRIBUTE_TEMPLATE.format(
+                sub_classname=classname.strip("Config").lower(),
+                full_classname=classname,
+                type=classname,
+                model_fields="",
+            )
+        )
 
-            
 
-            
-            
+def main() -> str:
+    all_arugments, env_keys = write_environment_file()
+
+    for env_key in env_keys:
+        ENVIRONMENT_LINES.append(f"            {env_key},\n")
+
+    attribute_lines, classnames, subclass_lines = parse_attribute_values(all_arugments)
+    create_subclass_templates(attribute_lines, classnames, subclass_lines)
+    return write_config_file()
+
+
+if __name__ == "__main__":
+    main()
