@@ -608,8 +608,10 @@ def save_environment_file(file_path="module_validator/subnet_modules/bittensor_s
     return all_arguments, env_keys
 
 CONFIG_CLASS_TEMPLATE = """from pydantic import BaseModel, Field
-from typing import Any
+from typing import Any, Union, Dict, List, Optional
 from dotenv import load_dotenv
+from module_validator.config.base_configuration import GenericConfig, T
+import argparse
 import os
 
 load_dotenv()
@@ -656,7 +658,7 @@ class Config(GenericConfig):
 
 """
 SUB_CLASS_TEMPLATE = """
-class {sub_class_name}(GenericConfig):
+class {sub_classname}(GenericConfig):
 <<sub_class_attribute_generation>>
     def __init__(self, data: Union[BaseModel, Dict[str, Any]]):
         if isinstance(data, BaseModel):
@@ -665,7 +667,7 @@ class {sub_class_name}(GenericConfig):
         
 """
 ATTRIBUTE_TEMPLATE = """    {name}: {type} = Field({model_fields})\n"""
-SUBCLASS_ATTRIBUTE_TEMPLATE = "    {sub_class_name}: {type} = Field(default_factory={sub_class_name}, {model_fields})\n"
+SUBCLASS_ATTRIBUTE_TEMPLATE = "    {sub_classname}: {full_classname} = Field(default_factory={full_classname}, {model_fields})\n"
 COMMAND_LINE_ARG_TEMPLATE = "        parser.add_argument(\"--{name}\", default=\"{default}\", type={type}, help=\"{help}\", action=\"{action}\")\n"
 
 
@@ -684,11 +686,11 @@ if __name__ == "__main__":
     for env_key in env_keys:
         ENVIRONMENT_LINES.append(f"            {env_key},\n")
     TEMPLATES["environment"] = ENVIRONMENT_LINES
-    class_dict = {}
     classnames = []
     attribute_names = []
     attribute_lines = []
-    subclass_lines = []
+    subclass_lines = {}
+    attribute_name = ""
     fields = ["name", "default", "type", "help", "action"]
     for key, value in all_arugments.items():
         subattributes = []
@@ -703,40 +705,30 @@ if __name__ == "__main__":
             classname = key.split(".")[0]
             attributename = key.split(".")[1]
             full_classname = key.split(".")[0].title() + "Config"
-            if full_classname not in class_dict.keys():
-                class_dict[full_classname] = {}
+            if full_classname not in classnames:
                 classnames.append(full_classname)
-                for subkey, subvalue in value.items():
-                    if subkey and attributename not in subattributes:
-                        subclass_lines.append(ATTRIBUTE_TEMPLATE.format(name=attributename, type=value.get("type", "str"), model_fields=subvalue))
-                        subattributes.append(attributename)
-                subclass_template = ''.join(subclass_lines)
-                subclass_template = SUB_CLASS_TEMPLATE.format(sub_class_name=full_classname).replace("<<sub_class_attribute_generation>>", subclass_template)
-                CLASS_LINES.append(subclass_template)
-            attributename = key
-            if attributename not in class_dict.keys():
-                class_dict[attributename] = value
-                attribute_names.append(attributename)
-    
-    subclass_attribute_lines = []
-    for key, value in class_dict.items():
-        if key in attribute_names:
-            ATTRIBUTE_LINES.append(ATTRIBUTE_TEMPLATE.format(name=key.replace(".", "_"), type=value['type'], model_fields=value))
-        if key in classnames:
-            ATTRIBUTE_LINES.append(SUBCLASS_ATTRIBUTE_TEMPLATE.format(sub_class_name=key, type=full_classname, model_fields=value))
-
-    
-    print(''.join(SUB_CLASS_TEMPLATE))
-    TEMPLATES["attributes"] = ''.join(ATTRIBUTE_LINES)
-    TEMPLATES["arguments"] = ''.join(ARGUMENT_LINES)
-    TEMPLATES["subclass"] = ''.join(CLASS_LINES)
+                subclass_lines[full_classname] = []
+            subclass_lines[full_classname].append(ATTRIBUTE_TEMPLATE.format(name=attributename, type=value.get("type", "str"), model_fields=value))
+            attribute_names.append(attributename)
+            continue
+        if attributename not in attribute_names:
+            attribute_names.append(key)
+            attribute_lines.append(ATTRIBUTE_TEMPLATE.format(name=attributename, type=value['type'], model_fields=value))
+    ATTRIBUTE_LINES.extend(attribute_lines)
+    for classname in classnames:
+        sub_class_template = SUB_CLASS_TEMPLATE.format(sub_classname=classname)
+        sub_class_template = sub_class_template.replace("<<sub_class_attribute_generation>>", ''.join(subclass_lines[classname]))
+        CLASS_LINES.append(sub_class_template)
+        ATTRIBUTE_LINES.append(SUBCLASS_ATTRIBUTE_TEMPLATE.format(sub_classname=classname.lower(), full_classname=classname, type=classname, model_fields=""))
+    attribute_template = ''.join(ATTRIBUTE_LINES)
+    argument_template = ''.join(ARGUMENT_LINES)
+    class_template = ''.join(CLASS_LINES)
     final_template = CONFIG_CLASS_TEMPLATE.replace("<<attribute_generation>>", ''.join(ATTRIBUTE_LINES))
     final_template = final_template.replace("<<argument_generation>>", ''.join(ARGUMENT_LINES))
     final_template = final_template.replace("<<sub_class_generation>>", ''.join(CLASS_LINES))
     final_template = final_template.replace("<<environment_generation>>", ''.join(ENVIRONMENT_LINES))
     TEMPLATES["class"] = final_template
     path = Path("config.py")
-    print(final_template)
     path.write_text(final_template)
     #print(json.dumps(class_dict, indent=4))
 

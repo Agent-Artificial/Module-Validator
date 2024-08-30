@@ -11,3 +11,7 @@ httpx
 fastapi
 git+https://github.com/huggingface/transformers
 black
+
+# Development
+
+#pytest
