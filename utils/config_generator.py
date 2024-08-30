@@ -1,5 +1,5 @@
-import os
 import re
+import os
 import ast
 import yaml
 from typing import Dict, Any, List, ClassVar, Union, Tuple
@@ -94,6 +94,21 @@ ATTRIBUTE_LINES = []
 
 
 def extract_argparse_arguments(file_path: str) -> List[Dict[str, Any]]:
+    """
+    Extracts argparse arguments from a given file.
+
+    Args:
+        file_path (str): Path to the file containing argparse arguments.
+
+    Returns:
+        List[Dict[str, Any]]: A list of dictionaries where each dictionary represents an argument.
+            Each dictionary contains the following information:
+                - name (str): The name of the argument.
+                - type (str): The type of the argument.
+                - default (str): The default value of the argument.
+                - help (str): The help string of the argument.
+                - action (str): The action of the argument.
+    """
     logger.info(f"\nExtracting arguments from {file_path}")
     with open(file_path, "r") as file:
         content = file.read()
@@ -108,17 +123,31 @@ def extract_argparse_arguments(file_path: str) -> List[Dict[str, Any]]:
             and node.func.attr == "add_argument"
         ):
             try:
-                arg_info = parse_add_argument(node)
-                if arg_info:
+                if arg_info := parse_add_argument(node):
                     arguments.append(arg_info)
             except Exception as e:
                 logger.warning(f"Failed to parse argument: {e}")
+# sourcery skip: raise-specific-error
                 raise Exception(f"Failed to parse argument: {e}") from e
     logger.debug(f"\nExtracted arguments:\n{arguments}")
     return arguments
 
 
 def parse_add_argument(node: ast.Call) -> Dict[str, Any]:
+    """
+    Extracts information about a single argparse argument from a given node.
+
+    Args:
+        node (ast.Call): The ast node representing the argparse argument.
+
+    Returns:
+        Dict[str, Any]: A dictionary containing the following information:
+            - name (str): The name of the argument.
+            - type (str): The type of the argument.
+            - default (str): The default value of the argument.
+            - help (str): The help string of the argument.
+            - action (str): The action of the argument.
+    """
     logger.info(f"\nExtracting arguments from {node}")
     arg_info = {}
     for arg in node.args:
@@ -127,6 +156,7 @@ def parse_add_argument(node: ast.Call) -> Dict[str, Any]:
                 arg_info["name"] = arg.s.replace("-", "_").lower()
         except Exception as e:
             logger.warning(f"Failed to format 'name' argument: {e}")
+# sourcery skip: raise-specific-error
             raise Exception(f"Failed to format 'name' argument: {e}") from e
         for keyword in node.keywords:
             try:
@@ -147,12 +177,25 @@ def parse_add_argument(node: ast.Call) -> Dict[str, Any]:
                         arg_info["action"] = keyword.value.s
             except Exception as e:
                 logger.warning(f"Failed to parse argument: {e}")
+# sourcery skip: raise-specific-error
                 raise Exception(f"Failed to parse argument: {e}") from e
         logger.debug(f"\nExtracted argument:\n{arg_info}")
         return arg_info
 
 
 def find_arguments(document: str) -> List[Dict[str, Any]]:
+    """
+    Extracts argparse arguments from a given document.
+
+    Args:
+        document (str): The document containing argparse arguments.
+
+    Returns:
+        List[Dict[str, Any]]: A list of dictionaries where each dictionary represents an argument.
+            Each dictionary contains the following information:
+                - name (str): The name of the argument.
+                - default (str): The default value of the argument.
+    """
     logger.info(f"\nExtracting arguments from {document}")
     try:
         # Extract arguments from document1
@@ -164,10 +207,21 @@ def find_arguments(document: str) -> List[Dict[str, Any]]:
         return args_pattern.findall(document)
     except Exception as e:
         logger.warning(f"Failed to extract arguments: {e}")
+# sourcery skip: raise-specific-error
         raise Exception(f"Failed to extract arguments: {e}") from e
 
 
 def parse_default_value(node: ast.Constant) -> Any:
+    
+    """
+    Extracts the default value from an ast node.
+
+    Args:
+        node (ast.Constant): The node from which to extract the default value.
+
+    Returns:
+        Any: The default value.
+    """
     logger.info(f"\nExtracting default value from {node}")
     try:
         if isinstance(node, ast.Constant):
@@ -175,29 +229,49 @@ def parse_default_value(node: ast.Constant) -> Any:
         return str(ast.unparse(node))
     except Exception as e:
         logger.warning(f"Failed to parse default value: {e}")
+# sourcery skip: raise-specific-error
         raise Exception(f"Failed to parse default value: {e}") from e
 
 
 def get_field_type(field: str) -> str:
+    """
+    Converts a field type string to a Python type string.
+
+    Args:
+        field (str): The field type string.
+
+    Returns:
+        str: The Python type string.
+    """
     logger.info(f"\nGetting field type from {field}")
     try:
-        if field == "str":
-            return "str"
-        elif field == "int":
-            return "int"
+        if field == "bool":
+            return "bool"
         elif field == "float":
             return "float"
-        elif field == "bool":
-            return "bool"
+        elif field == "int":
+            return "int"
         else:
             return "str"
     except Exception as e:
         logger.warning(f"Failed to get field type: {e}")
+# sourcery skip: raise-specific-error
         raise Exception(f"Failed to get field type: {e}") from e
 
 
 def create_nested_models(arguments: Dict[str, Any]) -> Tuple[List[str], Dict[str, Any]]:
-    logger.info(f"\nCreating nested models")
+
+    """
+    Creates nested models based on the arguments.
+
+    Args:
+        arguments (Dict[str, Any]): The arguments to create the models from.
+
+    Returns:
+        Tuple[List[str], Dict[str, Any]]: The created models and the nested structure.
+    """
+    
+    logger.info("\nCreating nested models")
     nested_structure = {}
     logger.debug(f"\narguments:\n{arguments}")
     for name, argument in arguments.items():
@@ -208,12 +282,12 @@ def create_nested_models(arguments: Dict[str, Any]) -> Tuple[List[str], Dict[str
             if len(parts) == 1:
                 nested_structure[parts[0]] = argument
             elif parts[0] not in nested_structure:
-                nested_structure[parts[0]] = {}
-                nested_structure[parts[0]][parts[1]] = argument
+                nested_structure[parts[0]] = {parts[1]: argument}
             else:
                 nested_structure[name] = argument
         except Exception as e:
             logger.warning(f"Failed to create nested models: {e}")
+# sourcery skip: low-code-quality, raise-specific-error
             raise Exception(f"Failed to create nested models: {e}") from e
     logger.debug(f"\nnested_structure: {nested_structure}")
     models = {}
@@ -245,6 +319,7 @@ def create_nested_models(arguments: Dict[str, Any]) -> Tuple[List[str], Dict[str
                 models[key.capitalize()] = create_model(key.capitalize())
         except Exception as e:
             logger.warning(f"Failed to create nested models: {e}")
+# sourcery skip: raise-specific-error
             raise Exception(f"Failed to create nested models: {e}") from e
     logger.debug(f"\nnested_structure:\n{nested_structure}")
     return models, nested_structure
@@ -253,7 +328,16 @@ def create_nested_models(arguments: Dict[str, Any]) -> Tuple[List[str], Dict[str
 def create_environment_string(
     arguments: Dict[str, Any]
 ) -> Tuple[List[str], List[Dict[str, Any]]]:
-    logger.info(f"\nCreating environment string")
+    """
+    Creates an environment string based on the arguments.
+
+    Args:
+        arguments (Dict[str, Any]): The arguments to create the environment string from.
+
+    Returns:
+        Tuple[List[str], List[Dict[str, Any]]]: The created environment string and the nested structure.
+    """
+    logger.info("\nCreating environment string")
 
     lines = []
     all_arguments = {}
@@ -302,70 +386,24 @@ def create_environment_string(
             logger.debug(f"\nEnvironment string: {lines}")
         except Exception as e:
             logger.warning(f"Failed to create environment string: {e}")
+# sourcery skip: raise-specific-error
             raise Exception(f"Failed to create environment string: {e}") from e
 
     return all_arguments, lines
 
 
-def parse_subnet_folder(file_dir: Union[str, Path]) -> Tuple[Dict[str, Any], List[str]]:
-    logger.info(f"\nParsing subnet folder: {file_dir}")
-    subnet_arguments = {}
-    all_arguments = {}
-    for root, dirs, files in os.walk(file_dir):
-        for dir in dirs:
-            if dir.startswith("__"):
-                continue
-        try:
-            for file in files:
-
-                if file.startswith("__") or file.endswith(".pyc"):
-                    continue
-                if file.endswith(".py"):
-                    with open(os.path.join(root, file), "r") as f:
-                        document = f.read()
-                    if "add_argument" not in document:
-                        continue
-                    file_path = os.path.join(root, file)
-                    all_arguments = extract_argparse_arguments(file_path)
-                    if len(all_arguments) <= 0:
-                        continue
-                    logger.debug(f"\nSubnet arguments: {subnet_arguments}")
-                    for argument in all_arguments:
-                        if not argument:
-                            continue
-                        if isinstance(argument, dict):
-                            if "name" in argument:
-                                subnet_arguments[argument["name"]] = argument
-                            elif argument is None:
-                                continue
-                        elif isinstance(argument, list):
-                            for argument in all_arguments:
-                                if "name" in argument:
-                                    subnet_arguments[argument["name"]] = argument
-                                    continue
-                        if "name" in argument:
-                            if argument["name"].startswith("__"):
-                                name = (
-                                    argument["name"]
-                                    .strip(" ")
-                                    .lower()
-                                    .replace("__", "")
-                                )
-                                subnet_arguments[name] = argument
-                                continue
-
-        except Exception as e:
-            logger.warning(f"Failed to parse subnet folder: {e}")
-            raise Exception(f"Failed to parse subnet folder: {e}") from e
-    logger.debug(f"\nSubnet arguments: {subnet_arguments}")
-    all_argmuents, lines = create_environment_string(subnet_arguments)
-    lines = list(set(lines))
-    logger.debug(f"\nlines:\n{lines}")
-    logger.debug(f"\nall_arguments:\n{all_arguments}")
-    return all_argmuents, lines
-
-
 def save_file(file_path: Path, content: str) -> None:
+    
+    """
+    Saves content to the specified file path.
+
+    Args:
+        file_path: The path to the file to save.
+        content: The content to write to the file.
+
+    Raises:
+        Exception: If there is an error saving the file.
+    """
     logger.info(f"\nSaving file: {file_path}")
 
     try:
@@ -373,13 +411,35 @@ def save_file(file_path: Path, content: str) -> None:
             f.write(content)
     except Exception as e:
         logger.warning(f"Failed to save file: {e}")
+# sourcery skip: raise-specific-error
         raise Exception(f"Failed to save file: {e}") from e
+
 
 
 def write_environment_file(
     file_path="module_validator/subnet_modules/bittensor_subnet_template",
     env_file_path=".config.env",
-) -> Tuple[List[Dict[str, Any], List[str]]]:
+) -> Tuple[Dict[str, Any], List[str]]:
+    """
+    Generate and save environment variables from a specified subnet folder. 
+    This function parses the subnet folder to extract arguments and environment variables, 
+    then saves them to a specified environment file.
+
+    Args:
+        file_path (str): The path to the subnet folder to parse. Defaults to 
+            "module_validator/subnet_modules/bittensor_subnet_template".
+        env_file_path (str): The path where the environment file will be saved. 
+            Defaults to ".config.env".
+
+    Returns:
+        Tuple[List[Dict[str, Any]], List[str]]: A tuple containing a dictionary of 
+        all arguments and a list of environment variable strings.
+
+    Examples:
+        >>> write_environment_file()
+        >>> write_environment_file("path/to/subnet", "path/to/env_file")
+    """
+
     all_args = parse_subnet_folder(file_path)
     all_arguments = all_args[0]
     env_variables = all_args[1]
@@ -396,6 +456,18 @@ def write_environment_file(
 
 
 def write_config_file() -> str:
+    """
+    Generate a configuration file by populating a template with specified lines. 
+    This function replaces placeholders in a configuration class template with 
+    actual content and writes the final configuration to a file.
+
+    Returns:
+        str: The final configuration template as a string.
+
+    Examples:
+        >>> config_content = write_config_file()
+    """
+
     final_template = CONFIG_CLASS_TEMPLATE.replace(
         "<<attribute_generation>>", "".join(ATTRIBUTE_LINES)
     )
@@ -416,6 +488,26 @@ def write_config_file() -> str:
 def parse_attribute_values(
     all_arguments: List[Dict[str, Any]]
 ) -> Tuple[List[str], List[str], List[str]]:
+    """
+    Extract and format attribute values from a list of argument dictionaries. 
+    This function processes the provided arguments to generate attribute lines, 
+    class names, and subclass lines for configuration purposes.
+
+    Args:
+        all_arguments (List[Dict[str, Any]]): A list of dictionaries containing 
+            argument details, including name, default value, type, help text, 
+            and action.
+
+    Returns:
+        Tuple[List[str], List[str], List[str]]: A tuple containing:
+            - A list of formatted attribute lines.
+            - A list of class names derived from the arguments.
+            - A dictionary mapping class names to their corresponding attribute lines.
+
+    Examples:
+        >>> attribute_lines, classnames, subclass_lines = parse_attribute_values(arguments)
+    """
+
     classnames = []
     attribute_names = []
     attribute_lines = []
@@ -428,6 +520,12 @@ def parse_attribute_values(
         for field in fields:
             if field not in value.keys():
                 value[field] = None
+                default = value["default"]
+                if isinstance(default, str):
+                    value["default"] = default.replace('"', "'")
+                help = value["help"]
+                if isinstance(help, str):
+                    value["help"] = help.replace('"', "'")
         ARGUMENT_LINES.append(
             COMMAND_LINE_ARG_TEMPLATE.format(
                 name=key,
@@ -441,7 +539,7 @@ def parse_attribute_values(
         if "." in key:
             classname = key.split(".")[0]
             attributename = key.split(".")[1].replace(".", "_")
-            full_classname = classname.title() + "Config"
+            full_classname = f"{classname.title()}Config"
             if full_classname not in classnames:
                 classnames.append(full_classname)
                 subclass_lines[full_classname] = []
@@ -470,6 +568,24 @@ def parse_attribute_values(
 def create_subclass_templates(
     attribute_lines: List[str], classnames: List[str], subclass_lines: List[str]
 ) -> None:
+    """
+    Generate and append subclass templates based on provided attribute lines and class names. 
+    This function constructs subclass templates and updates global lists with the generated 
+    class and attribute information.
+
+    Args:
+        attribute_lines (List[str]): A list of formatted attribute lines to be added.
+        classnames (List[str]): A list of class names for which subclasses will be created.
+        subclass_lines (List[str]): A dictionary mapping class names to their corresponding 
+            attribute lines.
+
+    Returns:
+        None
+
+    Examples:
+        >>> create_subclass_templates(attribute_lines, classnames, subclass_lines)
+    """
+
     ATTRIBUTE_LINES.extend(attribute_lines)
     for classname in classnames:
         sub_class_template = SUB_CLASS_TEMPLATE.format(sub_classname=classname)
@@ -487,7 +603,67 @@ def create_subclass_templates(
         )
 
 
+def parse_subnet_folder(file_dir: Union[str, Path]) -> Tuple[Dict[str, Any], List[str]]:
+    """
+    Parses a subnet folder and extracts argparse arguments from all python files in the folder.
+
+    Args:
+        file_dir (Union[str, Path]): The path to the subnet folder.
+
+    Returns:
+        Tuple[Dict[str, Any], List[str]]: A dictionary of all arguments and a list of lines for the environment string.
+    """
+    logger.info(f"\nParsing subnet folder: {file_dir}")
+    subnet_arguments = {}
+    all_arguments = set()
+    for root, dirs, files in os.walk(file_dir):
+        for dir in dirs:
+            if dir.startswith("__"):
+                continue
+        try:
+            for file in files:
+                if file.startswith("__") or file.endswith(".pyc"):
+                    continue
+                if file.endswith(".py"):
+                    with open(os.path.join(root, file), "r") as f:
+                        document = f.read()
+                    if "add_argument" not in document:
+                        continue
+                    arguments = extract_argparse_arguments(os.path.join(root, file))
+                    for argument in arguments:
+                        if not argument or "name" not in argument:
+                            continue
+                        name = (
+                            argument["name"]
+                            .strip(" ")
+                            .lower()
+                            .replace("__", "")
+                        )
+                        subnet_arguments[name] = argument
+                        all_arguments.add(name)
+        except Exception as e:
+            logger.warning(f"Failed to parse subnet folder: {e}")
+    logger.debug(f"\nSubnet arguments: {subnet_arguments}")
+    all_argmuents, lines = create_environment_string(subnet_arguments)
+    lines = list(set(lines))
+    logger.debug(f"\nlines:\n{lines}")
+    return all_argmuents, lines
+
+
 def main() -> str:
+    """
+    Orchestrate the generation of environment variables, attribute values, and configuration files. 
+    This function coordinates the workflow by writing environment files, parsing attribute values, 
+    creating subclass templates, and finally writing the configuration file.
+
+    Returns:
+        str: The content of the generated configuration file.
+
+    Examples:
+        >>> config_content = main()
+    """
+
+    logger.info("Generating config file...")
     all_arugments, env_keys = write_environment_file()
 
     for env_key in env_keys:

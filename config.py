@@ -102,7 +102,7 @@ class Config(GenericConfig):
     my_uid: int = Field({'name': 'my_uid', 'default': None, 'type': 'int', 'help': 'Your unique miner ID on the chain', 'action': None})
     wallet_name: str = Field({'name': 'wallet_name', 'default': 'default', 'type': 'str', 'help': 'Name of the wallet', 'action': None})
     hotkey: str = Field({'name': 'hotkey', 'default': 'default', 'type': 'str', 'help': 'Hotkey for the wallet', 'action': None})
-    network: str = Field({'name': 'network', 'default': 'test', 'type': 'str', 'help': 'Network type, e.g., "test" or "mainnet"', 'action': None})
+    network: str = Field({'name': 'network', 'default': 'test', 'type': 'str', 'help': "Network type, e.g., 'test' or 'mainnet'", 'action': None})
     mock: None = Field({'name': 'mock', 'default': False, 'type': None, 'help': 'Mock neuron and all network components.', 'action': None})
     message: str = Field({'name': 'message', 'default': None, 'type': 'str', 'help': 'The message to sign', 'action': None})
     name: str = Field({'name': 'name', 'default': None, 'type': 'str', 'help': 'The wallet name', 'action': None})
@@ -144,38 +144,38 @@ class Config(GenericConfig):
     
     def get_env(self) -> List[str]:
         lines = [
-            f'neuron.events_retention_size=2 * 1024 * 1024 * 1024',
-            f'neuron.dont_save_events=False',
-            f'blacklist.force_validator_permit=False',
-            f'neuron.axon_off=False',
-            f'neuron.device=is_cuda_available()',
-            f'miner.root=~/.bittensor/miners/',
-            f'neuron.num_concurrent_forwards=1',
-            f'subtensor.chain_endpoint=wss://entrypoint-finney.opentensor.ai:443',
-            f'miner.no_start_axon=False',
-            f'wandb.offline=False',
-            f'neuron.moving_average_alpha=0.1',
             f'wandb.project_name=template-validators',
-            f'blacklist.allow_non_registered=False',
-            f'netuid=1',
-            f'neuron.timeout=10',
+            f'miner.root=~/.bittensor/miners/',
+            f'wandb.entity=opentensor-dev',
+            f'miner.blocks_per_epoch=100',
+            f'miner.no_start_axon=False',
+            f'axon.port=8098',
+            f'neuron.num_concurrent_forwards=1',
             f'wandb.notes=',
-            f'hotkey=default',
+            f'subtensor.chain_endpoint=wss://entrypoint-finney.opentensor.ai:443',
+            f'blacklist.allow_non_registered=False',
+            f'neuron.sample_size=50',
+            f'netuid=1',
+            f'miner.no_serve=False',
+            f'neuron.device=is_cuda_available()',
             f'neuron.epoch_length=100',
             f'miner.name=Bittensor Miner',
-            f'wandb.entity=opentensor-dev',
-            f'neuron.disable_set_weights=False',
-            f'miner.no_serve=False',
-            f'wallet_name=default',
-            f'miner.blocks_per_epoch=100',
-            f'axon.port=8098',
-            f'miner.mock_subtensor=False',
-            f'network=test',
-            f'neuron.name=validator',
-            f'neuron.sample_size=50',
+            f'neuron.dont_save_events=False',
+            f'neuron.timeout=10',
+            f'hotkey=default',
+            f'neuron.events_retention_size=2 * 1024 * 1024 * 1024',
             f'wandb.off=False',
-            f'mock=False',
+            f'neuron.name=validator',
+            f'neuron.moving_average_alpha=0.1',
+            f'neuron.axon_off=False',
+            f'neuron.disable_set_weights=False',
+            f'wallet_name=default',
+            f'wandb.offline=False',
+            f'blacklist.force_validator_permit=False',
             f'neuron.vpermit_tao_limit=4096',
+            f'miner.mock_subtensor=False',
+            f'mock=False',
+            f'network=test',
             f'subtensor.network=finney',
 
         ]
@@ -196,7 +196,7 @@ class Config(GenericConfig):
         parser.add_argument("--my_uid", default="None", type=int, help="Your unique miner ID on the chain", action="None")
         parser.add_argument("--wallet_name", default="default", type=str, help="Name of the wallet", action="None")
         parser.add_argument("--hotkey", default="default", type=str, help="Hotkey for the wallet", action="None")
-        parser.add_argument("--network", default="test", type=str, help="Network type, e.g., "test" or "mainnet"", action="None")
+        parser.add_argument("--network", default="test", type=str, help="Network type, e.g., 'test' or 'mainnet'", action="None")
         parser.add_argument("--neuron.device", default="is_cuda_available()", type=str, help="Device to run on.", action="None")
         parser.add_argument("--neuron.epoch_length", default="100", type=int, help="The default epoch length (how often we set weights, measured in 12 second blocks).", action="None")
         parser.add_argument("--mock", default="None", type=str, help="Mock neuron and all network components.", action="None")

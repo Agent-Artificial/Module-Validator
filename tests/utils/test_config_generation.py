@@ -15,9 +15,9 @@ from utils.config_generator import (
     save_file,
     save_template_file,
     create_paths,
-    parse_subnet_folder,
     nested_dict,
 )
+from utils.parse_subnet_folder import parse_subnet_folder
 
 
 class TestYourModuleName(unittest.TestCase):
