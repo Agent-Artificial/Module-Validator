@@ -2,7 +2,8 @@ import re
 import os
 import ast
 import yaml
-from typing import Dict, Any, List, ClassVar, Union, Tuple
+import argparse
+from typing import Dict, Any, List, ClassVar, Union, Tuple, Optional
 from pathlib import Path
 from pydantic import Field, create_model
 from loguru import logger
@@ -86,14 +87,35 @@ class {sub_classname}(GenericConfig):
 ATTRIBUTE_TEMPLATE = """    {name}: {type} = Field({model_fields})\n"""
 SUBCLASS_ATTRIBUTE_TEMPLATE = "    {sub_classname}: {full_classname} = Field(default_factory={full_classname}, {model_fields})\n"
 COMMAND_LINE_ARG_TEMPLATE = '        parser.add_argument("--{name}", default="{default}", type={type}, help="{help}", action="{action}")\n'
+ENVIRONMENT_TEMPLATE = "        '{env_key}',\n"
+DOTENV_TEMPLATE = "{env_key}\n"
 SUB_CLASS_LINES = []
 CLASS_LINES = []
 ENVIRONMENT_LINES = []
 ARGUMENT_LINES = []
 ATTRIBUTE_LINES = []
+DOTENV_LINES = []
 
 
-def extract_argparse_arguments(file_path: str) -> List[Dict[str, Any]]:
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--file_dir",  help = "path the subnet or inference module you are generating a configuration file for")
+    return parser.parse_args()
+
+SUBNET_SOURCE_PATH = Path(parse_args().file_dir)
+LIBRARY_NAME = SUBNET_SOURCE_PATH.name
+ROOT_PATH = ROOT_PATH = Path("module_validator")
+CONFIG_BASE_PATH = ROOT_PATH / "config" / LIBRARY_NAME 
+SUBMODULE_BASE_PATH = ROOT_PATH / "submodules" / LIBRARY_NAME 
+SUBMODULE_DOTENV_PATH = CONFIG_BASE_PATH / f"{LIBRARY_NAME}.env"
+DOTENV_PATH = f"{LIBRARY_NAME}.env"
+YAML_PATH = CONFIG_BASE_PATH / f"{LIBRARY_NAME}_config.yaml"
+SCRIPT_PATH = CONFIG_BASE_PATH / f"{LIBRARY_NAME}_config.py"
+
+FIELDS = ["name", "default", "action", "type", "module_fields", "help", "classname", "sub_classname"]    
+
+    
+def extract_argparse_arguments(file_path: Union[str, Path]) -> List[Dict[str, Any]]:
     """
     Extracts argparse arguments from a given file.
 
@@ -109,9 +131,11 @@ def extract_argparse_arguments(file_path: str) -> List[Dict[str, Any]]:
                 - help (str): The help string of the argument.
                 - action (str): The action of the argument.
     """
+    if isinstance(file_path, str):
+        file_path = Path(file_path)
+    
     logger.info(f"\nExtracting arguments from {file_path}")
-    with open(file_path, "r") as file:
-        content = file.read()
+    content = read_file(file_path)
 
     tree = ast.parse(content)
     arguments = []
@@ -148,7 +172,6 @@ def parse_add_argument(node: ast.Call) -> Dict[str, Any]:
             - help (str): The help string of the argument.
             - action (str): The action of the argument.
     """
-    logger.info(f"\nExtracting arguments from {node}")
     arg_info = {}
     for arg in node.args:
         try:
@@ -179,7 +202,6 @@ def parse_add_argument(node: ast.Call) -> Dict[str, Any]:
                 logger.warning(f"Failed to parse argument: {e}")
 # sourcery skip: raise-specific-error
                 raise Exception(f"Failed to parse argument: {e}") from e
-        logger.debug(f"\nExtracted argument:\n{arg_info}")
         return arg_info
 
 
@@ -196,14 +218,12 @@ def find_arguments(document: str) -> List[Dict[str, Any]]:
                 - name (str): The name of the argument.
                 - default (str): The default value of the argument.
     """
-    logger.info(f"\nExtracting arguments from {document}")
     try:
         # Extract arguments from document1
         args_pattern = re.compile(
             r'parser\.add_argument\(\s*"(.*?)",\s*.*?default\s*=\s*(.*?)\s*[,\)]',
             re.DOTALL,
         )
-        logger.debug(f"\nExtracted arguments:\n{args_pattern.findall(document)}")
         return args_pattern.findall(document)
     except Exception as e:
         logger.warning(f"Failed to extract arguments: {e}")
@@ -222,7 +242,6 @@ def parse_default_value(node: ast.Constant) -> Any:
     Returns:
         Any: The default value.
     """
-    logger.info(f"\nExtracting default value from {node}")
     try:
         if isinstance(node, ast.Constant):
             return ast.literal_eval(node)
@@ -243,7 +262,6 @@ def get_field_type(field: str) -> str:
     Returns:
         str: The Python type string.
     """
-    logger.info(f"\nGetting field type from {field}")
     try:
         if field == "bool":
             return "bool"
@@ -259,7 +277,7 @@ def get_field_type(field: str) -> str:
         raise Exception(f"Failed to get field type: {e}") from e
 
 
-def create_nested_models(arguments: Dict[str, Any]) -> Tuple[List[str], Dict[str, Any]]:
+def create_nested_models(arguments: Dict[str, Any], env_list: List[str]) -> Tuple[List[str], Dict[str, Any]]:
 
     """
     Creates nested models based on the arguments.
@@ -271,13 +289,13 @@ def create_nested_models(arguments: Dict[str, Any]) -> Tuple[List[str], Dict[str
         Tuple[List[str], Dict[str, Any]]: The created models and the nested structure.
     """
     
-    logger.info("\nCreating nested models")
     nested_structure = {}
-    logger.debug(f"\narguments:\n{arguments}")
+    # Create nested models
     for name, argument in arguments.items():
         parts = None
         try:
             if "name" in argument:
+                # Extract the name of the argument from the dot(.) in the argument.name
                 parts = argument["name"].split(".")
             if len(parts) == 1:
                 nested_structure[parts[0]] = argument
@@ -289,8 +307,8 @@ def create_nested_models(arguments: Dict[str, Any]) -> Tuple[List[str], Dict[str
             logger.warning(f"Failed to create nested models: {e}")
 # sourcery skip: low-code-quality, raise-specific-error
             raise Exception(f"Failed to create nested models: {e}") from e
-    logger.debug(f"\nnested_structure: {nested_structure}")
     models = {}
+    # Handle the nested subclasses
     for key, value in nested_structure.items():
         try:
             if isinstance(value, dict):
@@ -321,7 +339,19 @@ def create_nested_models(arguments: Dict[str, Any]) -> Tuple[List[str], Dict[str
             logger.warning(f"Failed to create nested models: {e}")
 # sourcery skip: raise-specific-error
             raise Exception(f"Failed to create nested models: {e}") from e
-    logger.debug(f"\nnested_structure:\n{nested_structure}")
+
+    for environment_string in env_list:
+        if environment_string.startswith("f") and "os.env" not in environment_string:
+            environment_string = environment_string.replace('"', "'").replace("f'", "").removesuffix("'")
+        name, default = environment_string.split("=", 1)
+        name = name.replace(".", "_")
+        if name in models:
+            nested_structure[name] = {
+                "name": name,
+                "default": default,
+                "type": ""
+            }
+    write_file(YAML_PATH, yaml.dump(nested_structure))
     return models, nested_structure
 
 
@@ -347,7 +377,6 @@ def create_environment_string(
         default = None
         field_type = None
         help_text = None
-        print(argument, value)
         try:
             if isinstance(value, dict):
                 if "name" in value:
@@ -383,7 +412,6 @@ def create_environment_string(
                 "help": help_text,
             }
 
-            logger.debug(f"\nEnvironment string: {lines}")
         except Exception as e:
             logger.warning(f"Failed to create environment string: {e}")
 # sourcery skip: raise-specific-error
@@ -392,33 +420,30 @@ def create_environment_string(
     return all_arguments, lines
 
 
-def save_file(file_path: Path, content: str) -> None:
-    
-    """
-    Saves content to the specified file path.
-
-    Args:
-        file_path: The path to the file to save.
-        content: The content to write to the file.
-
-    Raises:
-        Exception: If there is an error saving the file.
-    """
-    logger.info(f"\nSaving file: {file_path}")
-
+def read_file(file_path: str) -> str:
     try:
-        with open(file_path, "w") as f:
-            f.write(content)
-    except Exception as e:
-        logger.warning(f"Failed to save file: {e}")
-# sourcery skip: raise-specific-error
-        raise Exception(f"Failed to save file: {e}") from e
+        with open(file_path, 'r') as file:
+            return file.read()
+    except IOError as e:
+        print(f"Error reading file {file_path}: {e}")
+        return None
+
+def write_file(file_path: Union[str, Path], data: str):
+    if isinstance(file_path, str):
+        file_path = Path(file_path)
+    try:
+        if not file_path.parent.exists():
+            file_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(file_path, 'w') as file:
+            file.write(data)
+    except IOError as e:
+        print(f"Error writing to file {file_path}: {e}")
 
 
 
 def write_environment_file(
-    file_path="module_validator/subnet_modules/bittensor_subnet_template",
-    env_file_path=".config.env",
+    file_path=SUBNET_SOURCE_PATH,
+    env_file_path=DOTENV_PATH,
 ) -> Tuple[Dict[str, Any], List[str]]:
     """
     Generate and save environment variables from a specified subnet folder. 
@@ -440,18 +465,17 @@ def write_environment_file(
         >>> write_environment_file("path/to/subnet", "path/to/env_file")
     """
 
-    all_args = parse_subnet_folder(file_path)
-    all_arguments = all_args[0]
-    env_variables = all_args[1]
+    all_arguments, env_variables = parse_subnet_folder(file_path)
     env_keys = []
     for value in env_variables:
-        key = value.split('"')[1].split("=")[0]
+        key = value.split('"')[1].split("=")[0].replace(" ", "")
         value = value.split('"')[1].split("=")[1].split('"')[0]
         if key not in all_arguments.keys():
             all_arguments[key] = value
-            env_keys.append(f"f'{key}={value}'")
-        env_keys.append(f"f'{key}={value}'")
-    save_file(env_file_path, "\n".join(env_keys))
+            env_keys.append(f"{key}={value}")
+        env_keys.append(f"{key}={value}")
+        write_file(DOTENV_PATH, "\n".join(env_keys))
+        write_file(SUBMODULE_DOTENV_PATH, "\n".join(env_keys))
     return all_arguments, env_keys
 
 
@@ -480,8 +504,7 @@ def write_config_file() -> str:
     final_template = final_template.replace(
         "<<environment_generation>>", "".join(ENVIRONMENT_LINES)
     )
-    path = Path("config.py")
-    path.write_text(final_template)
+    write_file(SCRIPT_PATH, final_template)
     return final_template
 
 
@@ -507,7 +530,7 @@ def parse_attribute_values(
     Examples:
         >>> attribute_lines, classnames, subclass_lines = parse_attribute_values(arguments)
     """
-
+    
     classnames = []
     attribute_names = []
     attribute_lines = []
@@ -603,6 +626,9 @@ def create_subclass_templates(
         )
 
 
+
+
+
 def parse_subnet_folder(file_dir: Union[str, Path]) -> Tuple[Dict[str, Any], List[str]]:
     """
     Parses a subnet folder and extracts argparse arguments from all python files in the folder.
@@ -625,8 +651,7 @@ def parse_subnet_folder(file_dir: Union[str, Path]) -> Tuple[Dict[str, Any], Lis
                 if file.startswith("__") or file.endswith(".pyc"):
                     continue
                 if file.endswith(".py"):
-                    with open(os.path.join(root, file), "r") as f:
-                        document = f.read()
+                    document = read_file(os.path.join(root, file))
                     if "add_argument" not in document:
                         continue
                     arguments = extract_argparse_arguments(os.path.join(root, file))
@@ -643,11 +668,54 @@ def parse_subnet_folder(file_dir: Union[str, Path]) -> Tuple[Dict[str, Any], Lis
                         all_arguments.add(name)
         except Exception as e:
             logger.warning(f"Failed to parse subnet folder: {e}")
-    logger.debug(f"\nSubnet arguments: {subnet_arguments}")
     all_argmuents, lines = create_environment_string(subnet_arguments)
     lines = list(set(lines))
-    logger.debug(f"\nlines:\n{lines}")
     return all_argmuents, lines
+
+
+def transform_env_strings(config: dict) -> dict:
+    """
+    Transforms strings containing os.getenv calls in the configuration 
+    to f-strings with the os.getenv call wrapped in {}.
+
+    Args:
+        config (dict): The original configuration dictionary.
+
+    Returns:
+        dict: The transformed configuration dictionary.
+    """
+    def replace_env_string(s: str) -> str:
+        # Regex to match os.getenv('KEY', 'default') patterns
+        pattern = r"os\.getenv\('([^']+)', '([^']+)'\)"
+        return re.sub(pattern, r"{os.getenv('\1', '\2')}", s)
+
+    def transform_item(value):
+        if isinstance(value, dict):
+            return {k: transform_item(v) for k, v in value.items()}
+        elif isinstance(value, str):
+            return f"f'{replace_env_string(value)}'"
+        else:
+            return value
+
+    return transform_item(config)
+
+if __name__ == "__main__":
+    config = {
+        "database": {
+            "host": "os.getenv('DB_HOST', 'localhost')",
+            "port": "os.getenv('DB_PORT', '5432')",
+        },
+        "service": {
+            "name": "os.getenv('SERVICE_NAME', 'my_service')",
+            "timeout": "os.getenv('SERVICE_TIMEOUT', '30')",
+        }
+    }
+
+    transformed_config = transform_env_strings(config)
+    
+    # Print transformed configuration
+    for key, value in transformed_config.items():
+        print(f"{key}: {value}")
 
 
 def main() -> str:
@@ -662,15 +730,23 @@ def main() -> str:
     Examples:
         >>> config_content = main()
     """
-
-    logger.info("Generating config file...")
-    all_arugments, env_keys = write_environment_file()
+    file_dir = parse_args().file_dir
+    all_arguments, env_keys = write_environment_file(file_dir)
 
     for env_key in env_keys:
-        ENVIRONMENT_LINES.append(f"            {env_key},\n")
-
-    attribute_lines, classnames, subclass_lines = parse_attribute_values(all_arugments)
+        ENVIRONMENT_LINES.append(ENVIRONMENT_TEMPLATE.format(env_key=env_key))
+        DOTENV_LINES.append(DOTENV_TEMPLATE.format(env_key=env_key))
+    attribute_lines, classnames, subclass_lines = parse_attribute_values(all_arguments)
     create_subclass_templates(attribute_lines, classnames, subclass_lines)
+    subclass_dict = {}
+    for key, value in all_arguments.items():
+        if "." not in key:
+            subclass_dict[key] = value
+        else:
+            
+            keys = key.split(".")
+            subclass_dict[key[0]][key[1]] =  value
+    write_file(YAML_PATH, yaml.dump(all_arguments, indent=4))
     return write_config_file()
 
 

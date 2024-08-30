@@ -15,7 +15,7 @@ config = Config("module_validator/config")
 config.load_configs()
 
 
-def parseargs():
+def parseargs() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--module_type", type=str)
     return parser.parse_args()
@@ -81,7 +81,7 @@ def install_registrar_module(module_name: str) -> bool:
     return False
 
 
-def main(module_name=None):
+def main(module_name=None)-> None:
     if module_name is None:
         args = parseargs()
         module_name = module_name or args.module_type
