@@ -119,39 +119,39 @@ class Config(GenericConfig):
     
     def get_env(self) -> List[str]:
         lines = [
-            f'neuron.events_retention_size=2 * 1024 * 1024 * 1024',
-            f'mock=False',
-            f'neuron.axon_off=False',
-            f'miner.blocks_per_epoch=100',
-            f'wandb.notes=',
-            f'neuron.dont_save_events=False',
-            f'neuron.epoch_length=100',
-            f'blacklist.force_validator_permit=False',
-            f'miner.mock_subtensor=False',
-            f'neuron.sample_size=50',
-            f'neuron.disable_set_weights=False',
-            f'neuron.vpermit_tao_limit=4096',
             f'wallet_name=default',
-            f'hotkey=default',
-            f'miner.root=~/.bittensor/miners/',
-            f'axon.port=8098',
-            f'wandb.entity=opentensor-dev',
-            f'neuron.moving_average_alpha=0.1',
-            f'neuron.device=is_cuda_available()',
-            f'netuid=1',
-            f'wandb.project_name=template-validators',
-            f'blacklist.allow_non_registered=False',
-            f'wandb.offline=False',
-            f'neuron.timeout=10',
             f'subtensor.chain_endpoint=wss://entrypoint-finney.opentensor.ai:443',
-            f'neuron.num_concurrent_forwards=1',
-            f'subtensor.network=finney',
-            f'miner.no_serve=False',
-            f'wandb.off=False',
+            f'neuron.dont_save_events=False',
+            f'miner.blocks_per_epoch=100',
             f'miner.no_start_axon=False',
-            f'network=test',
-            f'miner.name=Bittensor Miner',
+            f'miner.root=~/.bittensor/miners/',
+            f'miner.no_serve=False',
+            f'wandb.notes=',
             f'neuron.name=validator',
+            f'neuron.sample_size=50',
+            f'miner.name=Bittensor Miner',
+            f'neuron.moving_average_alpha=0.1',
+            f'axon.port=8098',
+            f'neuron.events_retention_size=2 * 1024 * 1024 * 1024',
+            f'netuid=1',
+            f'neuron.num_concurrent_forwards=1',
+            f'wandb.offline=False',
+            f'hotkey=default',
+            f'miner.mock_subtensor=False',
+            f'blacklist.force_validator_permit=False',
+            f'blacklist.allow_non_registered=False',
+            f'wandb.project_name=template-validators',
+            f'neuron.axon_off=False',
+            f'neuron.vpermit_tao_limit=4096',
+            f'subtensor.network=finney',
+            f'neuron.disable_set_weights=False',
+            f'neuron.timeout=10',
+            f'wandb.off=False',
+            f'mock=False',
+            f'wandb.entity=opentensor-dev',
+            f'neuron.device=is_cuda_available()',
+            f'neuron.epoch_length=100',
+            f'network=test',
 
         ]
         return self._add_env(self.config)
@@ -194,7 +194,6 @@ class Config(GenericConfig):
         parser.add_argument("--message", default="None", type=str, help="The message to sign", action="None")
         parser.add_argument("--name", default="None", type=str, help="The wallet name", action="None")
         parser.add_argument("--file", default="None", type=str, help="The file containing the message and signature", action="None")
-
         parser.add_argument('--config', type=str, default=None, help='path to config file', required=False)
         return parser
 
