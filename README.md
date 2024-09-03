@@ -9,6 +9,20 @@ The validator is composed of three primary components.
 3. **Module Validator**: Handles instillation, configuration, as well as running the Subnet code in a properly configured environment.
 
 
+## Subnet Modules
+
+Subnet modules are the subnet github repos just cloned into the module_validator/subnet_modules folder. The library can use the [config_generator](utils/config_generator.py) script to pull all the configuration information out of the repo and construct a configuration class with applicable subclasses as well as construct the relevant .env file and nested configuration object in a .yaml file or use with the subnet depending on the requirements of that subnet. 
+
+### Configuration Object
+
+The configuration object has a few useful commands for use to setup the environment to work with the repo. The `add_args` method will add the relevant arguments to a parser object and return it for use elsewhere. Most subnets prefer this approach when programatically using their libray since they prefer the command line argument approach when executing their validators or miners. 
+In some cases you will need to use a `bittensor.config` config object which you can get from the bittensor library. You can feed the `library_name.yaml` file generated in the [config_folder](module_validator/config/)YOUR_SUBNET_NAME folder into the object and it should run correctly.
+Dot Env files are provided as well incase the subnet prefers that approach over the commandline arguments. You can `source module_validator/config/YOUR_SUBNET_NAME/.YOUR_SUBNET_NAME.env` the file and then run the library normally. 
+Due to the variety of configuration options available it can make selecting the right one somewhat tricky. From my experience the hiearchy that you should follow is
+commandline_args > environment_args > programatic
+
+Since I prefer a programatic approach I tend to just instantiate the parser object with the correct commandline arguments and work from there.
+
 ## Inference Modules
 
 ### Installation
