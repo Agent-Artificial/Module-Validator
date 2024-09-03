@@ -5,7 +5,7 @@ import importlib
 import traceback
 from typing import Callable
 import pkg_resources
-from module_validator.config import Config
+from module_validator.config.base_configuration import GenericConfig
 from module_validator.module import Module
 from module_validator.registry import ModuleRegistry
 from module_validator.database import Database
@@ -82,7 +82,7 @@ async def main():
     debug_entry_points()
 
     try:
-        config = Config()
+        config = GenericConfig()
         config.load_configs()
         db = Database(config.get_global_config())
         registry = ModuleRegistry(config, db)

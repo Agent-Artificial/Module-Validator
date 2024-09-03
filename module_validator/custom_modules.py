@@ -18,7 +18,7 @@ config.load_configs()
 def parseargs() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser()
     parser.add_argument("--module_type", type=str)
-    return parser.parse_args()
+    return parser
 
 
 def install_registrar_module(module_name: str) -> bool:
@@ -81,9 +81,10 @@ def install_registrar_module(module_name: str) -> bool:
     return False
 
 
-def main(module_name=None)-> None:
+def main(module_name:str=None)-> None:
     if module_name is None:
-        args = parseargs()
+        parser = parseargs()
+        args = parser.parse_args()
         module_name = module_name or args.module_type
     module = module_name
 
@@ -95,7 +96,8 @@ def main(module_name=None)-> None:
 
 if __name__ == "__main__":
     modules = {"1": "translation", "2": "financialnews", "3": "embedding"}
-    args = parseargs()
+    parser = parseargs()
+    args = parser.parse_args()
     module_name = args.module_type
     if not module_name:
         selection = input("Enter the number of the module you want to install: ")

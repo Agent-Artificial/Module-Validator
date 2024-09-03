@@ -1,19 +1,34 @@
-from module_validator.config.base_configuration import GenericConfig, T
-from typing import Union, Dict, Any, List
 from pydantic import BaseModel, Field
+from typing import Any, Union, Dict, List, Optional, ClassVar, TypeVar
+from pydantic import ConfigDict
+from dotenv import load_dotenv
+from module_validator.config.base_configuration import GenericConfig, T
+import bittensor as bt
 import argparse
 import os
-"""{{{sub_class_generation}}}"""
+
+load_dotenv()
+
+<<sub_class_generation>>
 
 class Config(GenericConfig):
-"""{{{attribute_generation}}}"""
+    model_config: ClassVar[ConfigDict] = ConfigDict({
+            "aribtrary_types_allowed": True
+    })
+    config: Optional[bt.config] = Field(default_factory=bt.config, type=None)
+    axon: Optional[bt.axon] = Field(default_factory=bt.axon, type=None)
+    wallet: Optional[bt.wallet] = Field(default_factory=bt.wallet, type=None)
+    metagraph: Optional[T] = Field(default_factory=TypeVar, type=None)
+    subtensor: Optional[bt.subtensor] = Field(default_factory=bt.subtensor, type=None)
+    dendrite: Optional[bt.dendrite] = Field(default_factory=bt.dendrite, type=None)
+    hotkeypair: Optional[bt.Keypair] = Field(default_factory=bt.Keypair, type=None)
+<<attribute_generation>>
+    
     def __init__(self, data: Union[BaseModel, Dict[str, Any]]):
         if isinstance(data, BaseModel):
-            data = data.model_dump(
-                exclude_unset = True
-        )
-        super().__init__(**data)
-        
+            data = data.model_dump()
+        super().__init__()
+
     def get(self, key: str, default: T = None) -> T:
         return self._get(key, default)
     
@@ -35,11 +50,11 @@ class Config(GenericConfig):
     
     def get_env(self) -> List[str]:
         lines = [
-        """{{{environment_generation}}}"""
+<<environment_generation>>
         ]
         return self._add_env(self.config)
 
     def add_args(self, parser: argparse.ArgumentParser) -> argparse.ArgumentParser:
-        """{{{argument_generation}}}"""
         parser.add_argument('--config', type=str, default=None, help='path to config file', required=False)
+<<argument_generation>>
         return parser
