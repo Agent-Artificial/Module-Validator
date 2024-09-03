@@ -31,7 +31,27 @@ class GenericConfig(BaseModel):
     model_config: ConfigDict = ConfigDict({
         "arbitrary_types_allowed": True
     })
-    __pydantic_fields_set__ = set(["config", "model_config", "file", "hotkey", "message", "miner", "mock" "my_uid", "netuid", "network", "neuron", "wallet_name", "wandb", "axon", "wallet", "metagraph", "subtensor", "dendrite", "hotkeypair", "model_config"])
+    __pydantic_fields_set__ = set([
+        "file",
+        "hotkey",
+        "message",
+        "miner",
+        "mock",
+        "my_uid",
+        "netuid",
+        "network",
+        "neuron",
+        "wallet_name",
+        "wandb",
+        "hotkeypair",
+        "config",
+        "axon",
+        "wallet",
+        "metagraph",
+        "subtensor",
+        "dendrite",
+        "hotkeypair"
+    ])
 
     def __init__(self, data: Dict[str, Any]=None):
         super(BaseModel).__init__()

@@ -13,6 +13,10 @@ The validator is composed of three primary components.
 
 Subnet modules are the subnet github repos just cloned into the module_validator/subnet_modules folder. The library can use the [config_generator](utils/config_generator.py) script to pull all the configuration information out of the repo and construct a configuration class with applicable subclasses as well as construct the relevant .env file and nested configuration object in a .yaml file or use with the subnet depending on the requirements of that subnet. 
 
+### Installation
+
+The [setup script](setup.sh) is configured to handle the setup of subnets for you. The current available options are
+
 ### Configuration Object
 
 The configuration object has a few useful commands for use to setup the environment to work with the repo. The `add_args` method will add the relevant arguments to a parser object and return it for use elsewhere. Most subnets prefer this approach when programatically using their libray since they prefer the command line argument approach when executing their validators or miners. 
