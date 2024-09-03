@@ -2,13 +2,13 @@ import importlib.metadata
 import os
 import importlib
 from .database import Database
-from module_validator.config.base_configuration import GenericConfig
+from module_validator.configurator import Config
 import pkg_resources
 import sys
 
 
 class ModuleRegistry:
-    def __init__(self, config: GenericConfig, db: Database = None):
+    def __init__(self, config: Config, db: Database = None):
         self.config = config
         self.db = db or Database(config.get_global_config())
         self.modules = {}

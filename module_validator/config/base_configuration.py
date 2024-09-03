@@ -54,7 +54,7 @@ class GenericConfig(BaseModel):
     ])
 
     def __init__(self, data: Dict[str, Any]=None):
-        super(BaseModel).__init__()
+        super(BaseModel).__init__(data)
         self.config = {}
         config_data = self.config or data
         self.config = self._merge(config_data, self.config) if self.config else config_data
@@ -104,6 +104,7 @@ class GenericConfig(BaseModel):
         cls, parser: argparse.ArgumentParser, args: argparse.Namespace
     ) -> "GenericConfig":
         config = cls(config={})
+        args = parser.parse_args(args) if args else parser.parse_args()
         config._parse_args(args)
         return config
 
@@ -122,4 +123,4 @@ class GenericConfig(BaseModel):
 
 if __name__ == "__main__":
 
-    config = GenericConfig(config={})
+    config = GenericConfig()

@@ -1,7 +1,7 @@
 import os
 import re
 from module_validator.custom_modules import install_registrar_module
-from module_validator.config import Config
+from module_validator.configurator import Config
 from module_validator.database import Database
 
 

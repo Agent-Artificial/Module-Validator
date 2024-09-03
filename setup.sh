@@ -2,29 +2,36 @@
 
 set -e
 
+#export MODULE_VALIDATOR_ENV=production
+export MODULE_VALIDATOR_ENV=development
+
+create_environmnet() {
+    module_name=$1
+    source_file=.$module_name/bin/activate
+    echo creating environment: $source_file
+
+    if [ ! -d .$module_name ]; then
+        python -m venv .$module_name
+    fi
+    source "$source_file"
+    pip install --upgrade pip
+    pip install setuptools wheel
+    pip install -r requirements.txt
+    echo "Environment created: $source_file"
+}
+
 # Clones and installs the subnet repo into module_validator/subnet_modules
 install_subnet_module() {
     module_name=$1
     module_url=$2
     module_path=$3
     inject_command=$4
-    if [ ! -d .$module_name ]; then
-        python -m venv .$module_name
-        source .$module_name/bin/activate
-    else
-        source .$module_name/bin/activate
-    fi
     if [ ! -d $module_path ]; then
         git clone $module_url $module_path
     fi
-    cd $module_path
-
     if [ ! -z $inject_command ]; then
-        $inject_command
+        $inject_command $module_path
     fi
-
-    pip install -e .
-    pip install -r requirements.txt
 
 }
 
@@ -35,14 +42,23 @@ install_inference_module() {
 }
 
 sylliba_injected_command() {
+    module_path=$1
+    cd $module_path
     git switch sylliba
     # Create a init file so the repo can act as a package
     touch __init__.py
     # This is a work around for a bug in the subnet repo's code
     # TODO: Make this change in the subnet repo
     sed -i 's/template\/__init__.py/sylliba\/__init__.py/g' "setup.py"
+    sed -i 's/python -m modules.install_module translation//g' "setup.sh"
+    sed -i 's/rm -r modules\/translation//g' "setup.sh"
     # Run the local setup script
     bash setup.sh
+    pip install -e .
+    pip install -r requirements.txt
+    cd ../../..
+    rm -r ${PWD}/module_validator/subnet_modules/sylliba/modules/translation
+    ln -s ${PWD}/module_validator/modules/translation ${PWD}/module_validator/subnet_modules/sylliba/modules/translation
 }
 # Prompt the use to selection from these options.
 echo "1. sylliba"
@@ -68,6 +84,10 @@ if [ $module == 1 ]; then
     if [ ! -d .sylliba ]; then
         python -m venv .$module_name
     fi
+    create_environmnet $module_name
+    # install the translation module
+    submodule_name=translation
+    install_inference_module $submodule_name
 
     injected_command=sylliba_injected_command
     # install the repo locally to subnet_modules/sylliba
@@ -80,17 +100,8 @@ if [ $module == 1 ]; then
     # declare variable
     submodule_name=translation
 
-    # install the translation module
-    install_inference_module $submodule_name
 
-    # switch branches
-    cd $module_path
-
-
-    cd ../../../
-    rm -r ${PWD}/module_validator/subnet_modules/sylliba/modules/translation
-    ln -s ${PWD}/module_validator/modules/translation ${PWD}/module_validator/subnet_modules/sylliba/modules/translation
-  
+   
 
 elif [ $module == 2 ]; then
     module_name=bittensor_subnet_template

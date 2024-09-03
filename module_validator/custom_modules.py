@@ -6,8 +6,8 @@ import json
 import subprocess
 import importlib
 from typing import Any, Dict
-from module_validator.config import Config
-from module_validator.module import Module
+from module_validator.configurator import Config
+from .module import Module
 
 ENV = os.getenv("MODULE_VALIDATOR_ENV", "development")
 
