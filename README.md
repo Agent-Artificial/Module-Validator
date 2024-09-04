@@ -13,15 +13,82 @@ The validator is composed of three primary components.
 
 Subnet modules are the subnet github repos just cloned into the module_validator/subnet_modules folder. The library can use the [config_generator](utils/config_generator.py) script to pull all the configuration information out of the repo and construct a configuration class with applicable subclasses as well as construct the relevant .env file and nested configuration object in a .yaml file or use with the subnet depending on the requirements of that subnet. 
 
+## Subnet Commnads
+
+Understanding the nature of the subnet configuration commands is pretty important for being able to effectively use this repo. Because each implementation of a subnet is handled independently by the subnet developer the command strcuture of the variety of repos are all different. The most common use is the `--command.line arguments` that represent the nested file structure of the bittensor repo. So here **command** would be th  classname in a file of the same name, **line** would be the attribute or method in that class and **argument** would be the value you are passing into that attribute or method. 
+
+
+### In code
+
+This would be the same example from above in python code:
+```
+import bittensor as bt
+
+class Command:
+    _line: Any
+
+    def line(cls, arguments):
+        cls._line = arguments
+        return arguments
+```
+as a dictionary
+```
+command = {
+    "line": arguments
+}
+```
+as a yaml object
+```
+command:
+    line: arguments
+```
+So the command line arguments follow the same dot naming convetion as pythonic classes.
+
+The yaml equivalent would be
+```
+command:
+    argument
+```
+
+### Other Naming Conventions
+
+In addition to the dot syntax of the command line arguments, the environment variables do not work with the dot notation so 
+`--command.line argument` 
+is converted into 
+`command_line=argument`
+in the relevant .env file
+
+While this is generally the case, it is not always the case and the variables on the agurment side of the equation are not bound to a single world and can have mulitiple_values which confuses parsing. We do parse environment variables but mainly rely on the command line arguments to get the correct values for the repo.
+
 ### Installation
 
-The [setup script](setup.sh) is configured to handle the setup of subnets for you. The current available options are
+The [setup script](setup.sh) is configured to handle the setup of subnets for you. The current available options are:
+- sylliba
+- bittensor_subnet_template
+- vision
 
-### Configuration Object
 
-The configuration object has a few useful commands for use to setup the environment to work with the repo. The `add_args` method will add the relevant arguments to a parser object and return it for use elsewhere. Most subnets prefer this approach when programatically using their libray since they prefer the command line argument approach when executing their validators or miners. 
-In some cases you will need to use a `bittensor.config` config object which you can get from the bittensor library. You can feed the `library_name.yaml` file generated in the [config_folder](module_validator/config/)YOUR_SUBNET_NAME folder into the object and it should run correctly.
-Dot Env files are provided as well incase the subnet prefers that approach over the commandline arguments. You can `source module_validator/config/YOUR_SUBNET_NAME/.YOUR_SUBNET_NAME.env` the file and then run the library normally. 
+#### Using the setup script
+This is an example of using the setup.sh script to install the Sylliba Subnet repo.
+Launch the script
+`bash setup.sh`
+
+You're presented with the availble options, select **1**
+
+You will be prompted to configure your environment. If you select **y** you will be prompted for the values of all the variables the configuration genertor finds in the repo. fill in the appropriate values and the script will finish installing the requirements along with any relevant inference modules and the submodule its self. it will generate a configuration package in the [config folder](module_validator/config). Inside there is 
+- `$MODULE_NAME.env` file that is also copied to `.$MODULE_NAME.env` in the root of the module_validator folder. 
+- `$MODULE_NAME_config.yaml` which is a nested yaml object in the same structure of the scripts.
+
+### Configuration Class
+
+The configuration class has a few useful commands for use to setup the environment to work with the repo. The `add_args` method will add the relevant command line arguments to a parser object and return it for use elsewhere. Most subnets prefer this approach when programatically using their libray since they prefer the command line argument approach when executing their validators or miners. 
+In some cases you will need to use a `bittensor.config` config object which you can get from the bittensor library
+```
+import bittensor as bt
+config = bt.config
+```. 
+You can feed the `library_name.yaml` file generated in the [config_folder](module_validator/config/)YOUR_SUBNET_NAME folder into the object and it should run correctly.
+Dot Env files are provided as well incase the subnet prefers that approach over the commandline arguments. You can `source module_validator/config/$MODULENAME/.$MODULE_NAME.env` the file and then run the library normally. 
 Due to the variety of configuration options available it can make selecting the right one somewhat tricky. From my experience the hiearchy that you should follow is
 commandline_args > environment_args > programatic
 
