@@ -2,6 +2,7 @@ import re
 import os
 import ast
 import yaml
+import json
 import argparse
 from typing import Dict, Any, List, ClassVar, Union, Tuple, Optional
 from pathlib import Path
@@ -82,13 +83,13 @@ class {sub_classname}(GenericConfig):
         if isinstance(data, BaseModel):
             data = data.model_dump()
         super().__init__(**data)
-        
+
 """
-ATTRIBUTE_TEMPLATE = """    {name}: {type} = Field({model_fields})\n"""
-SUBCLASS_ATTRIBUTE_TEMPLATE = "    {sub_classname}: {full_classname} = Field(default_factory={full_classname}, {model_fields})\n"
-COMMAND_LINE_ARG_TEMPLATE = '        parser.add_argument("--{name}", default="{default}", type={type}, help="{help}", action="{action}")\n'
-ENVIRONMENT_TEMPLATE = "        '{env_key}',\n"
-DOTENV_TEMPLATE = "{env_key}\n"
+ATTRIBUTE_TEMPLATE = """    {name}: {type} = Field(name="{name}", type={type}, default={default}, help="{help}", action={action})\n"""
+SUBCLASS_ATTRIBUTE_TEMPLATE = "    {name}: {type} = Field(default_factory={type}, type={type}, help='{help}', action={action})\n"
+COMMAND_LINE_ARG_TEMPLATE = '        parser.add_argument("--{name}", default={default}, type={type}, help="{help}", action={action})\n'
+ENVIRONMENT_TEMPLATE = "        '{env_lines}',\n"
+DOTENV_TEMPLATE = "{env_lines}\n"
 SUB_CLASS_LINES = []
 CLASS_LINES = []
 ENVIRONMENT_LINES = []
@@ -244,8 +245,7 @@ def parse_default_value(node: ast.Constant) -> Any:
     """
     try:
         if isinstance(node, ast.Constant):
-            return ast.literal_eval(node)
-        return str(ast.unparse(node))
+            return ast.literal_eval(node) or str(ast.unparse(node))
     except Exception as e:
         logger.warning(f"Failed to parse default value: {e}")
 # sourcery skip: raise-specific-error
@@ -277,83 +277,6 @@ def get_field_type(field: str) -> str:
         raise Exception(f"Failed to get field type: {e}") from e
 
 
-def create_nested_models(arguments: Dict[str, Any], env_list: List[str]) -> Tuple[List[str], Dict[str, Any]]:
-
-    """
-    Creates nested models based on the arguments.
-
-    Args:
-        arguments (Dict[str, Any]): The arguments to create the models from.
-
-    Returns:
-        Tuple[List[str], Dict[str, Any]]: The created models and the nested structure.
-    """
-    
-    nested_structure = {}
-    # Create nested models
-    for name, argument in arguments.items():
-        parts = None
-        try:
-            if "name" in argument:
-                # Extract the name of the argument from the dot(.) in the argument.name
-                parts = argument["name"].split(".")
-            if len(parts) == 1:
-                nested_structure[parts[0]] = argument
-            elif parts[0] not in nested_structure:
-                nested_structure[parts[0]] = {parts[1]: argument}
-            else:
-                nested_structure[name] = argument
-        except Exception as e:
-            logger.warning(f"Failed to create nested models: {e}")
-# sourcery skip: low-code-quality, raise-specific-error
-            raise Exception(f"Failed to create nested models: {e}") from e
-    models = {}
-    # Handle the nested subclasses
-    for key, value in nested_structure.items():
-        try:
-            if isinstance(value, dict):
-                fields = {}
-                for subkey, subvalue in value.items():
-                    if isinstance(subvalue, dict):
-                        field_type = get_field_type(subvalue.get("type", "str"))
-                        default = subvalue.get("default")
-                        description = subvalue.get("help", "")
-                        if subvalue.get("action") == "store_true":
-                            field_type = bool
-                            default = default if default is not None else False
-                        fields[subkey] = (
-                            field_type,
-                            Field(default=default, description=description),
-                        )
-                    else:
-                        fields[subkey] = (
-                            ClassVar,
-                            Field(default=subvalue, description=None),
-                        )
-
-                models[key.capitalize()] = create_model(key.capitalize(), **fields)
-            else:
-                # Create an empty model for top-level fields
-                models[key.capitalize()] = create_model(key.capitalize())
-        except Exception as e:
-            logger.warning(f"Failed to create nested models: {e}")
-# sourcery skip: raise-specific-error
-            raise Exception(f"Failed to create nested models: {e}") from e
-
-    for environment_string in env_list:
-        if environment_string.startswith("f") and "os.env" not in environment_string:
-            environment_string = environment_string.replace('"', "'").replace("f'", "").removesuffix("'")
-        name, default = environment_string.split("=", 1)
-        name = name.replace(".", "_")
-        if name in models:
-            nested_structure[name] = {
-                "name": name,
-                "default": default,
-                "type": ""
-            }
-    write_file(YAML_PATH, yaml.dump(nested_structure))
-    return models, nested_structure
-
 
 def create_environment_string(
     arguments: Dict[str, Any]
@@ -375,8 +298,8 @@ def create_environment_string(
     for argument, value in arguments.items():
         name = None
         default = None
-        field_type = None
-        help_text = None
+        type = None
+        help = None
         try:
             if isinstance(value, dict):
                 if "name" in value:
@@ -385,38 +308,43 @@ def create_environment_string(
                     name = argument
                 if "default" in value:
                     default = value["default"]
-                    lines.append(f'f"{name}={default}"')
+                    lines.append(f"{name}={default}")
                     if isinstance(default, str):
-                        default = default.strip("\n").strip("  ").replace('"', "'")
+                        default = default.strip('\n').strip('  ')
+
                 if "type" in value:
-                    field_type = value["type"].strip("\n").strip("  ")
+                    type = value["type"].strip("\n").strip("  ")
                 if "help" in value:
-                    help_text = value["help"].strip("\n").strip("  ")
+                    help = value["help"].strip("\n").strip("  ")
             elif isinstance(value, str):
                 name = argument.strip(" ").lower().strip("__")
                 default = value
-                field_type = "str"
-                help_text = None
-                lines.append(f'"{name}={default}"')
+                if "os.getenv" in default:
+                    default = f"f'\'{default}'\'"
+                type = "str"
+                help = None
+                lines.append(f"{name}={default}")
             elif isinstance(value, list):
                 logger.debug(f"\nvalue: {value}")
                 name = argument.strip(" ").lower().strip("__")
                 default = value
-                field_type = "list"
-                help_text = None
-                lines.append(f'"{name}={default}"')
+                type = "list"
+                help = None
+                lines.append(f"{name}={default}")
+            if isinstance(value["default"], str):
+                default = f'{default}'
             all_arguments[name] = {
                 "name": name,
-                "default": default,
-                "type": field_type,
-                "help": help_text,
+                "default": default or None,
+                "type": type,
+                "help": help,
             }
 
         except Exception as e:
             logger.warning(f"Failed to create environment string: {e}")
 # sourcery skip: raise-specific-error
             raise Exception(f"Failed to create environment string: {e}") from e
-
+        logger.warning(f"failed to create environment string:\n{argument}\n{value}")
     return all_arguments, lines
 
 
@@ -535,6 +463,7 @@ def parse_attribute_values(
     attribute_names = []
     attribute_lines = []
     subclass_lines = {}
+    class_dict = {}
     attributename = ""
     fields = ["name", "default", "type", "help", "action"]
     for key, value in all_arguments.items():
@@ -543,15 +472,21 @@ def parse_attribute_values(
         for field in fields:
             if field not in value.keys():
                 value[field] = None
-                default = value["default"]
-                if isinstance(default, str):
-                    value["default"] = default.replace('"', "'")
                 help = value["help"]
                 if isinstance(help, str):
                     value["help"] = help.replace('"', "'")
+        if isinstance(value["default"], int):
+            value["type"] = "int"
+        if value["type"] == "str":
+            if value["default"] is None:
+                value["default"] = ""
+
+            if "os.getenv" in value["default"]:
+                value["default"] = f"\f'{value['default']}\'"
+            value["default"] = f'"{value["default"]}"'
         ARGUMENT_LINES.append(
             COMMAND_LINE_ARG_TEMPLATE.format(
-                name=key,
+                name=key.replace(".", "_"),
                 type=value["type"] or "str",
                 default=value["default"] or None,
                 help=value["help"] or None,
@@ -561,30 +496,46 @@ def parse_attribute_values(
 
         if "." in key:
             classname = key.split(".")[0]
-            attributename = key.split(".")[1].replace(".", "_")
+            attributename = key.split(".")[1]
             full_classname = f"{classname.title()}Config"
             if full_classname not in classnames:
                 classnames.append(full_classname)
                 subclass_lines[full_classname] = []
+            if attributename:
+                value["name"] = attributename
+            class_dict[full_classname] = {attributename: value["default"]}
             subclass_lines[full_classname].append(
                 ATTRIBUTE_TEMPLATE.format(
-                    name=attributename,
-                    type=value.get("type", "str"),
-                    model_fields=value,
+                    name=value["name"] or attributename,
+                    type=value["type"] or "str",
+                    default=value["default"] or None,
+                    help=value["help"] or None,
+                    action=value["action"] or None,
                 )
             )
             attribute_names.append(attributename)
             continue
+        else:
+            class_dict[key] = value
+
         if attributename not in attribute_names:
             attribute_names.append(key)
             attribute_lines.append(
                 ATTRIBUTE_TEMPLATE.format(
-                    name=attributename, type=value["type"], model_fields=value
+                    name=value["name"] or key.replace(".", "_").lower(),
+                    type=value["type"] or "str",
+                    default=value["default"] or None,
+                    help=value["help"] or None,
+                    action=value["action"] or None,
                 )
             )
+
         ATTRIBUTE_LINES.append(
-            ATTRIBUTE_TEMPLATE.format(name=key, type=value["type"], model_fields=value)
+            ATTRIBUTE_TEMPLATE.format(
+                **value
+            )
         )
+
     return attribute_lines, classnames, subclass_lines
 
 
@@ -608,7 +559,6 @@ def create_subclass_templates(
     Examples:
         >>> create_subclass_templates(attribute_lines, classnames, subclass_lines)
     """
-
     ATTRIBUTE_LINES.extend(attribute_lines)
     for classname in classnames:
         sub_class_template = SUB_CLASS_TEMPLATE.format(sub_classname=classname)
@@ -618,15 +568,12 @@ def create_subclass_templates(
         CLASS_LINES.append(sub_class_template)
         ATTRIBUTE_LINES.append(
             SUBCLASS_ATTRIBUTE_TEMPLATE.format(
-                sub_classname=classname.strip("Config").lower(),
-                full_classname=classname,
-                type=classname,
-                model_fields="",
+                name=classname.lower(),
+                type=classname,   
+                help=None,   
+                action=None         
             )
         )
-
-
-
 
 
 def parse_subnet_folder(file_dir: Union[str, Path]) -> Tuple[Dict[str, Any], List[str]]:
@@ -642,6 +589,11 @@ def parse_subnet_folder(file_dir: Union[str, Path]) -> Tuple[Dict[str, Any], Lis
     logger.info(f"\nParsing subnet folder: {file_dir}")
     subnet_arguments = {}
     all_arguments = set()
+    nested_dict = {}
+    classnames = []
+    attributenames = []
+    classname = ""
+    subclass_lines = {}
     for root, dirs, files in os.walk(file_dir):
         for dir in dirs:
             if dir.startswith("__"):
@@ -664,58 +616,74 @@ def parse_subnet_folder(file_dir: Union[str, Path]) -> Tuple[Dict[str, Any], Lis
                             .lower()
                             .replace("__", "")
                         )
+
                         subnet_arguments[name] = argument
-                        all_arguments.add(name)
+                        continue
+                    all_arguments.add(name)
+            all_argmuents, lines = create_environment_string(subnet_arguments)
         except Exception as e:
             logger.warning(f"Failed to parse subnet folder: {e}")
-    all_argmuents, lines = create_environment_string(subnet_arguments)
+
     lines = list(set(lines))
-    return all_argmuents, lines
+    print(json.dumps(lines, indent=4))
 
-
-def transform_env_strings(config: dict) -> dict:
-    """
-    Transforms strings containing os.getenv calls in the configuration 
-    to f-strings with the os.getenv call wrapped in {}.
-
-    Args:
-        config (dict): The original configuration dictionary.
-
-    Returns:
-        dict: The transformed configuration dictionary.
-    """
-    def replace_env_string(s: str) -> str:
-        # Regex to match os.getenv('KEY', 'default') patterns
-        pattern = r"os\.getenv\('([^']+)', '([^']+)'\)"
-        return re.sub(pattern, r"{os.getenv('\1', '\2')}", s)
-
-    def transform_item(value):
-        if isinstance(value, dict):
-            return {k: transform_item(v) for k, v in value.items()}
-        elif isinstance(value, str):
-            return f"f'{replace_env_string(value)}'"
-        else:
-            return value
-
-    return transform_item(config)
-
-if __name__ == "__main__":
-    config = {
-        "database": {
-            "host": "os.getenv('DB_HOST', 'localhost')",
-            "port": "os.getenv('DB_PORT', '5432')",
-        },
-        "service": {
-            "name": "os.getenv('SERVICE_NAME', 'my_service')",
-            "timeout": "os.getenv('SERVICE_TIMEOUT', '30')",
+    for key, value in subnet_arguments.items():
+        field_map = {
+            "name": value["name"].strip("__") if hasattr(value, "name") else None,
+            "default": value["default"] if hasattr(value, "default") else None,
+            "type": value["type"] if hasattr(value, "type") else None,
+            "help": value["help"] if hasattr(value, "help") else None,
+            "action": value["action"] if hasattr(value, "action") else None,
         }
-    }
+        default = field_map["default"]
+        if isinstance(default, str):
+            default = default.strip('\\n').strip(" ")
+            if default.startswith("os.get"):
+                field_map["default"] = f"f'{default}'"
+            else: 
+                field_map["default"] = f"'{default}'"
+        if isinstance(default, int):
+            field_map["type"] = "str"
 
-    transformed_config = transform_env_strings(config)
-    
-    # Print transformed configuration
-    for key, value in transformed_config.items():
-        print(f"{key}: {value}")
+        if "." in key:
+            class_name, attribute_name = key.split(".")
+            if classname not in nested_dict:
+                class_name = f'{classname}Config'
+                nested_dict[class_name] = {}
+                
+            nested_dict[class_name][attribute_name] = field_map
+            subclass_lines[classname] = [SUBCLASS_ATTRIBUTE_TEMPLATE.format(**field_map)]
+            attributenames.append(attribute_name)
+
+        else:
+            attribute_name = key
+            nested_dict[attribute_name] = field_map
+
+
+        env_line = f'{name}={default}'
+        ENVIRONMENT_LINES.append(f"            \'{env_line}\'\n")
+        DOTENV_LINES.append(f"{env_line}\n")
+    write_file(YAML_PATH, yaml.dump(nested_dict))
+    subclass_lines = {}
+    for classname in classnames:
+        name = classname
+        for attribute_name, values in nested_dict[class_name].items():
+            print(attribute_name, values)
+            SUB_CLASS_LINES.append()
+        sub_class_template = SUB_CLASS_TEMPLATE.format(sub_classname=classname)
+        
+        
+
+
+    ENVIRONMENT_TEMPLATE = "".join(ENVIRONMENT_LINES)
+    DOTENV_TEMPLATE = "".join(DOTENV_LINES)
+    write_file(DOTENV_PATH, DOTENV_TEMPLATE)
+    write_file(SUBMODULE_DOTENV_PATH, DOTENV_TEMPLATE)
+
+    print(json.dumps(classnames, indent=4))
+    print(json.dumps(attributenames, indent=4))
+    print(json.dumps(nested_dict, indent=4))
+    return all_argmuents, lines
 
 
 def main() -> str:
@@ -734,8 +702,12 @@ def main() -> str:
     all_arguments, env_lines = parse_subnet_folder(file_dir)
 
     for line in env_lines:
-        ENVIRONMENT_LINES.append(ENVIRONMENT_TEMPLATE.format(env_key=line))
-        DOTENV_LINES.append(DOTENV_TEMPLATE.format(env_key=line))
+        line=line.replace(".", "_")
+        ENVIRONMENT_LINES.append(ENVIRONMENT_TEMPLATE.format(env_lines=line))
+        DOTENV_LINES.append(DOTENV_TEMPLATE.format(env_lines=line))
+    
+    write_file(DOTENV_PATH, ''.join(DOTENV_LINES))
+    write_file(SUBMODULE_DOTENV_PATH, ''.join(DOTENV_LINES))
     attribute_lines, classnames, subclass_lines = parse_attribute_values(all_arguments)
     create_subclass_templates(attribute_lines, classnames, subclass_lines)
     return write_config_file()
