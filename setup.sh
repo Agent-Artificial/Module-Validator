@@ -59,7 +59,7 @@ if [ $module == 1 ]; then
     # install the repo locally to subnet_modules/sylliba
     echo "Install sylliba subnet module"
 
-    scripts/setup_sylliba.sh
+    bash_scripts/setup_sylliba.sh
     
     # confirm bittensor is installed
     pip install bittensor

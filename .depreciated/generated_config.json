@@ -1,0 +1,30 @@
+{
+    "netuid": "no default value",
+    "neuron": {
+        "vpermit_tao_limit": 4096
+    },
+    "mock": false,
+    "wandb": {
+        "entity": "opentensor-dev"
+    },
+    "blacklist": {
+        "allow_non_registered": false
+    },
+    "axon_off": false,
+    "axon": {
+        "port": "os.getenv('AXON_PORT', 7070)"
+    },
+    "subtensor": {
+        "chain_endpoint": "wss://entrypoint-finney.opentensor.ai:443"
+    },
+    "miner": {
+        "mock_subtensor": false
+    },
+    "my_uid": "no default value",
+    "wallet_name": "default",
+    "hotkey": "default",
+    "network": "test",
+    "message": "no default value",
+    "name": "no default value",
+    "file": "no default value"
+}
