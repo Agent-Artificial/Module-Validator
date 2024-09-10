@@ -30,6 +30,7 @@ install_inference_module() {
 echo "1. sylliba"
 echo "2. bittensor_subnet_template"
 echo "3. vision"
+echo "4. synthia"
 echo "0. choose submodule"
 
 # Ensure an option is selected
@@ -84,7 +85,21 @@ elif [ $module == 3 ]; then
     python -m utils.configuration.py 
     cp .env module_validator/subnet_modules/$module_name/.env
 
+elif [ $module == 4 ]; then
+    module_name=synthia
+    module_url=https://github.com/agicommies/synthia.git
+    module_path=module_validator/subnet_modules/$module_name
+    python -m venv ".$module_name"
+    bash bash_scripts/install_module.sh $module_name $module_path $module_url
+    python -m utils.config_generator --file_dir $module_path --config_name com
+    bash bash_scripts/write_env_file.sh $module_path/env/config.env.sample $module_name
+    cp ".$module_name.env" "$module_path/env/config.env"
+    cd $module_path
+    poetry install
+    
+    
 
+    
 elif [ $module == 0 ]; then
     echo "1. translation"
     ehco "2. embedding"
@@ -99,7 +114,8 @@ elif [ $module == 0 ]; then
         submodule_name=financialnews
     fi
     submodule_install_path=module_validator/modules/$submodule_name
-    install_submodule $submodule_name $submodule_install_path
+    submodule_url="https://registrar-cellium.ngrok.app/modules/$submodule_name"
+    scripts/install_module.sh $submodule_name $submodule_install_path $submodule_url
 fi
 
 

@@ -1,0 +1,14 @@
+*sylliba*
+*synthia*
+*bittensor*
+*commune*
+*translation*
+*embedding*
+*financial_news*
+*env*
+*.db
+.keys
+*__pycache__
+*venv*
+.depreciated
+*.env
